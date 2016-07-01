@@ -1,0 +1,16 @@
+<ion-view>
+    <ion-nav-title class="title-login">
+        登录
+    </ion-nav-title>
+    <ion-content class="padding">
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text" ng-model="user.account"  placeholder="用户名" />
+                </label>
+                <label class="item item-input">
+                    <input type="password" placeholder="密码"  ng-model="user.password"  />
+                </label>
+                <button class="button btn-login"  ng-click="login(user)">登录</button>
+            </div>
+    </ion-content>
+</ion-view>
