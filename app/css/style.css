@@ -49,22 +49,24 @@
     width: 100%;
 }
 
-#topicContent .item-avatar a{
+#topicContent .item-avatar a {
     text-decoration: none;
 }
 
-#comment .item-avatar a{
+#comment .item-avatar a {
     text-decoration: none;
 }
 
-#favorite .item-avatar a{
+#favorite .item-avatar a {
     text-decoration: none;
 }
+
 
 /**
  * Action Sheets for Android
  * --------------------------------------------------
  */
+
 .platform-android .action-sheet-backdrop {
     -webkit-transition: background-color 150ms ease-in-out;
     transition: background-color 150ms ease-in-out;
@@ -131,7 +133,8 @@
     color: #ff3b30;
 }
 
-.platform-android .action-sheet .button.active, .platform-android .action-sheet .button.activated {
+.platform-android .action-sheet .button.active,
+.platform-android .action-sheet .button.activated {
     box-shadow: none;
     border-color: #d1d3d6;
     color: #007aff;
@@ -185,28 +188,62 @@
     pointer-events: auto;
 }
 
-.platform-android .action-sheet .action-sheet-title, .platform-android .action-sheet .button {
+.platform-android .action-sheet .action-sheet-title,
+.platform-android .action-sheet .button {
     text-align: center;
 }
 
 .platform-android .action-sheet-cancel {
     display: block;
 }
+
+
 /* 
 create by yanfen
  */
-.bar-header{
+
+.bar-header {
     color: #ffffff;
     background-color: #d23e3e;
 }
 
-.title-login{
+.title-login {}
 
-}
-
-.btn-login{
+.btn-login {
     color: #ffffff;
     background-color: #d23e3e;
-    width:100%;
+    width: 100%;
     height: 100%;
+}
+
+
+/* 
+    create by linbin
+ */
+.userPage .navbar{
+    position: fixed;
+    z-index: 99999999999999;
+    width: 100%;
+    top: 44px;
+}
+.userPage .navbar a {
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #202020;
+    line-height: 36px;
+    font-size: 14px
+}
+
+.userPage .navbar .active a {
+    margin: 0;
+    padding: 0;
+    margin-bottom: -1px;
+    border-bottom: solid #d23e3e 1px
+}
+.userPageCon{
+    margin-top: 40px;
 }

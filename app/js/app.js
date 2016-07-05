@@ -96,4 +96,4 @@ angular.module('IonicClub', ['ionic', 'IonicClub.router', 'IonicClub.controllers
             }
             return format;
         };
-    }])
+    }]);

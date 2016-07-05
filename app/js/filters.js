@@ -47,5 +47,5 @@ angular.module('IonicClub.filters', [])
             }
             return src;
         };
-    })
+    });
 

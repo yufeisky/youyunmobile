@@ -26,6 +26,27 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
+            //获取上线跟未上线的故事数据
+            getStorys:function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/moblie/story/ajaxGetStotyList';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    params: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
             // 获取主题
             getTopics: function(data) {
                 var deferred = $q.defer();
@@ -207,7 +228,7 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             }
-        }
+        };
     }])
     .service('ConfigService', [function() {
         var hostURL = "http://ionichina.com";
@@ -216,7 +237,7 @@ angular.module('IonicClub.services', [])
             getHost: function() {
                 return hostURL;
             }
-        }
+        };
         return service;
     }])
     .service('TabService', function() {
@@ -238,6 +259,6 @@ angular.module('IonicClub.services', [])
             getTabs: function() {
                 return tabs;
             }
-        }
+        };
         return service;
-    })
+    });

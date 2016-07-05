@@ -15,7 +15,7 @@ angular.module('IonicClub.pluginServices', ['ngCordova'])
                  */
                 var deferred = $q.defer();
                 document.addEventListener("deviceready", function () {
-                    deferred.resolve($cordovaNetwork.getNetwork())
+                    deferred.resolve($cordovaNetwork.getNetwork());
                 }, false);
                 return deferred.promise;
             },
@@ -27,7 +27,7 @@ angular.module('IonicClub.pluginServices', ['ngCordova'])
                 }, false);
                 return deferred.promise;
             }
-        }
+        };
     }])
     .service('DeviceService', ['$q', '$cordovaDevice', function ($q, $cordovaDevice) {
         return {
@@ -39,7 +39,7 @@ angular.module('IonicClub.pluginServices', ['ngCordova'])
                 }, false);
                 return deferred.promise;
             }
-        }
+        };
     }])
     // Toast服务
     .service('ToastService', ['$cordovaToast', function ($cordovaToast) {
@@ -62,7 +62,7 @@ angular.module('IonicClub.pluginServices', ['ngCordova'])
             showLongBottom: function (message) {
                 $cordovaToast.showLongBottom(message);
             }
-        }
+        };
     }])
     // 启动画面服务
     .service('SplashscreenService', ['$cordovaSplashscreen', function ($cordovaSplashscreen) {
@@ -73,7 +73,7 @@ angular.module('IonicClub.pluginServices', ['ngCordova'])
             show: function () {
                 $cordovaSplashscreen.show();
             }
-        }
+        };
     }])
     // 统计服务
     .service('UmengService', ['$q', '$window', function ($q, $window) {
@@ -84,7 +84,7 @@ angular.module('IonicClub.pluginServices', ['ngCordova'])
                 deferred.resolve(null);
                 return deferred.promise;
             }
-        }
+        };
     }])
     // APP 版本服务
     .service('AppVersionService', ['$q', '$cordovaAppVersion', function ($q, $cordovaAppVersion) {
@@ -103,7 +103,7 @@ angular.module('IonicClub.pluginServices', ['ngCordova'])
                 });
                 return deferred.promise;
             }
-        }
+        };
     }])
 
     // 社交分享服务
@@ -113,5 +113,5 @@ angular.module('IonicClub.pluginServices', ['ngCordova'])
                 $cordovaSocialSharing
                     .share(data.message, data.subject, null, data.link);
             }
-        }
-    }])
+        };
+    }]);

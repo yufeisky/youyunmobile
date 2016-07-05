@@ -22,6 +22,15 @@ angular.module('IonicClub.router', [])
                     }
                 }
             })
+            .state('tab.homeDetail', {
+                url: '/homeDetail',
+                views: {
+                    'home': {
+                        templateUrl: 'templates/homeDetail.html',
+                        controller: 'homeCtrl'
+                    }
+                }
+            })
             .state('tab.star', {
                 url: '/star',
                 views: {
@@ -72,21 +81,22 @@ angular.module('IonicClub.router', [])
             .state('login', {
                 url: '/login',
                 templateUrl: "templates/login.html",
-                controller: 'loginCtrl'
-                    // views: {
-                    //     'user': {
-                    //         templateUrl: 'templates/login.html',
-                    //         controller: 'loginCtrl'
-                    //     }
-                    // },
-                    // resolve: {
-                    //     validater: ['$location', 'localStorageService', function($location, localStorageService) {
-                    //         var loginInfo = localStorageService.get('User');
-                    //         if (loginInfo) {
-                    //             $location.path('/tab/user');
-                    //         }
-                    //     }]
-                    // }
-            })
+                controller: 'loginCtrl',
+                resolve: {
+                    validater: ['$location', 'localStorageService', function($location, localStorageService) {
+                        var loginInfo = localStorageService.get('User');
+                        if (loginInfo) {
+                            $location.path('/tab/user');
+                        }
+                    }]
+                }
+                // views: {
+                //     'user': {
+                //         templateUrl: 'templates/login.html',
+                //         controller: 'loginCtrl'
+                //     }
+                // },
+
+            });
         $urlRouterProvider.otherwise('tab/home');
-    }])
+    }]);

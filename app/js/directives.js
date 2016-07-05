@@ -60,4 +60,4 @@ angular.module('IonicClub.directives', [])
                     }, 500);
                 }
             };
-        }])
+        }]);
