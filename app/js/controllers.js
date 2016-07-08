@@ -389,7 +389,7 @@ angular.module('IonicClub.controllers', [])
                         localStorageService.set('User', JSON.stringify(User));
                         $rootScope.closeLoginModal();
                         // var currentId = $ionicHistory.viewHistory().currentView.stateId;
-                        $rootScope.changePage($rootScope.changeState,true);
+                        $rootScope.changePage($rootScope.changeState, true);
 
                         // $state.go(currentId,{reload:true});
                 }
@@ -458,7 +458,7 @@ angular.module('IonicClub.controllers', [])
                         User = data.userInfo;
                         localStorageService.set('User', JSON.stringify(User));
                         $rootScope.closeLoginModal();
-                        $rootScope.changePage($rootScope.changeState,true);
+                        $rootScope.changePage($rootScope.changeState, true);
                         // $state.go('tab.user');
                 }
                 // console.log(data)
@@ -525,7 +525,7 @@ angular.module('IonicClub.controllers', [])
         var statename = $state.current.name;
         // console.log('-------statename----');
         // console.log(statename);
-            //tabs中存在的主页面不需要隐藏，hidetabs=false
+        //tabs中存在的主页面不需要隐藏，hidetabs=false
         if (statename === 'tab.homeDetail') {
             $rootScope.hideTabs = true;
         } else {
@@ -554,20 +554,22 @@ angular.module('IonicClub.controllers', [])
         }
         $scope.loginmodal.hide();
     };
-    $rootScope.changePage = function(state,reload) {
+    $rootScope.changePage = function(state, reload) {
         $rootScope.changeState = state;
         $rootScope.UserInfo = JSON.parse(localStorageService.get('User'));
         // console.log('------changestate------')
         // console.log(state)
         // console.log($rootScope.UserInfo)
         if ($rootScope.UserInfo) {
-            if (($rootScope.changeState == 'tab.user' || $rootScope.changeState == 'tab.star')&&reload) {
+            if (($rootScope.changeState == 'tab.user' || $rootScope.changeState == 'tab.star') && reload) {
                 console.log('重载');
                 $state.go(state);
-                location.reload(true);
-            }else{
+                $timeout(function() {
+                    location.reload(true);
+                }, 200);
+            } else {
                 console.log('不重载');
-                 $state.go(state);
+                $state.go(state);
             }
 
         } else {
