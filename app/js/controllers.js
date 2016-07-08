@@ -107,7 +107,7 @@ angular.module('IonicClub.controllers', [])
                     switch (postParams.storyStatus) {
                         case '1':
                             IonicService.getStorys(postParams).then(function(data) {
-                                if (!data.storys[0]) {
+                                if (!data.storys) {
                                     $scope.more = false;
                                 }
                                 if (data.storys) {
@@ -125,7 +125,7 @@ angular.module('IonicClub.controllers', [])
                             break;
                         case '0':
                             IonicService.getStorys(postParams).then(function(data) {
-                                if (!data.storys[0]) {
+                                if (!data.storys) {
                                     $scope.more = false;
                                 }
                                 if (data.storys) {
