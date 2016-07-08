@@ -202,30 +202,157 @@
 create by yanfen
  */
 
-.bar-header {
-    color: #ffffff;
-    background-color: #d23e3e;
+
+/* Empty. Add your own CSS if you like */
+
+.page-login {
+    background-image: url("../img/LOGO@2x.png");
+    background-repeat: no-repeat;
+    background-position: center 100px;
+    background-size: 100px 32px;
+    background-attachment: fixed;
 }
 
-.title-login {}
+.page-login .box-main {
+    width: 290px;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 120px;
+    position: relative;
+}
 
-.btn-login {
-    color: #ffffff;
-    background-color: #d23e3e;
+.page-login .box-main .box-input {
+    width: 290px;
+    height: 37px;
+    display: flex;
+    margin-bottom: 15px;
+    padding-right: 5px;
+}
+
+.page-login .box-main .box-input .box-input-field {
     width: 100%;
     height: 100%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #c0c0c0;
+    border-radius: 5px;
+    display: flex;
+}
+
+.page-login .box-main .box-input .box-input-field input[type="text"] {
+    width: 250px;
+    height: 37px;
+    float: right;
+    background-color: transparent;
+    color: #909090;
+    font-size: 12.5px;
+    font-family: "-apple-system", "Helvetica Neue", "微软雅黑", "Segoe UI", sans-serif;
+    padding-left: 5px;
+}
+
+.page-login .box-main .box-input .box-input-field .icon-input {
+    width: 40px;
+    height: 37px;
+    background-repeat: no-repeat;
+}
+
+.page-login .box-main .box-input .box-input-field.box-verify {
+    width: 200px;
+}
+
+.page-login .box-main .box-input .box-input-field.box-verify input[type="text"] {
+    width: 160px;
+    height: 37px;
+    background-color: transparent;
+    color: #909090;
+    font-size: 12.5px;
+    font-family: "-apple-system", "Helvetica Neue", "微软雅黑", "Segoe UI", sans-serif;
+    margin: 0px;
+    padding-left: 5px;
+}
+
+.page-login .box-main .box-input .btn-verify {
+    width: 80px;
+    height: 35px;
+    font-size: 12.5px;
+    line-height: 35px;
+    margin: 0px;
+    text-align: center;
+    color: #ffffff;
+    font-family: "-apple-system", "Helvetica Neue", "微软雅黑", "Segoe UI", sans-serif;
+    background-color: #f9b5b6;
+    border: none;
+    margin: 1px 5px;
+    border-radius: 5px;
+}
+
+.page-login .box-main .box-input .btn-verify.btn-dis {
+    background-color: #8c8c8c;
+}
+
+.icon-username {
+    background-size: 22px 22px;
+    background-position: center;
+    background-image: url("../img/Phone@2x.png");
+}
+
+.icon-password {
+    background-size: 16px 21px;
+    background-position: center;
+    background-image: url("../img/unlock@2x.png");
+}
+
+.btn-login {
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 285px;
+    height: 42px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("../img/loginBtn@2.png");
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    color: #ca3336;
+    font-family: "-apple-system", "Helvetica Neue", "微软雅黑", "Segoe UI", sans-serif;
+}
+
+.btn-assist {
+    padding: 5px 10px 5px 0;
+    font-size: 13px;
+    color: #ca3336;
+    font-family: "-apple-system", "Helvetica Neue", "微软雅黑", "Segoe UI", sans-serif;
+    background-color: transparent;
+    border: none;
+    display: block;
+    height: 38px;
+    width: 100px;
+}
+
+.line-login {
+    position: absolute;
+    bottom: 60px;
+    left: 10%
+}
+
+.tab-item .icon {
+    font-size: 24px;
+    line-height: 32px;
 }
 
 
 /* 
     create by linbin
  */
-.userPage .navbar{
+
+.userPage .navbar {
     position: fixed;
     z-index: 99999999999999;
     width: 100%;
     top: 44px;
 }
+
 .userPage .navbar a {
     text-align: center;
     text-decoration: none;
@@ -244,6 +371,150 @@ create by yanfen
     margin-bottom: -1px;
     border-bottom: solid #d23e3e 1px
 }
-.userPageCon{
+
+.userPageCon {
     margin-top: 40px;
+}
+/*.userPage .slider-slide{
+    min-height: 300px;
+}*/
+
+/*信息提示框*/
+
+#msgbox {
+    position: fixed;
+    left: 0;
+    top: 40%;
+    height: 10%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    z-index: 9999999999;
+}
+
+#msgbox span {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 2.5% 8%;
+    border-radius: 6px;
+    font-family: '微软雅黑';
+    font-size: 14px;
+    line-height: 100%;
+}
+
+#msgbox.msgboxani {
+    animation: msgboxani 1s;
+    -moz-animation: msgboxani 1s;
+    -webkit-animation: msgboxani 1s;
+    -o-animation: msgboxani 1s;
+}
+
+@keyframes msgboxani {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes msgboxani
+/* Firefox */
+
+{
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes msgboxani
+/* Safari 和 Chrome */
+
+{
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes msgboxani
+/* Opera */
+
+{
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.list-index {
+    width: 98%;
+    margin: 10px auto;
+    /*min-height: 100px;*/
+}
+
+.item-index {
+    width: 45%;
+    height: auto;
+    float: left;
+    margin-left: 3%;
+    margin-bottom: 10px;
+    display: block;
+    padding: 0;
+}
+
+.img-index {
+    width: 90%;
+    height: auto;
+    margin: 4px auto;
+    display: block;
+}
+
+h2.text-index {
+    width: 90%;
+    margin: 2px auto;
+    display: block;
+    padding: 0;
+     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space:normal;
+}
+
+p.text-index {
+    width: 90%;
+    margin: 2px auto;
+    display: block;
+    padding: 0;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space:normal;
+}
+
+ion-tabs.tabs-color-active-positive .tab-item.activated,
+ion-tabs.tabs-color-active-positive .tab-item.active,
+ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
+    color: #d23e3e;
+}
+.homeNav{
+    border-bottom: 1px solid #d5d5d5;
+        height: 43px;
+}
+.homeNav li a{
+    /*line-height: 40px*/
+}
+.pubIframe{
+    width: 100%;
+    height: 100%;
 }

@@ -2,9 +2,13 @@
  * 控制器
  */
 angular.module('IonicClub.controllers', [])
+    // 已上线未上线 收藏
     // 个人中心
-    .controller('userCtrl', ['$scope', '$stateParams', '$state', '$ionicLoading', '$ionicModal', 'localStorageService', 'IonicService', 'TabService', function($scope, $stateParams, $state, $ionicLoading, $ionicModal, localStorageService, IonicService, TabService) {
+    .controller('userCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$ionicLoading', '$ionicPopup', '$ionicHistory', '$ionicModal', '$timeout', 'localStorageService', 'IonicService', 'TabService', function($scope, $rootScope, $stateParams, $state, $ionicLoading, $ionicPopup, $ionicHistory, $ionicModal, $timeout, localStorageService, IonicService, TabService) {
         console.log('个人中心控制器已加载');
+        // 重置左上角的按钮
+        // $rootScope.menuShow = true;
+        // $rootScope.backShow = false;
         // // 取消收藏参数
         // $scope.deCollectData = {
         //     accesstoken: '',
@@ -15,118 +19,83 @@ angular.module('IonicClub.controllers', [])
         };
         $scope.storys = [];
         $scope.offLineStorys = [];
-        $scope.more = true;
+
+        // // 模态框登陆
+        // $ionicModal.fromTemplateUrl('templates/login.html', {
+        //     scope: $scope,
+        //     animation: 'slide-in-up'
+        // }).then(function(modal) {
+        //     $scope.loginmodal = modal;
+        // });
+        // $rootScope.openLoginModal = function() {
+        //     $scope.loginmodal.show();
+        // };
+        // $rootScope.closeLoginModal = function(type) {
+        //     if (type) {
+        //         // console.log($ionicHistory.viewHistory().backView.stateName);
+        //         console.log($ionicHistory.viewHistory());
+        //         if ($ionicHistory.viewHistory().backView) {
+        //             // console.log($ionicHistory.viewHistory().backView);
+        //             var gobackname = $ionicHistory.viewHistory().backView.stateName;
+        //             $state.go(gobackname);
+        //         } else {
+        //             $state.go('tab.home');
+        //             // 直接刷新登陆页面后退的时候需要重载首页，要不然路由会乱
+        //             location.reload(true);
+        //         }
+        //     }
+        //     $scope.loginmodal.hide();
+        // };
+
         var User = JSON.parse(localStorageService.get('User'));
         console.log(User);
         if (User) {
+            // $scope.logined = true;
+            $scope.more = true;
             console.log('已登录');
             postParams = {
-                    userToken: User.token,
-                    userId: User.id,
-                };
-                // $scope.deCollectData.accesstoken = User.accesstoken;
-                // IonicService.getUserByName(User.token).then(function(data) {
-                //     $scope.Account = data.data;
-                // })
-                // IonicService.getMessages(User.accesstoken).then(function(data) {
-                //     $scope.messages = data.data;
-                // })
-        } else {
-            // 检测没有登陆调回到登陆页
-            $state.go('login');
-        }
+                userToken: User.token,
+                userId: User.id,
+            };
+            // $scope.deCollectData.accesstoken = User.accesstoken;
+            // IonicService.getUserByName(User.token).then(function(data) {
+            //     $scope.Account = data.data;
+            // })
+            // IonicService.getMessages(User.accesstoken).then(function(data) {
+            //     $scope.messages = data.data;
+            // })
 
-        //nav数据
-        $scope.navs = [{
-            title: '已上线',
-            order: 0,
-            storyStatus: '1',
-            pageNum: 0
-        }, {
-            title: '未上线',
-            order: 1,
-            storyStatus: '0',
-            pageNum: 0
-        }, {
-            title: '我的收藏',
-            order: 2,
-            storyStatus: '3',
-            pageNum: 0
-        }, {
-            title: '我的动态',
-            order: 3,
-            storyStatus: '4',
-            pageNum: 0
-        }];
 
-        //判断哪个选中方法:
-        $scope.isActiveTab = function(order) {
+            //nav数据
+            $scope.navs = [{
+                title: '已上线',
+                order: 0,
+                storyStatus: '1',
+                pageNum: 0
+            }, {
+                title: '未上线',
+                order: 1,
+                storyStatus: '0',
+                pageNum: 0
+            }, {
+                title: '我的收藏',
+                order: 2,
+                storyStatus: '3',
+                pageNum: 0
+            }, {
+                title: '我的动态',
+                order: 3,
+                storyStatus: '4',
+                pageNum: 0
+            }];
+
+            //判断哪个选中方法:
+            $scope.isActiveTab = function(order) {
                 // console.log('isactive')
                 // console.log($scope.currentTab == order)
                 return $scope.currentTab == order;
             };
-            //选中时执行的事件
-            // $scope.storyTab = function(type, order) {
-
-        //     $scope.currentTab = order;
-        //     $scope.myActiveSlide = order;
-        //     postParams.storyStatus = type;
-        //     switch (type) {
-        //         case '1':
-        //             if (!$scope.storys) {
-        //                 IonicService.getStorys(postParams).then(function(data) {
-        //                     if (data.storys) {
-        //                         $scope.storys = data.storys;
-        //                     }
-        //                 });
-        //             }
-        //             break;
-        //         case '0':
-        //             if (!$scope.offLineStorys) {
-        //                 IonicService.getStorys(postParams).then(function(data) {
-        //                     console.log(data)
-        //                     if (data.storys) {
-        //                         $scope.offLineStorys = data.storys;
-        //                     }
-        //                 });
-        //             }
-        //             break;
-        //         case '3':
-        //             console.log('我的收藏')
-        //             break;
-        //         case '4':
-        //             console.log('我的动态');
-        //             break;
-        //     }
-
-        // };
-        $scope.loadMore = function(myActiveSlide, del) {
-                // if (del) {
-                //     console.log('删除')
-                //     $scope.storys = [];
-                //     $scope.offLineStorys =[];
-                //     $scope.navs = [{
-                //         title: '已上线',
-                //         order: 0,
-                //         storyStatus: '1',
-                //         pageNum: 0
-                //     }, {
-                //         title: '未上线',
-                //         order: 1,
-                //         storyStatus: '0',
-                //         pageNum: 0
-                //     }, {
-                //         title: '我的收藏',
-                //         order: 2,
-                //         storyStatus: '3',
-                //         pageNum: 0
-                //     }, {
-                //         title: '我的动态',
-                //         order: 3,
-                //         storyStatus: '4',
-                //         pageNum: 0
-                //     }]
-                // }
+            $scope.loadMore = function(myActiveSlide, del) {
                 $scope.more = true;
                 try {
                     $scope.currentTab = myActiveSlide;
@@ -183,51 +152,246 @@ angular.module('IonicClub.controllers', [])
                 }
 
             };
-            // $scope.storyTab('1', '0');
             // 当前选中：
-        $scope.myActiveSlide = '0';
+            $scope.myActiveSlide = '0';
+        } else {
+            // 检测没有登陆调回到登陆页
+            console.log('未登录');
+            // $state.go('notlogin');
+            // $scope.logined = false;
+            // $scope.showConfirm();
+            $timeout(function() {
+                $rootScope.changePage('tab.user');
+            }, 100);
+
+        }
     }])
-    // 已上线未上线 收藏
-    .controller('userstoryCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', 'localStorageService', 'ShareService', 'IonicService', function($scope, $stateParams, $ionicLoading, $ionicScrollDelegate, localStorageService, ShareService, IonicService) {
-        console.log('未上线控制器');
+    // 首页详情
+    .controller('homeDetailCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', 'localStorageService', 'ShareService', 'IonicService', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, localStorageService, ShareService, IonicService) {
+        // $rootScope.menuShow = true;
+        // $rootScope.backShow = true;
+        // console.log($stateParams);
+        console.log('首页详情');
+        var pubUrl = $stateParams.pubUrl;
+        $scope.pubUrl = $sce.trustAsResourceUrl(pubUrl);
+        // console.log($scope.pubUrl);
+        $scope.storyShare = function() {
+            console.log('点击触发');
+            // alert('ok');
+        };
 
     }])
     // 首页
-    .controller('homeCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', 'localStorageService', 'ShareService', 'IonicService', function($scope, $stateParams, $ionicLoading, $ionicScrollDelegate, localStorageService, ShareService, IonicService) {
+    .controller('homeCtrl', ['$scope', '$rootScope', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', 'localStorageService', 'ShareService', 'IonicService', function($scope, $rootScope, $stateParams, $ionicLoading, $ionicScrollDelegate, localStorageService, ShareService, IonicService) {
+        // 重置左上角的按钮
+        // $rootScope.menuShow = true;
+        // $rootScope.backShow = false;
+        $scope.storys = [
+            [],
+            [],
+            [],
+            []
+        ];
+        $scope.more = true;
+        $scope.navs = [{
+            title: '推荐',
+            order: 0,
+            storyStatus: '4',
+            pageNum: 0
+        }, {
+            title: '品牌故事',
+            order: 1,
+            storyStatus: '1',
+            pageNum: 0
+        }, {
+            title: '热点资讯',
+            order: 2,
+            storyStatus: '2',
+            pageNum: 0
+        }, {
+            title: '生活故事',
+            order: 3,
+            storyStatus: '3',
+            pageNum: 0
+        }];
 
+        $scope.isActiveTab = function(order) {
+            // console.log('isactive')
+            // console.log($scope.currentTab == order)
+            return $scope.currentTab == order;
+        };
+        var User = JSON.parse(localStorageService.get('User'));
+        if (User) {
+            postParams = {
+                userToken: User.token,
+                userId: User.id,
+            };
+        } else {
+            postParams = {
+                userToken: '',
+                userId: '',
+            };
+        }
+        // console.log('width');
+        // console.log(angular.element(window)[0].innerWidth);
+        var win_w = angular.element(window)[0].innerWidth;
+        $scope.img_w = win_w * 0.45 * 0.9 + 'px';
+        // console.log($scope.img_w);
+        $scope.loadMore = function(myActiveSlide, del) {
+            $scope.more = true;
+            // console.log('-----myActiveSlide------');
+            // console.log(myActiveSlide)
+            try {
+                $scope.currentTab = myActiveSlide;
+                // console.log($scope.currentTab);
+                $scope.myActiveSlide = myActiveSlide;
+                postParams.storyType = $scope.navs[myActiveSlide].storyStatus;
+                $scope.navs[myActiveSlide].pageNum = $scope.navs[myActiveSlide].pageNum + 1;
+                postParams.pageNum = $scope.navs[myActiveSlide].pageNum;
+                console.log(postParams.storyType);
+                IonicService.getHomeStorys(postParams).then(function(data) {
+                    // console.log(data)
+                    if (!data.storys[0]) {
+                        $scope.more = false;
+                    }
+                    if (data.storys) {
+                        if (postParams.pageNum == 1) {
+                            $scope.storys[$scope.currentTab] = data.storys;
+                        } else {
+                            angular.forEach(data.storys, function(item) {
+                                $scope.storys[$scope.currentTab].push(item);
+                            });
+                        }
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+
+                    }
+                    // console.log($scope.storys);
+                });
+                // switch (postParams.storyType) {
+                //     case '1':
+                //         IonicService.getHomeStorys(postParams).then(function(data) {
+                //             console.log(data)
+                //             if (!data.storys[0]) {
+                //                 $scope.more = false;
+                //             }
+                //             if (data.storys) {
+                //                 if (postParams.pageNum == 1) {
+                //                     $scope.storys = data.storys;
+                //                 } else {
+                //                     angular.forEach(data.storys, function(item) {
+                //                         $scope.storys.push(item);
+                //                     });
+                //                 }
+                //                 $scope.$broadcast('scroll.infiniteScrollComplete');
+
+                //             }
+                //         });
+                //         break;
+                //     case '2':
+                //         IonicService.getHomeStorys(postParams).then(function(data) {
+                //             if (!data.storys[0]) {
+                //                 $scope.more = false;
+                //             }
+                //             if (data.storys) {
+                //                 if (postParams.pageNum == 1) {
+                //                     $scope.brandStorys = data.storys;
+                //                 } else {
+                //                     angular.forEach(data.storys, function(item) {
+                //                         $scope.offLineStorys.push(item);
+                //                     });
+                //                 }
+                //                 $scope.$broadcast('scroll.infiniteScrollComplete');
+                //             }
+                //         });
+                //         break;
+                //     case '3':
+                //         console.log('我的收藏');
+                //         break;
+                //     case '4':
+                //         console.log('我的动态');
+                //         break;
+                // }
+            } catch (ex) {
+                $scope.more = false;
+            }
+
+        };
+        // 当前选中：
+        $scope.myActiveSlide = '0';
 
     }])
     // 关注
-    .controller('starCtrl', ['$scope', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', 'localStorageService', 'ShareService', 'IonicService', function($scope, $stateParams, $ionicLoading, $ionicScrollDelegate, localStorageService, ShareService, IonicService) {
+    .controller('starCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$timeout', 'localStorageService', 'ShareService', 'IonicService', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $timeout, localStorageService, ShareService, IonicService) {
+        // 重置左上角的按钮
+        // $rootScope.menuShow = true;
+        // $rootScope.backShow = false;
+        // 模态框登陆
+        var User = JSON.parse(localStorageService.get('User'));
+        console.log(User);
+        if (User) {
 
+        } else {
+            $timeout(function() {
+                $rootScope.changePage('tab.star');
+            }, 100);
+        }
 
     }])
     //登录
-    .controller('loginCtrl', ['$scope', '$ionicPopup', '$ionicHistory', '$state', '$cordovaBarcodeScanner', 'localStorageService', 'AppVersionService', 'IonicService', function($scope, $ionicPopup, $ionicHistory, $state, $cordovaBarcodeScanner, localStorageService, AppVersionService, IonicService) {
+    .controller('loginCtrl', ['$scope', '$rootScope', '$ionicPopup', '$ionicHistory', '$state', '$cordovaBarcodeScanner', '$ionicSlideBoxDelegate', '$interval', '$ionicModal', 'localStorageService', 'AppVersionService', 'IonicService', 'MsgBox', function($scope, $rootScope, $ionicPopup, $ionicHistory, $state, $cordovaBarcodeScanner, $ionicSlideBoxDelegate, $interval, $ionicModal, localStorageService, AppVersionService, IonicService, MsgBox) {
         /*        AppVersionService.getVersionNumber().then(function (data) {
          $scope.appVersion = data;
          });*/
         console.log('启用登录控制器');
+        // console.log($ionicHistory.viewHistory())
+        // 重置左上角的按钮
+
+
+        // if ($ionicHistory.viewHistory().backView) {
+        //     $rootScope.menuShow = false;
+        //     $rootScope.backShow = true;
+        // } else {
+        //     $rootScope.menuShow = true;
+        //     $rootScope.backShow = false;
+        // }
+        // $scope.modal.hide();
+        // var loginInfo = localStorageService.get('User');
+        // if (loginInfo) {
+        //     // $location.path('/tab/user');
+        //     $ionicHistory.goBack();
+        // }
+
+        $scope.loginTitile = '手机号登录';
         $scope.login = function(user) {
-            console.log(user);
             if (typeof(user) == 'undefined' || !user.account) {
-                $scope.showAlert('请输入账号');
+                // $scope.showAlert('请输入账号');
+                MsgBox.showTexts('请输入账号');
+                return false;
+            }
+            var phoneReg = /1[3|5|7|8|][0-9]{9}/;
+            var emailReg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if ((!phoneReg.test(user.account)) && (!emailReg.test(user.account))) {
+                MsgBox.showTexts('请输入正确的账号');
                 return false;
             }
             if (typeof(user) == 'undefined' || !user.password) {
-                $scope.showAlert('请输入密码');
+                MsgBox.showTexts('请输入密码');
                 return false;
             }
             IonicService.postLogin(user).then(function(data) {
                 console.log(data.status);
                 switch (data.status) {
                     case '0':
-                        $scope.showAlert('账号或密码错误');
+                        MsgBox.showTexts('账号或密码错误');
                         break;
                     case '1':
                         User = data.userInfo;
                         localStorageService.set('User', JSON.stringify(User));
-                        $state.go('tab.user');
+                        $rootScope.closeLoginModal();
+                        // var currentId = $ionicHistory.viewHistory().currentView.stateId;
+                        $rootScope.changePage($rootScope.changeState,true);
+
+                        // $state.go(currentId,{reload:true});
                 }
                 // console.log(data)
                 var test = localStorageService.get('User');
@@ -237,173 +401,111 @@ angular.module('IonicClub.controllers', [])
 
 
         };
+        $scope.isDisabled = false;
+        $scope.verTxt = '获取验证码';
+        var alltime = 60;
+        //获取手机验证码
+        $scope.ajaxSendValidate = function(phoneNumber) {
+            if (!phoneNumber) {
+                MsgBox.showTexts('请输入手机号码');
+                return false;
+            }
+            var reg1 = /1[3|5|7|8|][0-9]{9}/;
+            if (!reg1.test(phoneNumber)) {
+                MsgBox.showTexts('请输入有效的手机号码');
+                return false;
+            }
+            $scope.isDisabled = true;
+            $scope.verTxt = '60s';
+            var timer = $interval(function() {
+                if (alltime > 0) {
+                    alltime--;
+                    $scope.verTxt = alltime + 'S';
+                } else {
+                    $scope.isDisabled = false;
+                    $scope.verTxt = '获取验证码';
+                    $interval.cancel(timer);
+                }
+            }, 1000);
+            IonicService.postPhoneCode({ 'phoneNumber': phoneNumber }).then(function(data) {
+                console.log(data.status);
+                switch (data.status) {
+                    case '0':
+                        MsgBox.showTexts('获取手机验证码失败');
+                        break;
+                    case '1':
+                        MsgBox.showTexts('成功获取手机验证码');
+                }
+            });
+        };
+        //快速登录
+        $scope.quickLogin = function(quickuser) {
+            if (typeof(quickuser) == 'undefined' || !quickuser.phoneNumber) {
+                MsgBox.showTexts('请输入手机号码');
+                return false;
+            }
+            if (typeof(quickuser) == 'undefined' || !quickuser.validateCode) {
+                MsgBox.showTexts('请输入验证码');
+                return false;
+            }
+            IonicService.postQuickLogin(quickuser).then(function(data) {
+                console.log(data.status);
+                switch (data.status) {
+                    case '0':
+                        MsgBox.showTexts('账号或密码错误');
+                        break;
+                    case '1':
+                        User = data.userInfo;
+                        localStorageService.set('User', JSON.stringify(User));
+                        $rootScope.closeLoginModal();
+                        $rootScope.changePage($rootScope.changeState,true);
+                        // $state.go('tab.user');
+                }
+                // console.log(data)
+                // var test = localStorageService.get('User');
+            });
+
+
+        };
+
         // An alert dialog
         $scope.showAlert = function(msg) {
             var alertPopup = $ionicPopup.alert({
-                title: 'Warning Message',
+                title: '输入错误',
                 template: msg
             });
+
+        };
+
+        // 切换
+        $scope.slideChangefn = function(index) {
+            // $scope.myActiveSlide = index;
+            $ionicSlideBoxDelegate.slide(index, 300);
+        };
+        $scope.loginslideChange = function(index) {
+            switch (index) {
+                case 0:
+                    $scope.loginTitile = '手机号登录';
+                    break;
+                case 1:
+                    $scope.loginTitile = '密码登录';
+                    break;
+            }
         };
     }])
 
-// 个人中心
-.controller('AccountCtrl', ['$scope', '$ionicHistory', '$state', '$ionicModal', '$ionicLoading', 'localStorageService', 'AppVersionService', 'IonicService', function($scope, $ionicHistory, $state, $ionicModal, $ionicLoading, localStorageService, AppVersionService, IonicService) {
-
-    /*AppVersionService.getVersionNumber().then(function (data) {
-     $scope.appVersion = data;
-     });*/
-
-    // 取消收藏参数
-    $scope.deCollectData = {
-        accesstoken: '',
-        topic_id: ''
-    };
-
-    var User = JSON.parse(localStorageService.get('User'));
-    if (User) {
-        $scope.deCollectData.accesstoken = User.accesstoken;
-        IonicService.getUserByName(User.loginname).then(function(data) {
-            $scope.Account = data.data;
-        });
-        IonicService.getMessages(User.accesstoken).then(function(data) {
-            $scope.messages = data.data;
-        });
-    } else {
-        $state.go('tab.login');
-    }
-
-
-    /*        // 设为已读
-            $scope.setHasRead = function () {
-                IonicService.postMessageMark_all(User.accesstoken).then(function (data) {
-                    if (data.success) {
-                        $ionicLoading.show({template: '设置成功', duration: 500});
-                    }
-                });
-            }*/
-
-
-    // 取消收藏
-    $scope.deCollect = function(topicId) {
-        $scope.deCollectData.topic_id = topicId;
-        IonicService.postTopicDeCollect($scope.deCollectData).then(function(data) {
-            if (data.success) {
-                $ionicLoading.show({ template: '取消收藏成功', duration: 500 });
-            }
-        });
-    };
-
-
-    // 收藏
-    $ionicModal.fromTemplateUrl('templates/Area/favorites.html', {
-        id: '1',
-        scope: $scope
-    }).then(function(modal) {
-        $scope.oModal1 = modal;
-    });
-
-    // 消息
-    $ionicModal.fromTemplateUrl('templates/Area/messages.html', {
-        id: '2',
-        scope: $scope
-    }).then(function(modal) {
-        $scope.oModal2 = modal;
-    });
-
-    // 创建的话题
-    $ionicModal.fromTemplateUrl('templates/Area/createTopics.html', {
-        id: '3',
-        scope: $scope
-    }).then(function(modal) {
-        $scope.oModal3 = modal;
-    });
-
-    // 参与的话题
-    $ionicModal.fromTemplateUrl('templates/Area/joinTopics.html', {
-        id: '4',
-        scope: $scope
-    }).then(function(modal) {
-        $scope.oModal4 = modal;
-    });
-
-    $scope.openModal = function(index) {
-        switch (index) {
-            case 1:
-                $scope.oModal1.show();
-                break;
-            case 2:
-                $scope.oModal2.show().then(function() {
-                    IonicService.postMessageMark_all(User.accesstoken).then(function(data) {
-                        if (data.success) {
-                            $scope.badges.message = 0;
-                        }
-                    });
-                });
-                break;
-            case 3:
-                $scope.oModal3.show();
-                break;
-            case 4:
-                $scope.oModal4.show();
-                break;
-        }
-    };
-
-    $scope.closeModal = function(index) {
-        switch (index) {
-            case 1:
-                $scope.oModal1.hide();
-                break;
-            case 2:
-                $scope.oModal2.hide();
-                break;
-            case 3:
-                $scope.oModal3.hide();
-                break;
-            case 4:
-                $scope.oModal4.hide();
-                break;
-        }
-    };
-}])
-
-// 个人详细
-.controller('AccountDetailCtrl', ['$scope', '$ionicHistory', '$state', 'localStorageService', 'IonicService', function($scope, $ionicHistory, $state, localStorageService, IonicService) {
-    var User = JSON.parse(localStorageService.get('User'));
-    if (User) {
-        IonicService.getUserByName(User.loginname).then(function(data) {
-            $scope.Account = data.data;
-        });
-    }
-    $scope.loginOut = function() {
-        localStorageService.remove('User');
-        $ionicHistory.nextViewOptions({
-            disableAnimate: true,
-            disableBack: true
-        });
-        $state.go("tab.login");
-    };
-}])
-
-// // 用户详情
-// .controller('UserCtrl', ['$scope', '$stateParams', 'IonicService', function ($scope, $stateParams, IonicService) {
-//     IonicService.getUserByName($stateParams.loginname).then(function (data) {
-//         $scope.Account = data.data;
-//     })
-// }])
-
-.controller('IndexCtrl', ['$scope', 'localStorageService','$state', 'IonicService', 'TabService', function($scope, localStorageService,$state, IonicService, TabService) {
+.controller('IndexCtrl', ['$scope', '$rootScope', 'localStorageService', '$state', '$ionicModal', '$ionicSlideBoxDelegate', '$timeout', 'IonicService', 'TabService', function($scope, $rootScope, localStorageService, $state, $ionicModal, $ionicSlideBoxDelegate, $timeout, IonicService, TabService) {
     $scope.badges = {
         message: 0
     };
     $scope.tabs = TabService.getTabs();
-
-    var User = JSON.parse(localStorageService.get('User'));
-    if (User) {
-        IonicService.getMessageCount(User.token).then(function(data) {
-            $scope.badges.message = data.data;
-        });
-    }
+    $rootScope.UserInfo = JSON.parse(localStorageService.get('User'));
+    // var User = JSON.parse(localStorageService.get('User'));
+    // if (User) {
+    //     // IonicService.getMessageCount(User.token).then(function(data) {
+    //     //     $scope.badges.message = data.data;
+    //     // });
+    // }
     //退出
     $scope.loginOut = function() {
         console.log('退出');
@@ -412,6 +514,65 @@ angular.module('IonicClub.controllers', [])
         //     disableAnimate: true,
         //     disableBack: true
         // });
-        $state.go("login");
+        // $state.go("login");
+        location.reload(true);
     };
+
+}])
+
+.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageService', '$state', '$ionicModal', '$ionicSlideBoxDelegate', '$timeout', 'IonicService', 'TabService', function($scope, $rootScope, localStorageService, $state, $ionicModal, $ionicSlideBoxDelegate, $timeout, IonicService, TabService) {
+    $rootScope.$on('$ionicView.beforeEnter', function() {
+        var statename = $state.current.name;
+        // console.log('-------statename----');
+        // console.log(statename);
+            //tabs中存在的主页面不需要隐藏，hidetabs=false
+        if (statename === 'tab.homeDetail') {
+            $rootScope.hideTabs = true;
+        } else {
+            $rootScope.hideTabs = false;
+        }
+    });
+
+    // 模态框登陆
+    $ionicModal.fromTemplateUrl('templates/login.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.loginmodal = modal;
+    });
+    $rootScope.openLoginModal = function() {
+        $rootScope.UserInfo = JSON.parse(localStorageService.get('User'));
+        if ($rootScope.UserInfo) {
+            alert('你已经登陆');
+        } else {
+            $scope.loginmodal.show();
+        }
+    };
+    $rootScope.closeLoginModal = function(type) {
+        if (type && (($rootScope.changeState == 'tab.star') || ($rootScope.changeState == 'tab.user'))) {
+            $state.go('tab.home');
+        }
+        $scope.loginmodal.hide();
+    };
+    $rootScope.changePage = function(state,reload) {
+        $rootScope.changeState = state;
+        $rootScope.UserInfo = JSON.parse(localStorageService.get('User'));
+        // console.log('------changestate------')
+        // console.log(state)
+        // console.log($rootScope.UserInfo)
+        if ($rootScope.UserInfo) {
+            if (($rootScope.changeState == 'tab.user' || $rootScope.changeState == 'tab.star')&&reload) {
+                console.log('重载');
+                $state.go(state);
+                location.reload(true);
+            }else{
+                console.log('不重载');
+                 $state.go(state);
+            }
+
+        } else {
+            $rootScope.openLoginModal();
+        }
+    };
+
 }]);

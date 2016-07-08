@@ -20,14 +20,15 @@ angular.module('IonicClub.router', [])
                         templateUrl: 'templates/home.html',
                         controller: 'homeCtrl'
                     }
-                }
+                },
+                // cache:false,
             })
             .state('tab.homeDetail', {
-                url: '/homeDetail',
+                url: '/homeDetail:pubUrl',
                 views: {
                     'home': {
                         templateUrl: 'templates/homeDetail.html',
-                        controller: 'homeCtrl'
+                        controller: 'homeDetailCtrl'
                     }
                 }
             })
@@ -38,27 +39,29 @@ angular.module('IonicClub.router', [])
                         templateUrl: 'templates/star.html',
                         controller: 'starCtrl'
                     }
-                }
+                },
+                // cache:false,
             })
             .state('tab.user', {
                 url: '/user',
                 views: {
                     'user': {
                         templateUrl: 'templates/user.html',
-                        controller: 'userCtrl'
+                        controller: 'userCtrl',
+
                     }
                 },
                 // 检测要是没有登陆  跳回到登录页
-                resolve: {
-                    validater: ['$location', 'localStorageService', function($location, localStorageService) {
-                        var loginInfo = localStorageService.get('User');
-                        // var loginInfo = '';
-                        if (!loginInfo) {
-                            $location.path('/login');
-                        }
-                    }]
-                }
-            })
+                // resolve: {
+                //     validater: ['$location', 'localStorageService', function($location, localStorageService) {
+                //         var loginInfo = localStorageService.get('User');
+                //         // var loginInfo = '';
+                //         if (!loginInfo) {
+                //             $location.path('/login');
+                //         }
+                //     }]
+                // }
+            });
             // .state('tab.user.userstory', {
             //     url: '/userstory',
             //     views: {
@@ -78,25 +81,28 @@ angular.module('IonicClub.router', [])
             //         }]
             //     }
             // })
-            .state('login', {
-                url: '/login',
-                templateUrl: "templates/login.html",
-                controller: 'loginCtrl',
-                resolve: {
-                    validater: ['$location', 'localStorageService', function($location, localStorageService) {
-                        var loginInfo = localStorageService.get('User');
-                        if (loginInfo) {
-                            $location.path('/tab/user');
-                        }
-                    }]
-                }
-                // views: {
-                //     'user': {
-                //         templateUrl: 'templates/login.html',
-                //         controller: 'loginCtrl'
-                //     }
-                // },
+            // .state('login', {
+            //     url: '/login',
+            //     templateUrl: "templates/login.html",
+            //     controller: 'loginCtrl',
+            //     cache:false,
+            //     resolve: {
+            //         validater: ['$location', 'localStorageService', function($location, localStorageService) {
+            //             var loginInfo = localStorageService.get('User');
+            //             if (loginInfo) {
+            //                 // $location.path('/tab/user');
+            //                 $ionicHistory.goBack();
+            //             }
+            //         }]
+            //     }
+            //     // views: {
+            //     //     'user': {
+            //     //         templateUrl: 'templates/login.html',
+            //     //         controller: 'loginCtrl'
+            //     //     }
+            //     // },
 
-            });
+            // });
+
         $urlRouterProvider.otherwise('tab/home');
     }]);

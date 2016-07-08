@@ -26,8 +26,50 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
+            //获取手机验证码:
+             postPhoneCode: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/admin/ajaxSendValidate';
+                $http({
+                    method: 'POST',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
+             //手机快速登录:
+             postQuickLogin: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/admin/ajaxPhoneLogin';
+                $http({
+                    method: 'POST',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
             //获取上线跟未上线的故事数据
-            getStorys:function(data) {
+            getStorys: function(data) {
                 var deferred = $q.defer();
                 var url = 'http://test.upalapp.com/mobileplatform/moblie/story/ajaxGetStotyList';
                 $http({
@@ -47,13 +89,20 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
-            // 获取主题
-            getTopics: function(data) {
+            //获取上线跟未上线的故事数据
+            getHomeStorys: function(data) {
                 var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/topics";
+                var url = 'http://test.upalapp.com/mobileplatform/moblie/story/ajaxGetHomePageStorysList';
                 $http({
                     method: 'GET',
                     url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
                     params: data
                 }).success(
                     function(data, status, header, config) {
@@ -61,177 +110,10 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
-            // 通过ID获取主题详情
-            getTopicById: function(id) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/topic/" + id;
-                $http.get(url).success(
-                    function(data) {
-                        deferred.resolve(data);
-                    }
-                );
-                return deferred.promise;
-            },
-            // 新增主题
-            postTopic: function(data) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/topics";
-                $http({
-                    method: 'POST',
-                    url: url,
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    transformRequest: function(obj) {
-                        var str = [];
-                        for (var p in obj)
-                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        return str.join("&");
-                    },
-                    data: data
-                }).success(
-                    function(data, status, header, config) {
-                        deferred.resolve(data);
-                    });
-                return deferred.promise;
-            },
-            // 收藏主题
-            postTopicCollect: function(data) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/topic/collect";
-                $http({
-                    method: 'POST',
-                    url: url,
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    transformRequest: function(obj) {
-                        var str = [];
-                        for (var p in obj)
-                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        return str.join("&");
-                    },
-                    data: data
-                }).success(
-                    function(data, status, header, config) {
-                        deferred.resolve(data);
-                    });
-                return deferred.promise;
-            },
-            // 取消收藏主题
-            postTopicDeCollect: function(data) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/topic/de_collect";
-                $http({
-                    method: 'POST',
-                    url: url,
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    transformRequest: function(obj) {
-                        var str = [];
-                        for (var p in obj)
-                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        return str.join("&");
-                    },
-                    data: data
-                }).success(
-                    function(data, status, header, config) {
-                        deferred.resolve(data);
-                    });
-                return deferred.promise;
-            },
-            // 新建评论
-            postReplie: function(id, data) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/topic/" + id + "/replies";
-                $http({
-                    method: 'POST',
-                    url: url,
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    transformRequest: function(obj) {
-                        var str = [];
-                        for (var p in obj)
-                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        return str.join("&");
-                    },
-                    data: data
-                }).success(
-                    function(data, status, header, config) {
-                        deferred.resolve(data);
-                    });
-                return deferred.promise;
-            },
-            // 为评论点赞
-            postReplieUps: function(reply_id, accesstoken) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/reply/" + reply_id + "/ups?accesstoken=" + accesstoken;
-                $http({
-                    method: 'POST',
-                    url: url
-                }).success(
-                    function(data, status, header, config) {
-                        deferred.resolve(data);
-                    });
-                return deferred.promise;
-            },
-            // 获取用户详情
-            getUserByName: function(loginname) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/user/" + loginname;
-                $http.get(url).success(
-                    function(data) {
-                        deferred.resolve(data);
-                    }
-                );
-                return deferred.promise;
-            },
-            // 验证 accessToken 的正确性
-            postUserLogin: function(accesstoken) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/accesstoken?accesstoken=" + accesstoken;
-                $http({
-                    method: 'POST',
-                    url: url
-                }).success(
-                    function(data, status, header, config) {
-                        deferred.resolve(data);
-                    });
-                return deferred.promise;
-            },
-            // 获取未读消息数
-            getMessageCount: function(accessToken) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/message/count?accesstoken=" + accessToken;
-                $http.get(url).success(
-                    function(data) {
-                        deferred.resolve(data);
-                    }
-                );
-                return deferred.promise;
-            },
-            // 获取消息
-            getMessages: function(accessToken) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/messages?accesstoken=" + accessToken;
-                $http.get(url).success(
-                    function(data) {
-                        deferred.resolve(data);
-                    }
-                );
-                return deferred.promise;
-            },
-            // 标记全部已读
-            postMessageMark_all: function(accessToken) {
-                var deferred = $q.defer();
-                var url = ConfigService.getHost() + "/api/v1/message/mark_all?accesstoken=" + accessToken;
-                $http({
-                    method: 'POST',
-                    url: url
-                }).success(
-                    function(data, status, header, config) {
-                        deferred.resolve(data);
-                    });
-                return deferred.promise;
-            }
         };
     }])
     .service('ConfigService', [function() {
-        var hostURL = "http://ionichina.com";
+        var hostURL = "http://test.upalapp.com/";
 
         var service = {
             getHost: function() {
@@ -261,4 +143,21 @@ angular.module('IonicClub.services', [])
             }
         };
         return service;
-    });
+    })
+    // 信息提示弹出框
+    .service('MsgBox', ['$timeout', function($timeout) {
+        var service = {
+            showTexts: function(texts, removetime) {
+                var times = removetime || 1000;
+                angular.element(document.body).append('<div id="msgbox" ><span>' + texts + '</span></div>');
+                // console.log(angular.element(document.querySelector('#msgbox')));
+                $timeout(function() {
+                    angular.element(document.querySelector('#msgbox')).addClass('msgboxani');
+                    $timeout(function() {
+                        angular.element(document.querySelector('#msgbox')).remove();
+                    }, 1000);
+                }, times); //文字显示时间
+            }
+        };
+        return service;
+    }]);
