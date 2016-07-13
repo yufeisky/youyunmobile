@@ -12,41 +12,47 @@
         <!-- <button ng-click="loginOut()">退出</button> -->
         <!-- <ion-refresher on-refresh="doRefresh()"></ion-refresher> -->
         <!-- <div ng-if="logined"> -->
-            <ion-slide-box show-pager="false" active-slide="myActiveSlide" on-slide-changed="loadMore($index,'del')">
-                <ion-slide>
-                    <div class="list" ng-show="isActiveTab(0)">
-                        <a class="item item-thumbnail-left" href="#" ng-repeat="story in storys">
-                            <img lazy-src="{{story.logo}}">
-                            <h2>{{story.title}}</h2>
-                            <p>{{story.description}}</p>
-                        </a>
-                    </div>
-                    <!-- 下面的空元素是为了解决滑动时候为空的时候 滑动会出错 -->
-                    <h2></h2>
-                </ion-slide>
-                <ion-slide>
-                    <div class="list" ng-show="isActiveTab(1)">
-                        <a class="item item-thumbnail-left" href="#" ng-repeat="offLineStory in offLineStorys">
-                            <img lazy-src="{{offLineStory.logo}}">
-                            <h2>{{offLineStory.title}}</h2>
-                            <p>{{offLineStory.description}}</p>
-                        </a>
-                    </div>
-                    <h2></h2>
-                </ion-slide>
-                <ion-slide>
-                    <div class="box pink">
-                        <h1>收藏页面</h1></div>
-                    <h2></h2>
-                </ion-slide>
-                <ion-slide>
-                    <div class="box pink">
-                        <h1>我的动态</h1></div>
-                    <h2></h2>
-                </ion-slide>
-            </ion-slide-box>
-            <!-- <div ng-if="!more">无更多数据</div> -->
-            <ion-infinite-scroll ng-if="more" on-infinite="loadMore(myActiveSlide)" distance="10%"></ion-infinite-scroll>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh(myActiveSlide)"></ion-refresher>
+        <ion-slide-box show-pager="false" active-slide="myActiveSlide" on-slide-changed="loadMore($index,'del')">
+            <ion-slide>
+                <div class="list" ng-show="isActiveTab(0)">
+                    <a class="item item-thumbnail-left" href="#" ng-repeat="story in storys">
+                        <img lazy-src="{{story.logo}}">
+                        <h2>{{story.title}}</h2>
+                        <p>{{story.description}}</p>
+                    </a>
+                </div>
+                <!-- 下面的空元素是为了解决滑动时候为空的时候 滑动会出错 -->
+                <h2></h2>
+            </ion-slide>
+            <ion-slide>
+                <div class="list" ng-show="isActiveTab(1)">
+                    <a class="item item-thumbnail-left" href="#" ng-repeat="offLineStory in offLineStorys">
+                        <img lazy-src="{{offLineStory.logo}}">
+                        <h2>{{offLineStory.title}}</h2>
+                        <p>{{offLineStory.description}}</p>
+                    </a>
+                </div>
+                <h2></h2>
+            </ion-slide>
+            <ion-slide>
+                <div class="list" ng-show="isActiveTab(2)">
+                    <a class="item item-thumbnail-left" href="#" ng-repeat="collectStory in collectStorys">
+                        <img lazy-src="{{collectStory.logo}}">
+                        <h2>{{collectStory.title}}</h2>
+                        <p>{{collectStory.description}}</p>
+                    </a>
+                </div>
+                <h2></h2>
+            </ion-slide>
+            <ion-slide>
+                <div class="box pink">
+                    <h1>我的动态</h1></div>
+                <h2></h2>
+            </ion-slide>
+        </ion-slide-box>
+        <!-- <div ng-if="!more">无更多数据</div> -->
+        <ion-infinite-scroll ng-if="more" on-infinite="loadMore(myActiveSlide)" distance="10%"></ion-infinite-scroll>
         <!-- </div> -->
         <!-- <div ng-if="!logined">
             <button ng-click="openLoginModal()">登录</button>

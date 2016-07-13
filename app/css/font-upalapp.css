@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'font-upalapp';
-    src:    url('../fonts/font-upalapp.eot?pcpqnq');
-    src:    url('../fonts/font-upalapp.eot?pcpqnq#iefix') format('embedded-opentype'),
-        url('../fonts/font-upalapp.ttf?pcpqnq') format('truetype'),
-        url('../fonts/font-upalapp.woff?pcpqnq') format('woff'),
-        url('../fonts/font-upalapp.svg?pcpqnq#font-upalapp') format('svg');
+    src:    url('../fonts/font-upalapp.eot');
+    src:    url('../fonts/font-upalapp.eot#iefix') format('embedded-opentype'),
+    url('../fonts/font-upalapp.ttf') format('truetype'),
+    url('../fonts/font-upalapp.woff') format('woff'),
+    url('../fonts/font-upalapp.svg#font-upalapp') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -24,22 +24,43 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-upalapp-focus:before {
+.icon-upalapp-back .path1:before {
     content: "\e900";
+    color: rgb(39, 37, 54);
 }
-.icon-upalapp-home:before {
+.icon-upalapp-back .path2:before {
     content: "\e901";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
 }
-.icon-upalapp-make:before {
+.icon-upalapp-collect:before {
     content: "\e902";
 }
-.icon-upalapp-more:before {
+.icon-upalapp-focus:before {
     content: "\e903";
 }
-.icon-upalapp-my:before {
+.icon-upalapp-home:before {
     content: "\e904";
 }
-.icon-upalapp-zoo:before {
+.icon-upalapp-make:before {
     content: "\e905";
+}
+.icon-upalapp-more:before {
+    content: "\e906";
+}
+.icon-upalapp-more-show:before {
+    content: "\e907";
+}
+.icon-upalapp-my:before {
+    content: "\e908";
+}
+.icon-upalapp-share:before {
+    content: "\e909";
+}
+.icon-upalapp-show:before {
+    content: "\e90a";
+}
+.icon-upalapp-zoo:before {
+    content: "\e90b";
 }
 

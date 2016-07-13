@@ -1,5 +1,8 @@
-<ion-view view-title="首页详情">
-    <ion-content  scroll="true" overflow-scroll="true">
-       <iframe class="pubIframe" ng-src="{{pubUrl}}" ng-click="storyShare()"></iframe>
+<ion-view view-title="首页详情" hide-nav-bar="true" class="homeDetail">
+    <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
+        <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
+    <ion-content scroll="true" overflow-scroll="true">
+        <iframe class="pubIframe" ng-src="{{pubUrl}}"></iframe>
     </ion-content>
+    <button ng-click="openPopover()" class="button appShareBtn"><i class="icon icon-upalapp-more-show"></i></button>
 </ion-view>

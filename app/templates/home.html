@@ -18,11 +18,11 @@
     <ion-content scroll="true" lazy-scroll class="userPageCon">
         <!-- <h2>个人中心</h2> -->
         <!-- <button ng-click="loginOut()">退出</button> -->
-        <!-- <ion-refresher on-refresh="doRefresh()"></ion-refresher> -->
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh(myActiveSlide)"></ion-refresher>
         <ion-slide-box show-pager="false" active-slide="myActiveSlide" on-slide-changed="loadMore($index,'del')">
             <ion-slide>
                 <div class="list list-index" ng-show="isActiveTab(0)">
-                    <a class="item item-index" ui-sref="tab.homeDetail({ pubUrl: '{{story.pub_url}}'})"  nav-transition="ios"  ng-repeat="story in storys[0]">
+                    <a class="item item-index" ui-sref="tab.homeDetail({ storyObject: '{{story}}'})"  nav-transition="ios"  ng-repeat="story in storys[0]">
                         <img class="img-index" style="height:{{img_w}}" lazy-src="{{story.img_src}}">
                         <h2 class="text-index">{{story.story_title}}</h2>
                         <p class="text-index">{{story.second_title}}</p>
@@ -33,7 +33,7 @@
             </ion-slide>
             <ion-slide>
                 <div class="list list-index" ng-show="isActiveTab(1)">
-                    <a class="item item-index" ui-sref="tab.homeDetail({ pubUrl: '{{story.pub_url}}'})" ng-repeat="story in storys[1]">
+                    <a class="item item-index" ui-sref="tab.homeDetail({ storyObject: '{{story}}'})" nav-transition="ios" ng-repeat="story in storys[1]">
                         <img class="img-index" style="height:{{img_w}}" lazy-src="{{story.img_src}}">
                         <h2 class="text-index">{{story.story_title}}</h2>
                         <p class="text-index">{{story.second_title}}</p>
@@ -43,7 +43,7 @@
             </ion-slide>
             <ion-slide>
                 <div class="list list-index" ng-show="isActiveTab(2)">
-                    <a class="item item-index" ui-sref="tab.homeDetail({ pubUrl: '{{story.pub_url}}'})" ng-repeat="story in storys[2]">
+                    <a class="item item-index" ui-sref="tab.homeDetail({ storyObject: '{{story}}'})" nav-transition="ios" ng-repeat="story in storys[2]">
                         <img class="img-index" style="height:{{img_w}}" lazy-src="{{story.img_src}}">
                         <h2 class="text-index">{{story.story_title}}</h2>
                         <p class="text-index">{{story.second_title}}</p>
@@ -53,7 +53,7 @@
             </ion-slide>
             <ion-slide>
                <div class="list list-index" ng-show="isActiveTab(3)">
-                    <a class="item item-index" ui-sref="tab.homeDetail({ pubUrl: '{{story.pub_url}}'})" ng-repeat="story in storys[3]">
+                    <a class="item item-index" ui-sref="tab.homeDetail({ storyObject: '{{story}}'})" nav-transition="ios" ng-repeat="story in storys[3]">
                         <img class="img-index" style="height:{{img_w}}" lazy-src="{{story.img_src}}">
                         <h2 class="text-index">{{story.story_title}}</h2>
                         <p class="text-index">{{story.second_title}}</p>

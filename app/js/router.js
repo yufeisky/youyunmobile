@@ -21,10 +21,26 @@ angular.module('IonicClub.router', [])
                         controller: 'homeCtrl'
                     }
                 },
+                // 检测要是没有登陆  跳回到登录页
+                resolve: {
+                    validater: ['$rootScope', 'WechatApi', function($rootScope, WechatApi) {
+                        console.log('重置微信分享');
+                        //重置微信分享
+                        $rootScope.upal_share = {
+                            title: '悠云轻故事', // 分享标题
+                            desc: '我们期待你的加入', // 分享描述
+                            share_link: 'http://www.upalapp.com/app/2016070401/index.html', // 分享链接
+                            imgUrl: 'http://www.upalapp.com/app/2016070401/img/p01.png', // 分享图标
+                            currentUrl: location.href //当前页面的网址，签名的时候要用
+                        };
+                        WechatApi.f_wxReady();
+                    }]
+                }
                 // cache:false,
             })
             .state('tab.homeDetail', {
-                url: '/homeDetail:pubUrl',
+                // url: '/homeDetail:pubUrl:imgSrc:storyId:storyTitle:secondTitle:shareCount:browseCount:collectCount',
+                url: '/homeDetail:storyObject',
                 views: {
                     'home': {
                         templateUrl: 'templates/homeDetail.html',
@@ -62,47 +78,47 @@ angular.module('IonicClub.router', [])
                 //     }]
                 // }
             });
-            // .state('tab.user.userstory', {
-            //     url: '/userstory',
-            //     views: {
-            //         'userstory': {
-            //             templateUrl: 'templates/userstory.html',
-            //             controller: 'userstoryCtrl'
-            //         }
-            //     },
-            //     // 检测要是没有登陆  跳回到登录页
-            //     resolve: {
-            //         validater: ['$location', 'localStorageService', function($location, localStorageService) {
-            //             var loginInfo = localStorageService.get('User');
-            //             // var loginInfo = '';
-            //             if (!loginInfo) {
-            //                 $location.path('/login');
-            //             }
-            //         }]
-            //     }
-            // })
-            // .state('login', {
-            //     url: '/login',
-            //     templateUrl: "templates/login.html",
-            //     controller: 'loginCtrl',
-            //     cache:false,
-            //     resolve: {
-            //         validater: ['$location', 'localStorageService', function($location, localStorageService) {
-            //             var loginInfo = localStorageService.get('User');
-            //             if (loginInfo) {
-            //                 // $location.path('/tab/user');
-            //                 $ionicHistory.goBack();
-            //             }
-            //         }]
-            //     }
-            //     // views: {
-            //     //     'user': {
-            //     //         templateUrl: 'templates/login.html',
-            //     //         controller: 'loginCtrl'
-            //     //     }
-            //     // },
+        // .state('tab.user.userstory', {
+        //     url: '/userstory',
+        //     views: {
+        //         'userstory': {
+        //             templateUrl: 'templates/userstory.html',
+        //             controller: 'userstoryCtrl'
+        //         }
+        //     },
+        //     // 检测要是没有登陆  跳回到登录页
+        //     resolve: {
+        //         validater: ['$location', 'localStorageService', function($location, localStorageService) {
+        //             var loginInfo = localStorageService.get('User');
+        //             // var loginInfo = '';
+        //             if (!loginInfo) {
+        //                 $location.path('/login');
+        //             }
+        //         }]
+        //     }
+        // })
+        // .state('login', {
+        //     url: '/login',
+        //     templateUrl: "templates/login.html",
+        //     controller: 'loginCtrl',
+        //     cache:false,
+        //     resolve: {
+        //         validater: ['$location', 'localStorageService', function($location, localStorageService) {
+        //             var loginInfo = localStorageService.get('User');
+        //             if (loginInfo) {
+        //                 // $location.path('/tab/user');
+        //                 $ionicHistory.goBack();
+        //             }
+        //         }]
+        //     }
+        //     // views: {
+        //     //     'user': {
+        //     //         templateUrl: 'templates/login.html',
+        //     //         controller: 'loginCtrl'
+        //     //     }
+        //     // },
 
-            // });
+        // });
 
         $urlRouterProvider.otherwise('tab/home');
     }]);
