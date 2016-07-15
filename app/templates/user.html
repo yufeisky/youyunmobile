@@ -46,8 +46,19 @@
                 <h2></h2>
             </ion-slide>
             <ion-slide>
-                <div class="box pink">
-                    <h1>我的动态</h1></div>
+                <!-- <div class="box pink">
+                    <p style="text-align:center;width:100%;line-height:40px;">此页面尚在开发中,敬请期待...</p>
+                    <br/>
+                    <br/>
+                    <br/>
+                    </div> -->
+                 <div class="list" ng-show="isActiveTab(3)">
+                    <a class="item item-thumbnail-left" href="#" ng-repeat="collectStory in collectStorys">
+                        <img lazy-src="{{collectStory.logo}}">
+                        <h2>{{collectStory.title}}</h2>
+                        <p>{{collectStory.description}}</p>
+                    </a>
+                </div>
                 <h2></h2>
             </ion-slide>
         </ion-slide-box>

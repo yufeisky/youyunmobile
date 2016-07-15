@@ -4,7 +4,7 @@
 angular.module('IonicClub.controllers', [])
     // 已上线未上线 收藏
     // 个人中心
-    .controller('userCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$ionicLoading', '$ionicPopup', '$ionicHistory', '$ionicModal', '$timeout', 'localStorageService', 'IonicService', 'TabService','Con', function($scope, $rootScope, $stateParams, $state, $ionicLoading, $ionicPopup, $ionicHistory, $ionicModal, $timeout, localStorageService, IonicService, TabService,Con) {
+    .controller('userCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$ionicLoading', '$ionicPopup', '$ionicHistory', '$ionicModal', '$timeout', 'localStorageService', 'IonicService', 'TabService', 'Con', function($scope, $rootScope, $stateParams, $state, $ionicLoading, $ionicPopup, $ionicHistory, $ionicModal, $timeout, localStorageService, IonicService, TabService, Con) {
         Con.log('个人中心控制器已加载');
         // 重置左上角的按钮
         // $rootScope.menuShow = true;
@@ -85,7 +85,7 @@ angular.module('IonicClub.controllers', [])
             }, {
                 title: '我的动态',
                 order: 3,
-                storyStatus: '4',
+                storyStatus: '3',//本应该填4,不过暂时没有这项数据，所以暂时写3，用收藏那块的数据
                 pageNum: 0
             }];
 
@@ -169,7 +169,25 @@ angular.module('IonicClub.controllers', [])
                             break;
                             // break;
                         case '4':
-                            Con.log('我的动态');
+                            IonicService.getCollectStorys(postParams).then(function(data) {
+                                Con.log(data);
+                                if (data.messageType == '2') {
+                                    $rootScope.loginOut();
+                                }
+                                if (angular.equals(data.storys, [])) {
+                                    $scope.more = false;
+                                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                                }
+                                if (data.storys) {
+                                    if (postParams.pageNum == 1) {
+                                        $scope.collectStorys = data.storys;
+                                    }
+                                    $scope.$broadcast('scroll.refreshComplete');
+                                }
+                            }).finally(function() {
+                                Con.log('完成');
+                                $scope.$broadcast('scroll.refreshComplete');
+                            });
                             break;
                     }
                 } catch (ex) {
@@ -276,7 +294,7 @@ angular.module('IonicClub.controllers', [])
         }
     }])
     // 首页详情
-    .controller('homeDetailCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicPopover', '$ionicPopup', 'localStorageService', 'ShareService', 'IonicService', 'MsgBox', 'WechatApi','Con', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicPopover, $ionicPopup, localStorageService, ShareService, IonicService, MsgBox, WechatApi,Con) {
+    .controller('homeDetailCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicPopover', '$ionicPopup', 'localStorageService', 'ShareService', 'IonicService', 'MsgBox', 'WechatApi', 'Con', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicPopover, $ionicPopup, localStorageService, ShareService, IonicService, MsgBox, WechatApi, Con) {
         // $rootScope.menuShow = true;
         // $rootScope.backShow = true;
         // Con.log($stateParams);
@@ -393,7 +411,7 @@ angular.module('IonicClub.controllers', [])
 
     }])
     // 首页
-    .controller('homeCtrl', ['$scope', '$rootScope', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', 'localStorageService', 'ShareService', 'IonicService','Con', function($scope, $rootScope, $stateParams, $ionicLoading, $ionicScrollDelegate, localStorageService, ShareService, IonicService,Con) {
+    .controller('homeCtrl', ['$scope', '$rootScope', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', 'localStorageService', 'ShareService', 'IonicService', 'Con', function($scope, $rootScope, $stateParams, $ionicLoading, $ionicScrollDelegate, localStorageService, ShareService, IonicService, Con) {
         // 重置左上角的按钮
         // $rootScope.menuShow = true;
         // $rootScope.backShow = false;
@@ -407,7 +425,7 @@ angular.module('IonicClub.controllers', [])
         $scope.navs = [{
             title: '推荐',
             order: 0,
-            storyStatus: '4',
+            storyStatus: '3',//4暂时没数据 所以写3
             pageNum: 0
         }, {
             title: '品牌故事',
@@ -559,7 +577,7 @@ angular.module('IonicClub.controllers', [])
 
     }])
     // 关注
-    .controller('starCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$timeout', 'localStorageService', 'ShareService', 'IonicService','Con', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $timeout, localStorageService, ShareService, IonicService,Con) {
+    .controller('starCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$timeout', 'localStorageService', 'ShareService', 'IonicService', 'Con', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $timeout, localStorageService, ShareService, IonicService, Con) {
         // 重置左上角的按钮
         // $rootScope.menuShow = true;
         // $rootScope.backShow = false;
@@ -576,7 +594,7 @@ angular.module('IonicClub.controllers', [])
 
     }])
     //登录
-    .controller('loginCtrl', ['$scope', '$rootScope', '$ionicPopup', '$ionicHistory', '$state', '$cordovaBarcodeScanner', '$ionicSlideBoxDelegate', '$interval', '$ionicModal', 'localStorageService', 'AppVersionService', 'IonicService', 'MsgBox','Con', function($scope, $rootScope, $ionicPopup, $ionicHistory, $state, $cordovaBarcodeScanner, $ionicSlideBoxDelegate, $interval, $ionicModal, localStorageService, AppVersionService, IonicService, MsgBox,Con) {
+    .controller('loginCtrl', ['$scope', '$rootScope', '$ionicPopup', '$ionicHistory', '$state', '$cordovaBarcodeScanner', '$ionicSlideBoxDelegate', '$interval', '$timeout', '$ionicModal', 'localStorageService', 'AppVersionService', 'IonicService', 'MsgBox', 'Con', function($scope, $rootScope, $ionicPopup, $ionicHistory, $state, $cordovaBarcodeScanner, $ionicSlideBoxDelegate, $interval, $timeout, $ionicModal, localStorageService, AppVersionService, IonicService, MsgBox, Con) {
         /*        AppVersionService.getVersionNumber().then(function (data) {
          $scope.appVersion = data;
          });*/
@@ -598,30 +616,41 @@ angular.module('IonicClub.controllers', [])
         //     // $location.path('/tab/user');
         //     $ionicHistory.goBack();
         // }
-
+        // $scope.quickUser['phoneNumber']='18026142152'
+        // $scope.quickUser={
+        //     phoneNumber:18102512553,
+        //     validateCode:111111
+        // }
+        // $timeout(function() {
+        //         Con.log($scope.quickUser)
+        //     }, 6000)
         //测试账号1快速登陆
+        $scope.quickUser = {
+            phoneNumber: '',
+            validateCode: ''
+        };
         $scope.testLogin = function() {
-                IonicService.postLogin({ account: '15917436116', password: '123456' }).then(function(data) {
-                    Con.log(data.status);
-                    switch (data.status) {
-                        case '0':
-                            MsgBox.showTexts('账号或密码错误');
-                            break;
-                        case '1':
-                            User = data.userInfo;
-                            localStorageService.set('User', JSON.stringify(User));
-                            $rootScope.closeLoginModal();
-                            // var currentId = $ionicHistory.viewHistory().currentView.stateId;
-                            $rootScope.changePage($rootScope.changeState, true);
+            IonicService.postLogin({ account: '15917436116', password: '123456' }).then(function(data) {
+                Con.log(data.status);
+                switch (data.status) {
+                    case '0':
+                        MsgBox.showTexts('账号或密码错误');
+                        break;
+                    case '1':
+                        User = data.userInfo;
+                        localStorageService.set('User', JSON.stringify(User));
+                        $rootScope.closeLoginModal();
+                        // var currentId = $ionicHistory.viewHistory().currentView.stateId;
+                        $rootScope.changePage($rootScope.changeState, true);
 
-                            // $state.go(currentId,{reload:true});
-                    }
-                    // Con.log(data)
-                    var test = localStorageService.get('User');
-                    Con.log(test);
-                });
-            };
-            //测试账号2快速登陆
+                        // $state.go(currentId,{reload:true});
+                }
+                // Con.log(data)
+                var test = localStorageService.get('User');
+                Con.log(test);
+            });
+        };
+        //测试账号2快速登陆
         $scope.test2Login = function() {
             IonicService.postLogin({ account: '377210718@qq.com', password: 'yf123456' }).then(function(data) {
                 Con.log(data.status);
@@ -704,7 +733,7 @@ angular.module('IonicClub.controllers', [])
             var timer = $interval(function() {
                 if (alltime > 0) {
                     alltime--;
-                    $scope.verTxt = alltime + 'S';
+                    $scope.verTxt = alltime + 's';
                 } else {
                     $scope.isDisabled = false;
                     $scope.verTxt = '获取验证码';
@@ -723,6 +752,7 @@ angular.module('IonicClub.controllers', [])
             });
         };
         //快速登录
+
         $scope.quickLogin = function(quickuser) {
             if (typeof(quickuser) == 'undefined' || !quickuser.phoneNumber) {
                 MsgBox.showTexts('请输入手机号码');
@@ -737,6 +767,16 @@ angular.module('IonicClub.controllers', [])
                 switch (data.status) {
                     case '0':
                         MsgBox.showTexts('账号或密码错误');
+                        // Con.log($scope.quickUser)
+                        $timeout(function() {
+                            $scope.quickUser = {
+                                phoneNumber: quickuser.phoneNumber,
+                                validateCode: ''
+                            };
+                            jQuery('.phoneCode').focus();
+                            jQuery('.phoneCode').val('');
+                            Con.log($scope.quickUser);
+                        }, 1500);
                         break;
                     case '1':
                         User = data.userInfo;
@@ -776,9 +816,10 @@ angular.module('IonicClub.controllers', [])
                     break;
             }
         };
+        $ionicSlideBoxDelegate.enableSlide(false);
     }])
 
-.controller('IndexCtrl', ['$scope', '$rootScope', 'localStorageService', '$state', '$ionicModal', '$ionicSlideBoxDelegate', '$timeout', 'IonicService', 'TabService','Con', function($scope, $rootScope, localStorageService, $state, $ionicModal, $ionicSlideBoxDelegate, $timeout, IonicService, TabService,Con) {
+.controller('IndexCtrl', ['$scope', '$rootScope', 'localStorageService', '$state', '$ionicModal', '$ionicSlideBoxDelegate', '$timeout', 'IonicService', 'TabService', 'Con', function($scope, $rootScope, localStorageService, $state, $ionicModal, $ionicSlideBoxDelegate, $timeout, IonicService, TabService, Con) {
     $scope.badges = {
         message: 0
     };
@@ -804,7 +845,7 @@ angular.module('IonicClub.controllers', [])
 
 }])
 
-.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageService', '$state', '$ionicModal', '$ionicSlideBoxDelegate', '$timeout', 'IonicService', 'TabService', 'WechatApi','Con', function($scope, $rootScope, localStorageService, $state, $ionicModal, $ionicSlideBoxDelegate, $timeout, IonicService, TabService, WechatApi,Con) {
+.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageService', '$state', '$ionicModal', '$ionicSlideBoxDelegate', '$timeout', 'IonicService', 'TabService', 'WechatApi', 'Con', function($scope, $rootScope, localStorageService, $state, $ionicModal, $ionicSlideBoxDelegate, $timeout, IonicService, TabService, WechatApi, Con) {
     $rootScope.$on('$ionicView.beforeEnter', function() {
         var statename = $state.current.name;
         // Con.log('-------statename----');

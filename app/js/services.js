@@ -206,8 +206,8 @@ angular.module('IonicClub.services', [])
     // 微信授权
     .service('WechatApi', ['$rootScope', '$http', function($rootScope, $http) {
         $rootScope.upal_share = {
-            title: '悠云轻故事', // 分享标题
-            desc: '我们期待你的加入', // 分享描述
+            title: '轻故事H5平台', // 分享标题
+            desc: ' 讲好故事，做好推广', // 分享描述
             share_link: 'http://www.upalapp.com/app/2016070401/index.html', // 分享链接
             imgUrl: 'http://www.upalapp.com/app/2016070401/img/p01.png', // 分享图标
             currentUrl: location.href //当前页面的网址，签名的时候要用
