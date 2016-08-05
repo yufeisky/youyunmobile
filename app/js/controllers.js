@@ -85,7 +85,7 @@ angular.module('IonicClub.controllers', [])
             }, {
                 title: '我的动态',
                 order: 3,
-                storyStatus: '3',//本应该填4,不过暂时没有这项数据，所以暂时写3，用收藏那块的数据
+                storyStatus: '3', //本应该填4,不过暂时没有这项数据，所以暂时写3，用收藏那块的数据
                 pageNum: 0
             }];
 
@@ -107,6 +107,7 @@ angular.module('IonicClub.controllers', [])
                     switch (postParams.storyStatus) {
                         case '1':
                             IonicService.getStorys(postParams).then(function(data) {
+                                console.log(data.storys)
                                 if (data.messageType == '2') {
                                     $rootScope.loginOut();
                                 }
@@ -382,7 +383,24 @@ angular.module('IonicClub.controllers', [])
             jQuery(function() {
                 jQuery('.popup-container').addClass('sharePopupContainer');
             });
+
         };
+        $rootScope.shareStory = function() {
+            IonicService.postShareStory({
+                objectId: $scope.urlParams.story_id
+            }).then(function(data) {
+                Con.log(data);
+                // Con.log(data.storys[0].collection_count);
+                switch (data.messageType) {
+                    case '1':
+                        // MsgBox.showTexts('收藏成功');
+                        $scope.urlParams.share_count = data.storys[0].share_count;
+                        break;
+                }
+
+            });
+        };
+
 
         // 分享收藏模块
         $ionicPopover.fromTemplateUrl('templates/Area/appShare.html', {
@@ -411,7 +429,7 @@ angular.module('IonicClub.controllers', [])
 
     }])
     // 首页
-    .controller('homeCtrl', ['$scope', '$rootScope', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', 'localStorageService', 'ShareService', 'IonicService', 'Con', function($scope, $rootScope, $stateParams, $ionicLoading, $ionicScrollDelegate, localStorageService, ShareService, IonicService, Con) {
+    .controller('homeCtrl', ['$scope', '$rootScope', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', 'localStorageService', 'ShareService', 'IonicService', 'Con', function($scope, $rootScope, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicSlideBoxDelegate, localStorageService, ShareService, IonicService, Con) {
         // 重置左上角的按钮
         // $rootScope.menuShow = true;
         // $rootScope.backShow = false;
@@ -425,7 +443,7 @@ angular.module('IonicClub.controllers', [])
         $scope.navs = [{
             title: '推荐',
             order: 0,
-            storyStatus: '3',//4暂时没数据 所以写3
+            storyStatus: '3', //4暂时没数据 所以写3
             pageNum: 0
         }, {
             title: '品牌故事',
@@ -574,7 +592,7 @@ angular.module('IonicClub.controllers', [])
         };
         // 当前选中：
         $scope.myActiveSlide = '0';
-
+        // $ionicSlideBoxDelegate.enableSlide(false);
     }])
     // 关注
     .controller('starCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$timeout', 'localStorageService', 'ShareService', 'IonicService', 'Con', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $timeout, localStorageService, ShareService, IonicService, Con) {
@@ -591,6 +609,182 @@ angular.module('IonicClub.controllers', [])
                 $rootScope.changePage('tab.star');
             }, 100);
         }
+
+        // IonicService.postStoryData({"storyId":21505,"webPrefix":"-webkit-"}).then(function(data) {
+        //     Con.log(data);
+
+        // });
+
+
+    }])
+    // 设计器
+    .controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$ionicSlideBoxDelegate', '$timeout', 'localStorageService', 'ShareService', 'IonicService', 'Con', 'SectionEvent', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $ionicSlideBoxDelegate, $timeout, localStorageService, ShareService, IonicService, Con, SectionEvent) {
+        Con.log($stateParams.storyId)
+        var storyId = $stateParams.storyId;
+        $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(false);
+        IonicService.postStoryData({ "storyId": storyId }).then(function(data) {
+            console.log(data);
+            if (data.message == "Success") {
+                $scope.pages = data.pages;
+
+                $timeout(function() {
+                    $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
+                    var win_w = angular.element(window)[0].innerWidth;
+                    console.log(win_w)
+                    var ionSlideH = jQuery('.storySlideBox .slider-slide')[0].clientHeight;
+                    Con.log(ionSlideH)
+                    var storyBoxW = win_w * 0.9;
+                    var storyBoxH = ionSlideH * 0.9;
+                    var storyBoxLeft = (win_w - 320) / 2;
+                    var storyBoxTop = (ionSlideH - 504) / 2;
+                    var storyBoxSectionScaleX = storyBoxW / 320;
+                    var storyBoxSectionScaleY = storyBoxH / 504;
+                    var scale = storyBoxSectionScaleX > storyBoxSectionScaleY ? storyBoxSectionScaleY : storyBoxSectionScaleX;
+                    Con.log('scale' + scale)
+                    Con.log(storyBoxSectionScaleX)
+                    Con.log(storyBoxSectionScaleY)
+                    jQuery('.storyPage').css({
+                        transform: 'scale(' + scale + ')',
+                        left: storyBoxLeft,
+                        top: storyBoxTop
+                    });
+                    SectionEvent.cli();
+                }, 50);
+
+            }
+        });
+
+        // 切换按钮
+        $scope.visible = false;
+        $scope.toggle = function() {
+                $scope.visible = !$scope.visible;
+            }
+            // 删除元素
+        $scope.delElement = function() {
+                jQuery('.mobileEvent').remove();
+                jQuery('.editBox').hide();
+            }
+            //上一层
+        $scope.upElement = function() {
+                var oldZIndex1 = parseInt(jQuery('.mobileEvent').css('zIndex')) || 0;
+                var newZIndex1 = oldZIndex1 + 1;
+                // console.log(oldZIndex.css('zIndex'));
+                jQuery('.mobileEvent').css({
+                    zIndex: newZIndex1
+                });
+            }
+            // 下一层
+        $scope.downElement = function() {
+                var oldZIndex2 = jQuery('.mobileEvent').css('zIndex');
+                var newZIndex2 = (oldZIndex2 - 1) > 0 ? (oldZIndex2 - 1) : 0;
+                // console.log(oldZIndex.css('zIndex'));
+                jQuery('.mobileEvent').css({
+                    zIndex: newZIndex2
+                });
+            }
+            // 复制元素
+        $scope.copyElement = function() {
+            var cloneElem = jQuery('.mobileEvent').clone();
+            cloneElem.css({
+                border: ''
+            }).removeClass('mobileEvent');
+            cloneElem.find('.leftright,.topbottom,.rightbottom,.righttop').remove();
+            cloneElem.prependTo(jQuery('.mobileEvent').parents('output'))
+        }
+
+        // 模态框登陆
+        $ionicModal.fromTemplateUrl('templates/textedit.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.textEditmodal = modal;
+        });
+        $scope.model = { text: 123 };
+        $rootScope.openTextEditModal = function() {
+            $scope.textEditmodal.show();
+            var oldText = jQuery('.mobileEvent').find('.txt-con').text();
+            $scope.model = { text: oldText };
+            jQuery('.editTextArea').focus();
+        };
+        $rootScope.closeTextEditModal = function(type) {
+            $scope.textEditmodal.hide();
+        };
+        $scope.changeText = function(text) {
+            jQuery('.mobileEvent').find('.txt-con').text(text);
+            $scope.textEditmodal.hide();
+        }
+    }])
+    // 模板展示页面
+    .controller('designCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$ionicSlideBoxDelegate', '$timeout', 'localStorageService', 'ShareService', 'IonicService', 'Con', 'SectionEvent', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $ionicSlideBoxDelegate, $timeout, localStorageService, ShareService, IonicService, Con, SectionEvent) {
+        // 重置左上角的按钮
+        // $rootScope.menuShow = true;
+        // $rootScope.backShow = false;
+        // 模态框登陆
+        // $timeout(function() {
+        //     var win_w = angular.element(window)[0].innerWidth;
+        //     console.log(win_w)
+        //     var ionSlideH =  jQuery('.storySlideBox .slider-slide')[0].clientHeight;
+        //     Con.log(ionSlideH)
+        //     var storyBoxW = win_w * 0.9;
+        //     var storyBoxH = ionSlideH*0.9;
+        //     var storyBoxLeft = (win_w - 320) / 2;
+        //     var storyBoxTop = (ionSlideH-504)/2;
+        //     var storyBoxSectionScaleX = storyBoxW / 320;
+        //     var storyBoxSectionScaleY = storyBoxH / 504;
+        //     var scale=storyBoxSectionScaleX>storyBoxSectionScaleY ? storyBoxSectionScaleY:storyBoxSectionScaleX;
+        //     Con.log('scale'+scale)
+        //     Con.log(storyBoxSectionScaleX)
+        //     Con.log(storyBoxSectionScaleY)
+        //     jQuery('.storyPage').css({
+        //         transform: 'scale(' + scale + ')',
+        //         left: storyBoxLeft,
+        //         top: storyBoxTop
+        //     });
+        //     SectionEvent.cli();
+        // })
+
+        var User = JSON.parse(localStorageService.get('User'));
+        Con.log(User);
+        if (User) {
+
+        } else {
+            $timeout(function() {
+                $rootScope.changePage('tab.design');
+                // $ionicSlideBoxDelegate.enableSlide(true);
+            }, 100);
+        }
+        $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(false);
+        IonicService.postStoryData({ "storyId": 21510 }).then(function(data) {
+            console.log(data);
+            if (data.message == "Success") {
+                $scope.pages = data.pages;
+
+                $timeout(function() {
+                    $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
+                    var win_w = angular.element(window)[0].innerWidth;
+                    console.log(win_w)
+                    var ionSlideH = jQuery('.storySlideBox .slider-slide')[0].clientHeight;
+                    Con.log(ionSlideH)
+                    var storyBoxW = win_w * 0.9;
+                    var storyBoxH = ionSlideH * 0.9;
+                    var storyBoxLeft = (win_w - 320) / 2;
+                    var storyBoxTop = (ionSlideH - 504) / 2;
+                    var storyBoxSectionScaleX = storyBoxW / 320;
+                    var storyBoxSectionScaleY = storyBoxH / 504;
+                    var scale = storyBoxSectionScaleX > storyBoxSectionScaleY ? storyBoxSectionScaleY : storyBoxSectionScaleX;
+                    Con.log('scale' + scale)
+                    Con.log(storyBoxSectionScaleX)
+                    Con.log(storyBoxSectionScaleY)
+                    jQuery('.storyPage').css({
+                        transform: 'scale(' + scale + ')',
+                        left: storyBoxLeft,
+                        top: storyBoxTop
+                    });
+                    SectionEvent.cli();
+                }, 50)
+            }
+        });
+
 
     }])
     //登录
@@ -816,7 +1010,8 @@ angular.module('IonicClub.controllers', [])
                     break;
             }
         };
-        $ionicSlideBoxDelegate.enableSlide(false);
+        $ionicSlideBoxDelegate.$getByHandle('homeListBox').enableSlide(false);
+        // $ionicSlideBoxDelegate.enableSlide(false);
     }])
 
 .controller('IndexCtrl', ['$scope', '$rootScope', 'localStorageService', '$state', '$ionicModal', '$ionicSlideBoxDelegate', '$timeout', 'IonicService', 'TabService', 'Con', function($scope, $rootScope, localStorageService, $state, $ionicModal, $ionicSlideBoxDelegate, $timeout, IonicService, TabService, Con) {
@@ -851,7 +1046,7 @@ angular.module('IonicClub.controllers', [])
         // Con.log('-------statename----');
         // Con.log(statename);
         //tabs中存在的主页面不需要隐藏，hidetabs=false
-        if (statename === 'tab.homeDetail') {
+        if (statename === 'tab.homeDetail' || statename === 'tab.edit') {
             $rootScope.hideTabs = true;
         } else {
             $rootScope.hideTabs = false;

@@ -1,0 +1,47 @@
+<ion-view view-title="故事" class="editPage">
+    <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
+        <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
+    <ion-content scroll="true" lazy-scroll class="storySlideBox ">
+        <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox">
+            <ion-slide ng-repeat="page in pages">
+                <div class="storyPage" ng-bind-html="page.content | trustHtml">
+                    <!-- {{page.content}} -->
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+        <!-- <div ng-if="!more">无更多数据</div> -->
+        <!-- </div> -->
+        <!-- <div ng-if="!logined">
+            <button ng-click="openLoginModal()">登录</button>
+        </div> -->
+        <div class="editBox">
+            <a class="btn editElementText" href="#" ng-click="openTextEditModal()">编辑</a>
+            <a class="btn" href="javascript:;" ng-click="copyElement()">复制</a>
+            <a class="btn delElement" ng-click="delElement()" href="javascript:;">删除</a>
+            <a class="btn" href="javascript:;" ng-click="upElement()">上一层</a>
+            <a class="btn" href="javascript:;" ng-click="downElement()"> 下一层</a>
+            <div class="triangle-up" >     <!--向上的三角--> </div>
+            <div class="triangle-down">    <!--向下的三角--> </div>
+        </div>
+    </ion-content>
+    <div class="footer">
+        <ul class="appEdit"  ng-class="{'appEditHide': visible}">
+            <li><i class="icon ion-star"></i>更换背景音乐</li>
+            <li><i class="icon ion-star"></i>更换背景图片</li>
+            <li><i class="icon ion-star"></i>插入图片</li>
+            <li><i class="icon ion-star"></i>插入文字</li>
+        </ul>
+        <ion-tabs class="tabs-icon-top myEditTab">
+            <ion-tab title="预览" icon="ion-eye" nav-transition="ios">
+            </ion-tab>
+            <ion-tab title="撤销" icon="ion-reply"nav-transition="ios">
+            </ion-tab>
+            <ion-tab title="模板" icon="icon-upalapp-focus"  nav-transition="ios">
+            </ion-tab>
+            <ion-tab title="页面" icon="icon-upalapp-my"  nav-transition="ios">
+            </ion-tab>
+            <ion-tab class="appEditIcon" icon="ion-navicon-round"  nav-transition="ios" ng-click="toggle()">
+            </ion-tab>
+        </ion-tabs>
+    </div>
+</ion-view>

@@ -340,118 +340,27 @@ angular.module('IonicClub.services', [])
     }])
     // 点击获得焦点
     .service('SectionEvent', ['$timeout', '$ionicSlideBoxDelegate', function($timeout, $ionicSlideBoxDelegate) {
-        var d1 = null;
-
         var service = {
             cli: function() {
-
                 jQuery(function() {
-                    var $ = jQuery;
                     // console.log(jQuery('.bf-basic'))z
-                    // 音乐的层级太高，编辑的时候先把音乐隐藏，等保存的时候再把它显示出来
-                    if ($('.music.musicCloneCode').length > 0) {
-                        $('.music.musicCloneCode').hide();
-                    }
-
-                    // 设置编辑栏的位置方法
-                    function setToolTipPoint(targetObj, toolTipObj) {
-                        toolTipObj.show();
-                        var storyPageWidth = $('.storyPage').width();
-                        // targetObj
-                        var targetLeft = targetObj[0].offsetLeft;
-                        var targetWidth = targetObj[0].offsetWidth;
-                        var toolTipWidth = toolTipObj[0].offsetWidth;
-                        var toolTipLeft = toolTipObj[0].offsetLeft;
-                        var targetCenter = targetLeft + targetWidth / 2;
-                        var rightTargetCenter = storyPageWidth - targetCenter;
-                        //  当为提示栏在左边时候，三角形的位置
-                        var leftToolPoint = (targetLeft + targetWidth) / 2;
-                        var rightToolPoint = targetLeft + targetWidth / 2 - toolTipLeft;
-
-                        if (targetCenter < storyPageWidth / 2) {
-                            console.log('在左边');
-                            toolTipObj.css({
-                                left: 0,
-                            });
-                            leftToolPoint = leftToolPoint < 20 ? 20 : leftToolPoint;
-                            $('.triangle-down,.triangle-up').css({
-                                left: leftToolPoint
-                            })
-                        } else {
-                            console.log('在右边');
-                            var toolleft = storyPageWidth - toolTipWidth;
-                            rightToolPoint = rightToolPoint > toolTipWidth ? (toolTipWidth - 30) : rightToolPoint;
-                            toolTipObj.css({
-                                left: toolleft,
-                            })
-                            $('.triangle-down,.triangle-up').css({
-                                left: rightToolPoint
-                            });
-                        }
-                        //中间可以容纳的时候放中间
-                        if ((targetCenter > toolTipWidth / 2) && (rightTargetCenter > toolTipWidth / 2)) {
-                            var middleToolLeft = targetCenter - toolTipWidth / 2;
-                            toolTipObj.css({
-                                left: middleToolLeft,
-                            });
-                            $('.triangle-down,.triangle-up').css({
-                                left: toolTipWidth / 2
-                            })
-                        }
-                        var targetTop = targetObj[0].offsetTop;
-                        var targetHeight = targetObj[0].offsetHeight;
-                        var toolTop1 = targetTop - 45;
-                        var toolTop2 = targetTop + targetHeight + 20;
-                        if (targetTop > 45) {
-                            toolTipObj.css({
-                                top: toolTop1,
-                            });
-                            $('.triangle-up').hide();
-                            $('.triangle-down').show();
-                        } else {
-                            toolTipObj.css({
-                                top: toolTop2,
-                            });
-                            $('.triangle-up').show();
-                            $('.triangle-down').hide();
-                        }
-
-                    }
-                    // 编辑元素失去焦点事件
-                    function blurFn() {
-                        //要是点击的不是可以改变的元素就把之前的选中状态清除
-                        if (d1.obj) {
-                            d1.obj = null;
-                        }
-                        //要是点击的不是可以改变的元素就把之前的选中状态清除
-                        if ($('.bf-basic').hasClass('mobileEvent')) {
-                            
-                        }
-                        $('.bf-basic').css({
-                            border: ''
-                        }).removeClass('mobileEvent');
-                        $('.leftright,.topbottom,.rightbottom,.righttop').remove();
-                        $('.editBox').hide();
-                    }
+                    var oldzIndex = null;
                     // jQuery('.bf-basic').on('click', function() {
                     jQuery('.storyPage').on('click', function(e) {
-
+                        var $ = jQuery;
                         //要是点击的是可以改变的元素，就把之前的一个元素还原，让当前元素选中
                         if ($(e.target).parents('section').length > 0) {
-                            // console.log('even');
-                            // console.log(this);
-                            // console.log($(e.target).parents('section'));
-                            // console.log(d1);
-                            if (d1) {
-                                d1.obj = null;
+                            console.log('even');
+                            console.log(this);
+                            console.log($(e.target).parents('section'))
+                            console.log('有没有')
+                            if ($('.bf-basic').hasClass('mobileEvent')) {
+                                console.log('有')
+                                console.log(oldzIndex)
+                                $('.mobileEvent').css({
+                                    zIndex: oldzIndex
+                                });
                             }
-                            // if ($('.bf-basic').hasClass('mobileEvent')) {
-                            //     console.log('有')
-                            //     console.log(oldzIndex)
-                            //     $('.mobileEvent').css({
-                            //         zIndex: oldzIndex
-                            //     });
-                            // }
                             //撤销所有元素焦点
                             $('.bf-basic').css({
                                 border: ''
@@ -461,35 +370,30 @@ angular.module('IonicClub.services', [])
                             $(e.target).parents('section').css({
                                 border: '1px solid #1490ef'
                             }).addClass('mobileEvent');
-                            // console.log(oldzIndex);
-                            // $('.mobileEvent').css({
-                            //     zIndex: 100000
-                            // })
+                            oldzIndex = $('.mobileEvent').css("zIndex");
+                            console.log(oldzIndex);
+                            $('.mobileEvent').css({
+                                zIndex: 100000
+                            })
 
-                            // $('<div class="leftright">左右</div>').appendTo($(e.target).parents('section'));
-                            // $('<div class="topbottom">上下</div>').appendTo($(e.target).parents('section'));
+                            $('<div class="leftright">左右</div>').appendTo($(e.target).parents('section'));
+                            $('<div class="topbottom">上下</div>').appendTo($(e.target).parents('section'));
                             $('<div class="rightbottom">等比例</div>').appendTo($(e.target).parents('section'));
-                            // $('<div class="righttop">X</div>').appendTo($(e.target).parents('section'));
-
-
-                            // 计算提示栏的位置
-                            // if()
-                            if($(e.target).parents('section').find('.txt-con').length==0){
-                                    $('.editElementText').hide();
-                            }else{
-                                $('.editElementText').show();
-                            }
-                            setToolTipPoint($(e.target).parents('section'), $('.editBox'));
-                            $('.editBox').appendTo($(e.target).parents('.storyPage'));
-
+                            $('<div class="righttop">X</div>').appendTo($(e.target).parents('section'));
                             service.drag();
-                            // console.log(d1)
-                        } else if ($(e.target).parent().hasClass('editBox')) {
-                            console.log('点击的是编辑框');
                         } else {
-                            // console.log($(e.target))
-                            // 执行失去焦点事件
-                            blurFn();
+                            //要是点击的不是可以改变的元素就把之前的选中状态清除
+                            if ($('.bf-basic').hasClass('mobileEvent')) {
+                                console.log('有')
+                                console.log(oldzIndex)
+                                $('.mobileEvent').css({
+                                    zIndex: oldzIndex
+                                });
+                            }
+                            $('.bf-basic').css({
+                                border: ''
+                            }).removeClass('mobileEvent');
+                            $('.leftright,.topbottom,.rightbottom,.righttop').remove();
                         }
 
 
@@ -502,123 +406,120 @@ angular.module('IonicClub.services', [])
                 console.log('拖拽开启')
                 jQuery(function() {
                     var $ = jQuery;
+                    var start_x = null;
+                    var start_y = null;
+                    var startoffSet = null;
+                    //移动
+                    var touchMove = false;
+                    //宽度变换
+                    var widthMove = false;
+                    // 高度变换
+                    var heightMove = false;
+                    // 等比例变换
+                    var equalMove = false;
+                    $('.mobileEvent')[0].addEventListener('touchstart', sectiontouchstart, false);
+                    $('.mobileEvent')[0].addEventListener('touchmove', sectiontouchmove, false);
+                    $('.mobileEvent')[0].addEventListener('touchend', sectiontouchend, false);
 
-                    function Drag() {
-                        this.obj = null;
-                        this.start_x = 0;
-                        this.start_y = null;
-                        this.sectionleft = null;
-                        this.sectiontop = null;
-                        this.sectionWidth = null;
-                        this.sectionHeight = null;
-                        //属于哪种拖拽
-                        this.touchType = null; //touchMove：移动 widthMove:宽度变换 heightMove：高度变换 equalMove：等比例变换
-                        this.settings = {
-                            toStart: function() { console.log('测试开始') },
-                            toMove: function() {},
-                            toEnd: function() {}
-                        }
-                    }
-
-                    Drag.prototype.init = function(opt) {
-                        var This = this;
-                        this.obj = $('.mobileEvent');
-                        $.extend(true, this.settings, opt);
-                        this.obj[0].addEventListener('touchstart', function(e) { This.fnStart(e) }, false);
-                        this.obj[0].addEventListener('touchmove', function(e) { This.fnMove(e) }, false);
-                        this.obj[0].addEventListener('touchend', function(e) { This.fnEnd(e) }, false);
-
-                    }
-                    Drag.prototype.fnStart = function(e) {
-                        this.settings.toStart();
+                    function sectiontouchstart(e) {
                         e.preventDefault();
-                        this.start_x = e.touches[0].pageX;
-                        this.start_y = e.touches[0].pageY;
-                        console.log(this.start_y)
-                        this.sectionleft = this.obj[0].offsetLeft;
-                        this.sectiontop = this.obj[0].offsetTop;
-                        this.sectionWidth = this.obj[0].offsetWidth;
-                        this.sectionHeight = this.obj[0].offsetHeight;
-                        $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(false);
+                        // e.stopPropagation();
+                        console.log($(e.target))
+                        start_x = e.touches[0].pageX;
+                        start_y = e.touches[0].pageY;
+                        // storyPageoffSet = $('.storyPage').offset();
+                        startoffSet = $('.mobileEvent').offset();
+                        sectionleft = $('.mobileEvent')[0].offsetLeft;
+                        sectiontop = $('.mobileEvent')[0].offsetTop;
+                        sectionWidth = $('.mobileEvent')[0].offsetWidth;
+                        sectionHeight = $('.mobileEvent')[0].offsetHeight;
+                        console.log('sectionWidth' + sectionWidth)
+                            // startoffSet = $('.mobileEvent');
+                            // console.log(storyPageoffSet)
+                        console.log($(e.target).hasClass('leftright'))
+                        console.log($(e.target).hasClass('topbottom'))
                         if ($(e.target).hasClass('leftright')) {
-                            console.log('改变宽度');
-                            this.touchType = 'widthMove';
+                            widthMove = true;
+                            heightMove = false;
+                            touchMove = false;
+                            equalMove = false;
                         } else if ($(e.target).hasClass('topbottom')) {
-                            console.log('改变高度');
-                            this.touchType = 'heightMove';
+                            widthMove = false;
+                            heightMove = true;
+                            touchMove = false;
+                            equalMove = false;
                         } else if ($(e.target).hasClass('rightbottom')) {
-                            console.log('等比例缩放');
-                            this.touchType = 'equalMove';
+                            widthMove = false;
+                            heightMove = false;
+                            touchMove = false;
+                            equalMove = true;
                         } else {
-                            console.log('移动');
-                            this.touchType = 'touchMove';
+                            widthMove = false;
+                            heightMove = false;
+                            touchMove = true;
+                            equalMove = false;
                         }
+
+                        $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(false);
                         if ($(e.target).hasClass('righttop')) {
-                            this.touchType = 'del';
-                            // this.obj.remove();
-                            // $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(true);
+                            widthMove = false;
+                            heightMove = false;
+                            touchMove = false;
+                            equalMove = false;
+                            $('.mobileEvent').remove();
+                            $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(true);
                         }
-                    };
-                    Drag.prototype.fnMove = function(e) {
-                        this.settings.toMove();
-                        switch (this.touchType) {
-                            case 'widthMove':
-                                console.log('widthMove')
-                                var move_W = this.sectionWidth - (e.touches[0].pageX - this.start_x);
-                                var move_X = (e.touches[0].pageX - this.start_x) + this.sectionleft;
-                                console.log(this.obj)
-                                console.log(move_W)
-                                console.log(move_X)
-                                this.obj.css({
-                                    width: move_W,
-                                    left: move_X,
-                                });
-                                break;
-                            case 'heightMove':
-                                var move_H = (e.touches[0].pageY - this.start_y) + this.sectionHeight;
-                                this.obj.css({
-                                    height: move_H,
-                                });
-                                break;
-                            case 'equalMove':
-                                var move_H = (e.touches[0].pageY - this.start_y) + this.sectionHeight;
-                                var move_W = move_H * this.sectionWidth / this.sectionHeight;
-                                this.obj.css({
-                                    width: move_W,
-                                    height: move_H,
-                                });
-                                break;
-                            case 'touchMove':
-                                var move_X = (e.touches[0].pageX - this.start_x) + this.sectionleft;
-                                var move_Y = (e.touches[0].pageY - this.start_y) + this.sectiontop;
-                                this.obj.css({
-                                    left: move_X,
-                                    top: move_Y,
-                                });
-                                break;
+                    }
+
+                    function sectiontouchmove(e) {
+                        // 改变宽度
+                        if (widthMove) {
+                            var move_W = sectionWidth - (e.touches[0].pageX - start_x);
+                            var move_X = (e.touches[0].pageX - start_x) + sectionleft;
+                            console.log(move_W)
+                            $(this).css({
+                                width: move_W,
+                                left: move_X,
+                            });
                         }
-                    };
-                    Drag.prototype.fnEnd = function() {
-                        this.settings.toEnd();
-                        if (this.touchType == 'del') {
-                            this.obj.remove();
+                        // 改变高度
+                        if (heightMove) {
+                            var move_H = (e.touches[0].pageY - start_y) + sectionHeight;
+                            // var move_Y = (e.touches[0].pageY - start_y) + sectiontop;
+                            console.log(move_W)
+                            $(this).css({
+                                height: move_H,
+                            });
                         }
-                        this.touchType = null;
+                        // 等比例
+                        if (equalMove) {
+                            var move_H = (e.touches[0].pageY - start_y) + sectionHeight;
+                            var move_W = move_H * sectionWidth / sectionHeight;
+                            console.log(move_H)
+                            console.log(move_W)
+                                // var move_Y = (e.touches[0].pageY - start_y) + sectiontop;
+                            console.log(move_W)
+                            $(this).css({
+                                width: move_W,
+                                height: move_H,
+                            });
+                        }
+                        // 拖拽改变位置
+                        if (touchMove) {
+                            // console.log(startoffSet)
+                            var move_X = (e.touches[0].pageX - start_x) + sectionleft;
+                            var move_Y = (e.touches[0].pageY - start_y) + sectiontop;
+                            $(this).css({
+                                left: move_X,
+                                top: move_Y,
+                            });
+                        }
+                    }
+
+                    function sectiontouchend(e) {
+                        touchMove = false;
                         $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(true);
-                        // this.obj = null;//
-                    };
-
-                    d1 = new Drag();
-                    d1.init({ //配置参数
-                        class: '.mobileEvent',
-                        toStart: function() {
-                            // d1.trigger('click');
-                        },
-                        toMove: function() {
-                            $('.editBox').hide();
-                        }
-                    });
-
+                    }
                 })
             },
             scaleWidth: function() {

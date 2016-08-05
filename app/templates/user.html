@@ -16,7 +16,7 @@
         <ion-slide-box show-pager="false" active-slide="myActiveSlide" on-slide-changed="loadMore($index,'del')">
             <ion-slide>
                 <div class="list" ng-show="isActiveTab(0)">
-                    <a class="item item-thumbnail-left" href="#" ng-repeat="story in storys">
+                    <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '{{story.id}}'})"  ng-repeat="story in storys">
                         <img lazy-src="{{story.logo}}">
                         <h2>{{story.title}}</h2>
                         <p>{{story.description}}</p>
@@ -27,7 +27,7 @@
             </ion-slide>
             <ion-slide>
                 <div class="list" ng-show="isActiveTab(1)">
-                    <a class="item item-thumbnail-left" href="#" ng-repeat="offLineStory in offLineStorys">
+                    <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '{{offLineStory.id}}'})" ng-repeat="offLineStory in offLineStorys">
                         <img lazy-src="{{offLineStory.logo}}">
                         <h2>{{offLineStory.title}}</h2>
                         <p>{{offLineStory.description}}</p>
@@ -37,7 +37,7 @@
             </ion-slide>
             <ion-slide>
                 <div class="list" ng-show="isActiveTab(2)">
-                    <a class="item item-thumbnail-left" href="#" ng-repeat="collectStory in collectStorys">
+                    <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '{{collectStory.id}}'})" ng-repeat="collectStory in collectStorys">
                         <img lazy-src="{{collectStory.logo}}">
                         <h2>{{collectStory.title}}</h2>
                         <p>{{collectStory.description}}</p>
@@ -53,7 +53,7 @@
                     <br/>
                     </div> -->
                  <div class="list" ng-show="isActiveTab(3)">
-                    <a class="item item-thumbnail-left" href="#" ng-repeat="collectStory in collectStorys">
+                    <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '{{collectStory.id}}'})" ng-repeat="collectStory in collectStorys">
                         <img lazy-src="{{collectStory.logo}}">
                         <h2>{{collectStory.title}}</h2>
                         <p>{{collectStory.description}}</p>

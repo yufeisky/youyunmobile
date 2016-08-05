@@ -47,5 +47,11 @@ angular.module('IonicClub.filters', [])
             }
             return src;
         };
+    })
+    //转义html
+    .filter('trustHtml', function ($sce) {
+        return function (input) {
+            return $sce.trustAsHtml(input);
+        }
     });
 

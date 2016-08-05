@@ -18,7 +18,7 @@ angular.module('IonicClub', ['ionic', 'IonicClub.router', 'IonicClub.controllers
 
 
             // 启动友盟统计
-            UmengService.init();
+            // UmengService.init();
 
 
             // 隐藏启动画面

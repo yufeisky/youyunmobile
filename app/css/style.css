@@ -757,3 +757,170 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
     background: url('../img/wechashareicon.png');
     background-size: cover;
 }
+
+.storySlideBox {
+    bottom: 50px;
+    /*position: relative;*/
+}
+
+.storySlideBox .scroll {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.storySlideBox .slider {
+    width: 100%;
+    height: 100%;
+    background: #7e7e7e;
+    position: absolute;
+}
+
+
+/*.storyPage{
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    overflow: hidden;
+    left: 5%;
+    top: 5%;
+}*/
+
+.storyPage {
+    position: absolute;
+    width: 320px;
+    height: 504px;
+    overflow: hidden;
+    /*transform: scale(1.0125)*/
+}
+
+.leftright {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background: red;
+    left: -25px;
+    top: -25px;
+}
+
+.topbottom {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background: red;
+    left: -25px;
+    bottom: -25px;
+}
+
+.rightbottom {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background: red;
+    right: -25px;
+    bottom: -25px;
+}
+
+.righttop {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background: red;
+    right: -25px;
+    top: -25px;
+}
+
+.appEdit {
+    /*width: 100px;*/
+    position: absolute;
+    bottom: -250px;
+    right: 0;
+    background: #fff;
+    transition: bottom 0.5s;
+}
+
+.appEdit li {
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.appEdit li i {
+    padding-right: 10px;
+    font-size: 20px;
+}
+
+.tab-item.appEditIcon .icon {
+    font-size: 40px;
+    margin-top: 3px;
+}
+
+ion-tabs.myEditTab .tab-item.activated,
+ion-tabs.myEditTab .tab-item.active,
+ion-tabs.myEditTab .tab-item.tab-item-active {
+    color: #444;
+}
+
+.myEditTab .tab-item {
+    opacity: 1;
+}
+
+.appEditHide {
+    bottom: 50px;
+    transition: bottom 0.5s;
+}
+
+.editBox {
+    display: none;
+    position: absolute;
+    z-index: 20000000;
+    height: 35px;
+    /*width: 288px;*/
+    /*left: 50%;*/
+    /*margin-left: -144px;*/
+    /*top: -45px;*/
+    background: #000;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+.editBox a{
+    color: #fff;
+    text-decoration: none;
+    line-height: 25px;
+    padding: 0 8px;
+}
+
+/*.editBox.right{
+    left: 100%;
+    margin-left: -288px;
+}*/
+/*向下三角形*/
+.triangle-down {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #000;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -5px;
+}
+/*向上三角形*/
+.triangle-up {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border:10px solid transparent;
+    border-bottom-color: #000;
+}
+.editTextArea{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #e4e4e4;
+    padding: 10px;
+    font-size: 14px;
+}
