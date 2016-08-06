@@ -819,8 +819,19 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
     background: red;
     right: -25px;
     bottom: -25px;
+    opacity: 0;
 }
-
+.rightbottomcopy{
+    position: absolute;
+    left: 0;
+    z-index: 200000;
+    top: 0;
+    width: 50px;
+    height: 50px;
+    background: #000;
+    color: #fff;
+    /*display: none;*/
+}
 .righttop {
     width: 50px;
     height: 50px;

@@ -13,7 +13,7 @@ gulp.task('index', function () {
     var assets = useref.assets();
     return gulp.src('app/index.html')
         .pipe(assets)
-        .pipe(gulpif('*.js', uglify()))
+        // .pipe(gulpif('*.js', uglify()))//加了这行 当做设计器的时候加了trustHtml过滤器压缩之后打开app创作页报错
         .pipe(gulpif('*.css', minifyCss()))
         .pipe(assets.restore())
         .pipe(useref())

@@ -107,7 +107,7 @@ angular.module('IonicClub.controllers', [])
                     switch (postParams.storyStatus) {
                         case '1':
                             IonicService.getStorys(postParams).then(function(data) {
-                                console.log(data.storys)
+                                // console.log(data.storys);
                                 if (data.messageType == '2') {
                                     $rootScope.loginOut();
                                 }
@@ -619,7 +619,7 @@ angular.module('IonicClub.controllers', [])
     }])
     // 设计器
     .controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$ionicSlideBoxDelegate', '$timeout', 'localStorageService', 'ShareService', 'IonicService', 'Con', 'SectionEvent', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $ionicSlideBoxDelegate, $timeout, localStorageService, ShareService, IonicService, Con, SectionEvent) {
-        Con.log($stateParams.storyId)
+        // Con.log($stateParams.storyId);
         var storyId = $stateParams.storyId;
         $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(false);
         IonicService.postStoryData({ "storyId": storyId }).then(function(data) {
@@ -630,9 +630,9 @@ angular.module('IonicClub.controllers', [])
                 $timeout(function() {
                     $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
                     var win_w = angular.element(window)[0].innerWidth;
-                    console.log(win_w)
+                    Con.log(win_w);
                     var ionSlideH = jQuery('.storySlideBox .slider-slide')[0].clientHeight;
-                    Con.log(ionSlideH)
+                    Con.log(ionSlideH);
                     var storyBoxW = win_w * 0.9;
                     var storyBoxH = ionSlideH * 0.9;
                     var storyBoxLeft = (win_w - 320) / 2;
@@ -640,9 +640,9 @@ angular.module('IonicClub.controllers', [])
                     var storyBoxSectionScaleX = storyBoxW / 320;
                     var storyBoxSectionScaleY = storyBoxH / 504;
                     var scale = storyBoxSectionScaleX > storyBoxSectionScaleY ? storyBoxSectionScaleY : storyBoxSectionScaleX;
-                    Con.log('scale' + scale)
-                    Con.log(storyBoxSectionScaleX)
-                    Con.log(storyBoxSectionScaleY)
+                    Con.log('scale' + scale);
+                    Con.log(storyBoxSectionScaleX);
+                    Con.log(storyBoxSectionScaleY);
                     jQuery('.storyPage').css({
                         transform: 'scale(' + scale + ')',
                         left: storyBoxLeft,
@@ -658,12 +658,12 @@ angular.module('IonicClub.controllers', [])
         $scope.visible = false;
         $scope.toggle = function() {
                 $scope.visible = !$scope.visible;
-            }
+            };
             // 删除元素
         $scope.delElement = function() {
                 jQuery('.mobileEvent').remove();
                 jQuery('.editBox').hide();
-            }
+            };
             //上一层
         $scope.upElement = function() {
                 var oldZIndex1 = parseInt(jQuery('.mobileEvent').css('zIndex')) || 0;
@@ -672,7 +672,7 @@ angular.module('IonicClub.controllers', [])
                 jQuery('.mobileEvent').css({
                     zIndex: newZIndex1
                 });
-            }
+            };
             // 下一层
         $scope.downElement = function() {
                 var oldZIndex2 = jQuery('.mobileEvent').css('zIndex');
@@ -681,7 +681,7 @@ angular.module('IonicClub.controllers', [])
                 jQuery('.mobileEvent').css({
                     zIndex: newZIndex2
                 });
-            }
+            };
             // 复制元素
         $scope.copyElement = function() {
             var cloneElem = jQuery('.mobileEvent').clone();
@@ -689,8 +689,59 @@ angular.module('IonicClub.controllers', [])
                 border: ''
             }).removeClass('mobileEvent');
             cloneElem.find('.leftright,.topbottom,.rightbottom,.righttop').remove();
-            cloneElem.prependTo(jQuery('.mobileEvent').parents('output'))
-        }
+            cloneElem.prependTo(jQuery('.mobileEvent').parents('output'));
+        };
+        $scope.storySave = function() {
+            // var data = {
+            //         "storyId": storyId,
+            //         "storyData": [],
+            //         // "userId":'123',
+            //         // "userToken":'3333',
+
+            //     }
+            // 保存之前先把选中状态清除
+            SectionEvent.blurFn();
+            var data = [];
+            // console.log(jQuery('.editSlide .storyPage'))
+            jQuery('.editSlide .storyPage').each(function(k, v) {
+                var idval = jQuery(v).attr('page_id');
+                var numval = k + 1;
+                var contenthtml = jQuery(v).html().toString();
+                Con.log(contenthtml);
+                var pageInfo = {
+                    "storyId": storyId,
+                    "id": idval,
+                    "number": numval.toString(),
+                    "content": contenthtml
+                };
+                data.push(pageInfo);
+            });
+            // console.log(data)
+
+            data = JSON.stringify(data);
+            // data = angular.toJson(data);
+            // console.log(data)
+            IonicService.saveStoryData(data).then(function(data) {
+                console.log(data);
+
+            });
+            // jQuery.ajax({
+            //     url: 'http://192.168.2.154:8080/mobileplatform/page/h5save',
+            //     type: 'post',
+            //     dataType: 'json',
+            //     data: data,
+            // })
+            // .done(function() {
+            //     console.log("success");
+            // })
+            // .fail(function() {
+            //     console.log("error");
+            // })
+            // .always(function() {
+            //     console.log("complete");
+            // });
+
+        };
 
         // 模态框登陆
         $ionicModal.fromTemplateUrl('templates/textedit.html', {
@@ -712,7 +763,7 @@ angular.module('IonicClub.controllers', [])
         $scope.changeText = function(text) {
             jQuery('.mobileEvent').find('.txt-con').text(text);
             $scope.textEditmodal.hide();
-        }
+        };
     }])
     // 模板展示页面
     .controller('designCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$ionicSlideBoxDelegate', '$timeout', 'localStorageService', 'ShareService', 'IonicService', 'Con', 'SectionEvent', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $ionicSlideBoxDelegate, $timeout, localStorageService, ShareService, IonicService, Con, SectionEvent) {
@@ -762,9 +813,9 @@ angular.module('IonicClub.controllers', [])
                 $timeout(function() {
                     $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
                     var win_w = angular.element(window)[0].innerWidth;
-                    console.log(win_w)
+                    // console.log(win_w);
                     var ionSlideH = jQuery('.storySlideBox .slider-slide')[0].clientHeight;
-                    Con.log(ionSlideH)
+                    Con.log(ionSlideH);
                     var storyBoxW = win_w * 0.9;
                     var storyBoxH = ionSlideH * 0.9;
                     var storyBoxLeft = (win_w - 320) / 2;
@@ -772,16 +823,16 @@ angular.module('IonicClub.controllers', [])
                     var storyBoxSectionScaleX = storyBoxW / 320;
                     var storyBoxSectionScaleY = storyBoxH / 504;
                     var scale = storyBoxSectionScaleX > storyBoxSectionScaleY ? storyBoxSectionScaleY : storyBoxSectionScaleX;
-                    Con.log('scale' + scale)
-                    Con.log(storyBoxSectionScaleX)
-                    Con.log(storyBoxSectionScaleY)
+                    Con.log('scale' + scale);
+                    Con.log(storyBoxSectionScaleX);
+                    Con.log(storyBoxSectionScaleY);
                     jQuery('.storyPage').css({
                         transform: 'scale(' + scale + ')',
                         left: storyBoxLeft,
                         top: storyBoxTop
                     });
                     SectionEvent.cli();
-                }, 50)
+                }, 50);
             }
         });
 
