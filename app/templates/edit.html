@@ -1,7 +1,7 @@
 <ion-view view-title="故事" class="editPage">
     <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
         <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
-    <ion-content scroll="true" lazy-scroll class="storySlideBox ">
+    <ion-content scroll="false" lazy-scroll class="storySlideBox ">
         <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox">
             <ion-slide ng-repeat="page in pages" class="editSlide">
                 <div class="storyPage" ng-bind-html="page.content|trustHtml" page_id="{{page.id}}">

@@ -574,10 +574,11 @@ angular.module('IonicClub.services', [])
                         $.extend(true, this.settings, opt);
                         document.addEventListener('touchstart', function(e) { This.fnStart(e); }, false);
                         document.addEventListener('touchmove', function(e) { This.fnMove(e); }, false);
-                        document.addEventListener('touchend', function(e) { This.fnEnd(e); }, false);
+                         document.addEventListener('touchend', function(e) { This.fnEnd(e); }, false);
 
                     };
                     Drag.prototype.fnStart = function(e) {
+                        console.log(e)
                         e.preventDefault();
                         e.stopPropagation();
                         // 当拖动的目标是当前被选中元素才操作,因为修改了监听的对象为document，所以需要这个判断
@@ -619,6 +620,9 @@ angular.module('IonicClub.services', [])
                         return false;
                     };
                     Drag.prototype.fnMove = function(e) {
+                        console.log(e)
+                        e.preventDefault();
+                        e.stopPropagation();
                         // console.log($(e.target));
                         // console.log(this.obj.find($(e.target)).length>0)
                         if (!$(e.target).hasClass('rightbottomcopy') && this.obj.find($(e.target)).length > 0) {
