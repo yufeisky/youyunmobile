@@ -645,7 +645,7 @@ angular.module('IonicClub.controllers', [])
                         orderBy: '_id:ASC'
                     };
                     //加载CloudDataSearch服务插件
-                    search = new AMap.CloudDataSearch('57a94cc4305a2a693efc0d6e', searchOptions); //构造云数据检索类
+                    search = new AMap.CloudDataSearch('57ad4f42afdf520b895a76ed', searchOptions); //构造云数据检索类
                     //周边检索
                     search.searchNearBy(center, 10000, function(status, result) {
                         // alert(status)
@@ -770,7 +770,6 @@ angular.module('IonicClub.controllers', [])
             map.setFitView(); //加这句所有点会聚焦
 
             function markerClick(e) {
-                console.log(e)
                 infoWindow.setContent(e.target.content);
                 infoWindow.open(map, e.target.getPosition());
                 map.setCenter([e.target.getPosition().lng, e.target.getPosition().lat]);
@@ -798,7 +797,7 @@ angular.module('IonicClub.controllers', [])
         //根据groupId筛选组别中的故事
         $scope.fliterStoryByGroupId = function(groupId) {
             groupId = groupId.toString();
-            $scope.StoryList = $filter('filter')($scope.datas, { groupID: groupId });
+            $scope.StoryList = $filter('filter')($scope.datas, { groupID: groupId, type: "story" });
             $rootScope.lbsStoryList = [];
             $rootScope.lbsGroupTitle =
                 console.log($scope.StoryList);
