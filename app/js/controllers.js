@@ -596,7 +596,7 @@ angular.module('IonicClub.controllers', [])
         // $ionicSlideBoxDelegate.enableSlide(false);
     }])
     // lbs
-    .controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$timeout', '$ionicNavBarDelegate', '$filter', '$compile', 'localStorageService', 'ShareService', 'IonicService', 'Con', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $timeout, $ionicNavBarDelegate, $filter, $compile, localStorageService, ShareService, IonicService, Con) {
+    .controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$timeout', '$ionicNavBarDelegate', '$filter', '$compile', 'localStorageService', 'ShareService', 'IonicService', 'Con', 'Tool', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $timeout, $ionicNavBarDelegate, $filter, $compile, localStorageService, ShareService, IonicService, Con, Tool) {
         // 重置左上角的按钮
         // $rootScope.menuShow = true;
         // $rootScope.backShow = false;
@@ -634,53 +634,58 @@ angular.module('IonicClub.controllers', [])
 
         }
         $scope.ininMap = function(longitude, latitude) {
-                // alert(latitude);
-                // alert(longitude);
-                AMap.service('AMap.CloudDataSearch', function() { //回调函数
-                    var center = [longitude, latitude];
-                    var search;
-                    var searchOptions = {
-                        keywords: '',
-                        // pageSize: 5,
-                        orderBy: '_id:ASC'
-                    };
-                    //加载CloudDataSearch服务插件
-                    search = new AMap.CloudDataSearch('57ad4f42afdf520b895a76ed', searchOptions); //构造云数据检索类
-                    //周边检索
-                    search.searchNearBy(center, 10000, function(status, result) {
-                        // alert(status)
-                        if (status == "complete" && result.info == "OK") {
-                            console.log(result);
-                            console.log(result.datas);
-                            // 成功筛选
+            // alert(latitude);
+            // alert(longitude);
+            AMap.service('AMap.CloudDataSearch', function() { //回调函数
+                var center = [longitude, latitude];
+                var search;
+                var searchOptions = {
+                    keywords: '',
+                    // pageSize: 5,
+                    orderBy: '_id:ASC'
+                };
+                //加载CloudDataSearch服务插件
+                search = new AMap.CloudDataSearch('57ad4f42afdf520b895a76ed', searchOptions); //构造云数据检索类
+                //周边检索
+                search.searchNearBy(center, 10000, function(status, result) {
+                    // alert(status)
+                    if (status == "complete" && result.info == "OK") {
+                        console.log(result);
+                        console.log(result.datas);
+                        // 成功筛选
 
-                            // $scope.datas = $filter('filter')(result.datas,{category:'线下活动'});
-                            $scope.datas = result.datas;
-                            console.log($scope.datas);
-                            console.log($scope.datas.length)
-                            console.log($filter('filter')($scope.datas, { category: '线下' }));
-                            $scope.createMap($scope.datas);
-                        }
-                    });
-                    // console.log(search.searchNearBy(center, 10000))
-                })
-                var infoWindow = new AMap.InfoWindow();
-                marker = new AMap.Marker({
-                    position: [longitude, latitude],
-                    map: map
+                        // $scope.datas = $filter('filter')(result.datas,{category:'线下活动'});
+                        $scope.datas = result.datas;
+                        console.log($scope.datas);
+                        console.log($scope.datas.length)
+                        console.log($filter('filter')($scope.datas, { category: '线下' }));
+                        $scope.createMap($scope.datas);
+                    }
                 });
-                marker.content = '你的位置';
-                marker.on('click', markerClick);
+                // console.log(search.searchNearBy(center, 10000))
+            })
+            var infoWindow = new AMap.InfoWindow();
+            marker = new AMap.Marker({
+                position: [longitude, latitude],
+                map: map
+            });
+            marker.content = '你的位置';
+            marker.on('click', markerClick);
 
-                function markerClick(e) {
-                    infoWindow.setContent(e.target.content);
-                    infoWindow.open(map, e.target.getPosition());
-                }
-                map.setCenter([longitude, latitude]);
-                map.setZoom(18);
+            function markerClick(e) {
+                infoWindow.setContent(e.target.content);
+                infoWindow.open(map, e.target.getPosition());
             }
-            // 为了方便电脑伤调试
-        $scope.ininMap(113.366693, 23.096714);
+            map.setCenter([longitude, latitude]);
+            map.setZoom(18);
+        }
+
+        var isPC = Tool.isPC();
+        // var isPC=true;
+        // 为了方便电脑伤调试
+        if (isPC) {
+            $scope.ininMap(113.366693, 23.096714);
+        }
 
 
 
@@ -789,7 +794,7 @@ angular.module('IonicClub.controllers', [])
                             $scope.fliterStoryByStoryId(storyId);
                         });
                     })
-                }, 200)
+                }, 200);
 
             }
         };

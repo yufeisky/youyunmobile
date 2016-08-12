@@ -266,6 +266,27 @@ angular.module('IonicClub.services', [])
         };
         return service;
     }])
+    // 判断是不是PC端
+    .service('Tool',function() {
+        var service = {
+            isPC: function() {
+                var userAgentInfo = navigator.userAgent;
+                var Agents = ["Android", "iPhone",
+                    "SymbianOS", "Windows Phone",
+                    "iPad", "iPod"
+                ];
+                var flag = true;
+                for (var v = 0; v < Agents.length; v++) {
+                    if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                        flag = false;
+                        break;
+                    }
+                }
+                return flag;
+            }
+        };
+        return service;
+    })
     // 微信授权
     .service('WechatApi', ['$rootScope', '$http', function($rootScope, $http) {
         $rootScope.upal_share = {
@@ -577,7 +598,7 @@ angular.module('IonicClub.services', [])
                         $.extend(true, this.settings, opt);
                         document.addEventListener('touchstart', function(e) { This.fnStart(e); }, false);
                         document.addEventListener('touchmove', function(e) { This.fnMove(e); }, false);
-                         document.addEventListener('touchend', function(e) { This.fnEnd(e); }, false);
+                        document.addEventListener('touchend', function(e) { This.fnEnd(e); }, false);
 
                     };
                     Drag.prototype.fnStart = function(e) {
@@ -586,7 +607,7 @@ angular.module('IonicClub.services', [])
                         e.stopPropagation();
                         // 当拖动的目标是当前被选中元素才操作,因为修改了监听的对象为document，所以需要这个判断
                         console.log($(e.target));
-                        if ($(e.target).hasClass('rightbottomcopy')||this.obj.find($(e.target)).length > 0) {
+                        if ($(e.target).hasClass('rightbottomcopy') || this.obj.find($(e.target)).length > 0) {
                             console.log($(e.target));
                             this.settings.toStart();
                             e.preventDefault();
@@ -616,7 +637,7 @@ angular.module('IonicClub.services', [])
                                 // this.obj.remove();
                                 // $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(true);
                             }
-                        }else{
+                        } else {
                             // 拖动的不是当前选中元素  slide可翻页
                             $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(true);
                         }
