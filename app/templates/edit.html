@@ -1,6 +1,18 @@
-<ion-view view-title="故事" class="editPage">
-    <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
-        <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
+<ion-view view-title="故事" class="editPage" hide-back-button=false>
+    <!-- <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
+    <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
+ -->
+    <ion-nav-bar>
+        <!-- 自定义的后退按钮 -->
+        <ion-nav-buttons side="left">
+            <button class="button-clear "  ng-click="goBackView()">
+                 <i class="ion-chevron-left"></i> 后退
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-title>
+        故事
+    </ion-nav-title>
     <ion-content scroll="false" lazy-scroll class="storySlideBox ">
         <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox">
             <ion-slide ng-repeat="page in pages" class="editSlide">
@@ -20,12 +32,16 @@
             <a class="btn delElement" ng-click="delElement()" href="javascript:;">删除</a>
             <a class="btn" href="javascript:;" ng-click="upElement()">上一层</a>
             <a class="btn" href="javascript:;" ng-click="downElement()"> 下一层</a>
-            <div class="triangle-up" >     <!--向上的三角--> </div>
-            <div class="triangle-down">    <!--向下的三角--> </div>
+            <div class="triangle-up">
+                <!--向上的三角-->
+            </div>
+            <div class="triangle-down">
+                <!--向下的三角-->
+            </div>
         </div>
     </ion-content>
     <div class="footer">
-        <ul class="appEdit"  ng-class="{'appEditHide': visible}">
+        <ul class="appEdit" ng-class="{'appEditHide': visible}">
             <li><i class="icon ion-star"></i>更换背景音乐</li>
             <li><i class="icon ion-star"></i>更换背景图片</li>
             <li><i class="icon ion-star"></i>插入图片</li>
@@ -34,13 +50,13 @@
         <ion-tabs class="tabs-icon-top myEditTab">
             <ion-tab title="保存" icon="ion-eye" nav-transition="ios" ng-click="storySave()">
             </ion-tab>
-            <ion-tab title="撤销" icon="ion-reply"nav-transition="ios">
+            <ion-tab title="撤销" icon="ion-reply" nav-transition="ios">
             </ion-tab>
-            <ion-tab title="模板" icon="icon-upalapp-focus"  nav-transition="ios">
+            <ion-tab title="模板" icon="icon-upalapp-zhizuo-off" nav-transition="ios">
             </ion-tab>
-            <ion-tab title="页面" icon="icon-upalapp-my"  nav-transition="ios">
+            <ion-tab title="页面" icon="icon-upalapp-shouye-off" nav-transition="ios">
             </ion-tab>
-            <ion-tab class="appEditIcon" icon="ion-navicon-round"  nav-transition="ios" ng-click="toggle()">
+            <ion-tab class="appEditIcon" icon="ion-navicon-round" nav-transition="ios" ng-click="toggle()">
             </ion-tab>
         </ion-tabs>
     </div>

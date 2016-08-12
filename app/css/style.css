@@ -821,7 +821,8 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
     bottom: -25px;
     opacity: 0;
 }
-.rightbottomcopy{
+
+.rightbottomcopy {
     position: absolute;
     left: 0;
     z-index: 200000;
@@ -832,6 +833,7 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
     color: #fff;
     /*display: none;*/
 }
+
 .righttop {
     width: 50px;
     height: 50px;
@@ -894,18 +896,23 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     padding: 5px 10px;
     border-radius: 8px;
 }
-.editBox a{
+
+.editBox a {
     color: #fff;
     text-decoration: none;
     line-height: 25px;
     padding: 0 8px;
 }
 
+
 /*.editBox.right{
     left: 100%;
     margin-left: -288px;
 }*/
+
+
 /*向下三角形*/
+
 .triangle-down {
     position: absolute;
     width: 0;
@@ -917,21 +924,159 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     left: 50%;
     margin-left: -5px;
 }
+
+
 /*向上三角形*/
+
 .triangle-up {
     position: absolute;
     top: -20px;
     left: 50%;
     width: 0;
     height: 0;
-    border:10px solid transparent;
+    border: 10px solid transparent;
     border-bottom-color: #000;
 }
-.editTextArea{
+
+.editTextArea {
     position: absolute;
     width: 100%;
     height: 100%;
     background: #e4e4e4;
     padding: 10px;
     font-size: 14px;
+}
+
+#container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.dropDownList {
+    background: #fff;
+    position: absolute;
+    padding: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 999;
+    border: 1px solid #afaeac;
+    top: -400px;
+    transition: top 0.3s;
+}
+
+.dropDownList>li {
+    overflow: hidden;
+    line-height: 22px;
+    padding: 8px 30px;
+    font-size: 16px;
+    text-align: center;
+    color: #878785;
+}
+
+.dropDownList>li i {
+    font-size: 22px;
+    margin-right: 12px;
+}
+
+.dropDownList>li a {
+    text-decoration: none;
+    color: #878785;
+    vertical-align: middle;
+    /* height: 20px; */
+    /* line-height: 21px; */
+    display: inline-block;
+    margin-top: -12px;
+}
+
+.dropDownListHide {
+    top: 10px;
+    transition: top 0.3s;
+}
+
+.dropPic {
+    width: 30px;
+    position: absolute;
+    bottom: 5px;
+}
+
+.lbsTit {
+    line-height: 44px;
+    color: #3e73c3;
+}
+
+.dropDownList .liActive .icon,
+.dropDownList .liActive a {
+    color: red;
+}
+
+.markerDiv {}
+
+.imgarea {
+    width: 47px;
+    float: left;
+}
+
+.h5Img {
+    width: 47px;
+    height: 47px;
+}
+
+.wordArea {
+    padding-right: 6px;
+    float: left;
+    margin-left: 6px;
+    max-width: 120px;
+    overflow: hidden;
+}
+
+.wordArea h2 {
+    font-size: 16px;
+    font-weight: bolder;
+    line-height: 16px;
+    margin-top: 4px;
+    margin-bottom: 0;
+    height: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.wordArea p {
+    font-size: 12px;
+    line-height: 12px;
+    margin: 0;
+    height: 12px;
+    margin-top: 9px;
+    overflow: hidden;
+    color: #949693;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.linkIcon {
+    float: left;
+}
+.linkIcon img{
+    width: 25px;
+    height: 25px;
+    margin-top: 10px;
+}
+.amap-info-content {
+    line-height: 1;
+}
+.modal-backdrop{
+    z-index: 999;
+}
+/*.lbsGroupDetailBackIcon{
+    font-size: 20px;
+}
+.lbsGroupDetailBackBtn span{ 
+    font-size: 16px;
+}*/
+.amap-icon img{
+    width: 24px;
+}
+.homeDetail .icon-upalapp-more{
+    font-size: 24px;
 }

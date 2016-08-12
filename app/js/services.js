@@ -379,6 +379,7 @@ angular.module('IonicClub.services', [])
                 $('.leftright,.topbottom,.rightbottom,.righttop,.rightbottomcopy').remove();
                 $('.editBox').hide();
             },
+            //设置拖拽按钮的位置
             setFollow: function() {
                 var rightbottomoffsetleft = $('.mobileEvent')[0].offsetLeft + $('.rightbottom')[0].offsetLeft;
                 var rightbottomoffsettop = $('.mobileEvent')[0].offsetTop + $('.rightbottom')[0].offsetTop;
@@ -480,6 +481,8 @@ angular.module('IonicClub.services', [])
                     // }
                     // jQuery('.bf-basic').on('click', function() {
                     jQuery('.storyPage').on('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
 
                         //要是点击的是可以改变的元素，就把之前的一个元素还原，让当前元素选中
                         if ($(e.target).parents('section').length > 0) {

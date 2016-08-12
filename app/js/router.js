@@ -48,15 +48,25 @@ angular.module('IonicClub.router', [])
                     }
                 }
             })
-            .state('tab.star', {
-                url: '/star',
+            .state('tab.lbs', {
+                url: '/lbs',
                 views: {
-                    'star': {
-                        templateUrl: 'templates/star.html',
-                        controller: 'starCtrl'
+                    'lbs': {
+                        templateUrl: 'templates/lbs.html',
+                        controller: 'lbsCtrl'
                     }
                 },
                 // cache:false,
+            })
+            .state('tab.lbsGroupDetail', {
+                // url: '/homeDetail:pubUrl:imgSrc:storyId:storyTitle:secondTitle:shareCount:browseCount:collectCount',
+                url: '/lbsGroupDetail:lbsStoryList',
+                views: {
+                    'lbs': {
+                        templateUrl: 'templates/lbsGroupDetail.html',
+                        controller: 'lbsGroupDetailCtrl'
+                    }
+                }
             })
             .state('tab.design', {
                 url: '/design',

@@ -4,25 +4,25 @@ Each tab's child <ion-nav-view> directive will have its own
 navigation history that also transitions its views in and out.
 -->
 <ion-tabs class="tabs-icon-top tabs-color-active-positive" ng-controller="TabsCtrl" ng-class="{'tabs-item-hide': hideTabs}">
-    <ion-tab title="首页" icon-on="icon-upalapp-home" icon-off="icon-upalapp-home" href="#/tab/home" nav-transition="ios">
+    <ion-tab title="首页" icon-on="icon-upalapp-shouye-on" icon-off="icon-upalapp-shouye-off" ng-click="changePage('tab.home')" nav-transition="ios">
         <ion-nav-view name="home">
             <ion-nav-back-button >
             </ion-nav-back-button>
         </ion-nav-view>
     </ion-tab>
-    <ion-tab title="关注" icon-off="icon-upalapp-focus" icon-on="icon-upalapp-focus" ng-click="changePage('tab.star')" nav-transition="ios">
-        <ion-nav-view name="star">
+    <ion-tab title="发现" icon-off="icon-upalapp-faxian-off" icon-on="icon-upalapp-faxian-on" href="#/tab/lbs" nav-transition="ios">
+        <ion-nav-view name="lbs">
             <ion-nav-back-button>
             </ion-nav-back-button>
         </ion-nav-view>
     </ion-tab>
-    <ion-tab title="故事" icon-off="icon-upalapp-focus" icon-on="icon-upalapp-focus" ng-click="changePage('tab.design')" nav-transition="ios">
+    <ion-tab title="故事" icon-off="icon-upalapp-zhizuo-off" icon-on="icon-upalapp-zhizuo-on" ng-click="changePage('tab.design')" nav-transition="ios">
         <ion-nav-view name="design">
             <ion-nav-back-button>
             </ion-nav-back-button>
         </ion-nav-view>
     </ion-tab>
-    <ion-tab title="我的" icon-off="icon-upalapp-my" icon-on="icon-upalapp-my" ng-click="changePage('tab.user')" nav-transition="ios">
+    <ion-tab title="我的" icon-off="icon-upalapp-wode-off" icon-on="icon-upalapp-wode-on" ng-click="changePage('tab.user')" nav-transition="ios">
         <ion-nav-view name="user">
             <ion-nav-back-button>
             </ion-nav-back-button>
