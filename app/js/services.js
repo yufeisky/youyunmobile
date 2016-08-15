@@ -1,4 +1,5 @@
 /**
+ * create by linbin
  * 服务
  */
 angular.module('IonicClub.services', [])
@@ -267,7 +268,7 @@ angular.module('IonicClub.services', [])
         return service;
     }])
     // 判断是不是PC端
-    .service('Tool',function() {
+    .service('Tool', function() {
         var service = {
             isPC: function() {
                 var userAgentInfo = navigator.userAgent;
