@@ -1,7 +1,7 @@
 /**
  * 控制器
  */
-angular.module('IonicClub.controllers', [])
+var appController = angular.module('IonicClub.controllers', [])
     // 已上线未上线 收藏
     // 个人中心
     .controller('userCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$ionicLoading', '$ionicPopup', '$ionicHistory', '$ionicModal', '$timeout', 'localStorageService', 'IonicService', 'TabService', 'Con', function($scope, $rootScope, $stateParams, $state, $ionicLoading, $ionicPopup, $ionicHistory, $ionicModal, $timeout, localStorageService, IonicService, TabService, Con) {
@@ -293,9 +293,9 @@ angular.module('IonicClub.controllers', [])
             }, 100);
 
         }
-    }])
+    }]);
     // 首页详情
-    .controller('homeDetailCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicPopover', '$ionicPopup', 'localStorageService', 'ShareService', 'IonicService', 'MsgBox', 'WechatApi', 'Con', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicPopover, $ionicPopup, localStorageService, ShareService, IonicService, MsgBox, WechatApi, Con) {
+    appController.controller('homeDetailCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicPopover', '$ionicPopup', 'localStorageService', 'ShareService', 'IonicService', 'MsgBox', 'WechatApi', 'Con', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicPopover, $ionicPopup, localStorageService, ShareService, IonicService, MsgBox, WechatApi, Con) {
         // $rootScope.menuShow = true;
         // $rootScope.backShow = true;
         // Con.log($stateParams);
@@ -744,7 +744,7 @@ angular.module('IonicClub.controllers', [])
         var iconJson = {
 
             }
-            //描点的方法 
+            //描标注点并添加监听的方法 
         $scope.createMap = function(obj) {
             var infoWindow = new AMap.InfoWindow();
             for (var i = 0, marker; i < obj.length; i++) {
@@ -799,7 +799,7 @@ angular.module('IonicClub.controllers', [])
             }
         };
 
-        //根据groupId筛选组别中的故事
+        //根据groupId筛选组别中的故事(根据groupId 跟故事类型为故事的，把type:group的剔除)
         $scope.fliterStoryByGroupId = function(groupId) {
             groupId = groupId.toString();
             $scope.StoryList = $filter('filter')($scope.datas, { groupID: groupId, type: "story" });
