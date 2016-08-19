@@ -216,6 +216,122 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
+            //获取我的图片分类接口
+            getMyCates: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/imagecategory/getmycategory';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    params: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
+
+
+            //获取我的图片分类接口
+            getOnlineMainCates: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/imagecategory/getparentcategory';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    params: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
+
+
+            getOnlineCates: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/imagecategory/getcategory';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    params: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
+            //获取图片接口
+            getImages: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/image/getimage';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    params: data
+                }).success(
+                    function(data, status, header, config) {
+
+                        deferred.resolve(data);
+                    })
+                ;
+                return deferred.promise;
+            },
+            //获取图片接口
+
+           saveImage: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/image/saveimage';
+                $http({
+                    method: 'POST',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: data
+                }).success(
+                    function(data, status, header, config) {
+                        console.log(data);
+                        deferred.resolve(data);
+                    }).error(
+                    function(data, status, header, config) {
+                        console.log(data);
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
         };
     }])
     .service('ConfigService', [function() {
@@ -547,13 +663,21 @@ angular.module('IonicClub.services', [])
 
                             // 计算提示栏的位置
                             // if()
-                            if ($(e.target).parents('section').find('.txt-con').length == 0) {
+                            if ($(e.target).parents('section').find('.img-con').length === 0) {
+                                $('.imgElementText').hide();
+                            } else {
+                                $('.imgElementText').show();
+                            }
+
+                            if ($(e.target).parents('section').find('.txt-con').length === 0) {
                                 $('.editElementText').hide();
                             } else {
                                 $('.editElementText').show();
                             }
                             service.setToolTipPoint($(e.target).parents('section'), $('.editBox'));
                             $('.editBox').appendTo($(e.target).parents('.storyPage'));
+
+
 
                             service.drag();
                             // console.log(d1)
@@ -603,7 +727,7 @@ angular.module('IonicClub.services', [])
 
                     };
                     Drag.prototype.fnStart = function(e) {
-                        console.log(e)
+                        console.log(e);
                         e.preventDefault();
                         e.stopPropagation();
                         // 当拖动的目标是当前被选中元素才操作,因为修改了监听的对象为document，所以需要这个判断
@@ -645,7 +769,7 @@ angular.module('IonicClub.services', [])
                         return false;
                     };
                     Drag.prototype.fnMove = function(e) {
-                        console.log(e)
+                        console.log(e);
                         e.preventDefault();
                         e.stopPropagation();
                         // console.log($(e.target));
