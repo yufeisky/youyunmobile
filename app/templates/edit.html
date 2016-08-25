@@ -40,6 +40,7 @@
                 <!--向下的三角-->
             </div>
         </div>
+        <div class="virtualSaveBtn" style="position:absolute;z-index:1; left:-2000px;" ng-click="virtualSave()">保存</div>
     </ion-content>
     <div class="footer">
         <ul class="appEdit" ng-class="{'appEditHide': visible}">
@@ -51,7 +52,8 @@
         <ion-tabs class="tabs-icon-top myEditTab">
             <ion-tab title="保存" icon="ion-eye" nav-transition="ios" ng-click="storySave()">
             </ion-tab>
-            <ion-tab title="撤销" icon="ion-reply" nav-transition="ios">
+            <!-- ng-click="cancelOperation()" -->
+            <ion-tab title="撤销" icon="ion-reply" nav-transition="ios" >
             </ion-tab>
             <ion-tab title="模板" icon="icon-upalapp-zhizuo-off" nav-transition="ios">
             </ion-tab>
@@ -61,5 +63,4 @@
             </ion-tab>
         </ion-tabs>
     </div>
-
 </ion-view>

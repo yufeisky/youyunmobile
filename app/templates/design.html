@@ -1,14 +1,184 @@
-<ion-view view-title="故事">
+<ion-view view-title="创作">
     <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
         <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
     <ion-content scroll="true" lazy-scroll class="storySlideBox">
-       <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '21789'})" >
+        <!--  <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '21789'})" >
                         修改
-        </a>
+        </a> -->
         <!-- <div ng-if="!more">无更多数据</div> -->
         <!-- </div> -->
         <!-- <div ng-if="!logined">
             <button ng-click="openLoginModal()">登录</button>
         </div> -->
+        <ul class="mainType clear">
+            <li><i class="icon icon-template-lvyou"><span class="path1"></span><span class="path2"></span></i>
+                <p>旅游</p>
+            </li>
+            <li><i class="icon icon-template-jiehun"><span class="path1"></span><span class="path2"></span></i>
+                <p>结婚</p>
+            </li>
+            <li><i class="icon icon-template-jiaoyu"><span class="path1"></span><span class="path2"></span></i>
+                <p>教育</p>
+            </li>
+            <li><i class="icon icon-template-yaoqing"><span class="path1"></span><span class="path2"></span></i>
+                <p>邀请函</p>
+            </li>
+            <li><i class="icon icon-template-zhaopin"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                <p>招聘</p>
+            </li>
+            <li><i class="icon icon-template-xueli"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
+                <p>简历</p>
+            </li>
+        </ul>
+        <div class="personalTemplateArea">
+            <div class="personalTemplateAreaHead">
+                <h3>个人模板</h3>
+                <p>更多</p>
+            </div>
+            <div class="personalTemplateAreaContent">
+                <div class="list">
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png" >
+                        <h2>Smashing Pumpkins</h2>
+                        <p>Siamese Dream</p>
+                    </a>
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Nirvana</h2>
+                        <p>Nevermind</p>
+                    </a>
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Beastie Boys</h2>
+                        <p>License To Ill</p>
+                    </a>
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+         <div class="personalTemplateArea">
+            <div class="personalTemplateAreaHead">
+                <h3>行业模板</h3>
+                <p>更多</p>
+            </div>
+            <div class="personalTemplateAreaContent">
+                <div class="list">
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png" >
+                        <h2>Smashing Pumpkins</h2>
+                        <p>Siamese Dream</p>
+                    </a>
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Nirvana</h2>
+                        <p>Nevermind</p>
+                    </a>
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Beastie Boys</h2>
+                        <p>License To Ill</p>
+                    </a>
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="personalTemplateArea">
+            <div class="personalTemplateAreaHead">
+                <h3>场景模板</h3>
+                <p>更多</p>
+            </div>
+            <div class="personalTemplateAreaContent">
+                <div class="list">
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png" >
+                        <h2>Smashing Pumpkins</h2>
+                        <p>Siamese Dream</p>
+                    </a>
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Nirvana</h2>
+                        <p>Nevermind</p>
+                    </a>
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Beastie Boys</h2>
+                        <p>License To Ill</p>
+                    </a>
+                    <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                     <a class="item item-thumbnail-top" href="#">
+                        <img src="img/test.png">
+                        <h2>Green Day</h2>
+                        <p>Dookie</p>
+                    </a>
+                </div>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

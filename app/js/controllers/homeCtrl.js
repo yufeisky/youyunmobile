@@ -85,6 +85,7 @@
          // Con.log('-----myActiveSlide------');
          // Con.log(myActiveSlide)
          try {
+            
              $scope.currentTab = myActiveSlide;
              // Con.log($scope.currentTab);
              $scope.myActiveSlide = myActiveSlide;

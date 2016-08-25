@@ -301,13 +301,12 @@ angular.module('IonicClub.services', [])
                     function(data, status, header, config) {
 
                         deferred.resolve(data);
-                    })
-                ;
+                    });
                 return deferred.promise;
             },
             //获取图片接口
 
-           saveImage: function(data) {
+            saveImage: function(data) {
                 var deferred = $q.defer();
                 var url = 'http://test.upalapp.com/mobileplatform/image/saveimage';
                 $http({
@@ -500,7 +499,7 @@ angular.module('IonicClub.services', [])
     // 点击获得焦点
     .service('SectionEvent', ['$timeout', '$ionicSlideBoxDelegate', function($timeout, $ionicSlideBoxDelegate) {
         var d1 = null;
-
+        var isSave = true;
         var service = {
             blurFn: function() {
                 //要是点击的不是可以改变的元素就把之前的选中状态清除
@@ -511,12 +510,26 @@ angular.module('IonicClub.services', [])
                 if ($('.bf-basic').hasClass('mobileEvent')) {
 
                 }
-                $('.bf-basic').css({
-                    border: ''
-                }).removeClass('mobileEvent');
+                $('.bf-basic').removeClass('mobileEvent');
                 $('.leftright,.topbottom,.rightbottom,.righttop,.rightbottomcopy').remove();
-                $('.editBox').hide();
+                $('.editBox').appendTo(jQuery('.storySlideBox')).hide();
+                // $('.editBox').hide();
             },
+            // cancelblurFn: function() {
+            //     //要是点击的不是可以改变的元素就把之前的选中状态清除
+            //     if (d1 && d1.obj) {
+            //         d1.obj = null;
+            //     }
+            //     //要是点击的不是可以改变的元素就把之前的选中状态清除
+            //     if ($('.bf-basic').hasClass('mobileEvent')) {
+
+            //     }
+            //     $('.bf-basic').css({
+            //         border: ''
+            //     }).removeClass('mobileEvent');
+            //     $('.leftright,.topbottom,.rightbottom,.righttop').remove();
+            //     // $('.editBox').hide();
+            // },
             //设置拖拽按钮的位置
             setFollow: function() {
                 var rightbottomoffsetleft = $('.mobileEvent')[0].offsetLeft + $('.rightbottom')[0].offsetLeft;
@@ -591,7 +604,6 @@ angular.module('IonicClub.services', [])
 
             },
             cli: function() {
-
                 jQuery(function() {
                     var $ = jQuery;
                     // console.log(jQuery('.bf-basic'))z
@@ -628,6 +640,11 @@ angular.module('IonicClub.services', [])
                             // console.log(this);
                             // console.log($(e.target).parents('section'));
                             // console.log(d1);
+                            if (isSave) {
+                                jQuery('.virtualSaveBtn').trigger('click');
+                                isSave = false;
+                            }
+
                             if (d1) {
                                 d1.obj = null;
                             }
@@ -644,9 +661,7 @@ angular.module('IonicClub.services', [])
                             }).removeClass('mobileEvent');
                             $('.leftright,.topbottom,.rightbottom,.righttop,.rightbottomcopy').remove();
                             //给当前点击的元素获得焦点
-                            $(e.target).parents('section').css({
-                                border: '1px solid #1490ef'
-                            }).addClass('mobileEvent');
+                            $(e.target).parents('section').addClass('mobileEvent');
                             // console.log(oldzIndex);
                             // $('.mobileEvent').css({
                             //     zIndex: 100000
@@ -730,6 +745,7 @@ angular.module('IonicClub.services', [])
                         console.log(e);
                         e.preventDefault();
                         e.stopPropagation();
+
                         // 当拖动的目标是当前被选中元素才操作,因为修改了监听的对象为document，所以需要这个判断
                         console.log($(e.target));
                         if ($(e.target).hasClass('rightbottomcopy') || this.obj.find($(e.target)).length > 0) {
@@ -769,6 +785,8 @@ angular.module('IonicClub.services', [])
                         return false;
                     };
                     Drag.prototype.fnMove = function(e) {
+                        // 当有移动的时候需要把isSave设为true,下一次选中的时候需要保存回退数据
+                        isSave =true;
                         console.log(e);
                         e.preventDefault();
                         e.stopPropagation();
@@ -825,6 +843,8 @@ angular.module('IonicClub.services', [])
                         }
                         this.touchType = null;
                         $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(true);
+
+                        
                         // this.obj = null;//
                     };
 

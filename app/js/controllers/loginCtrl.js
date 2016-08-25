@@ -1,5 +1,5 @@
 //登录
-appController.controller('loginCtrl', ['$scope', '$rootScope', '$ionicPopup', '$ionicHistory', '$state', '$cordovaBarcodeScanner', '$ionicSlideBoxDelegate', '$interval', '$timeout', '$ionicModal', 'localStorageService', 'AppVersionService', 'IonicService', 'MsgBox', 'Con', function($scope, $rootScope, $ionicPopup, $ionicHistory, $state, $cordovaBarcodeScanner, $ionicSlideBoxDelegate, $interval, $timeout, $ionicModal, localStorageService, AppVersionService, IonicService, MsgBox, Con) {
+appController.controller('loginCtrl', ['$scope', '$rootScope', '$ionicPopup', '$ionicHistory', '$state', '$cordovaBarcodeScanner', '$ionicSlideBoxDelegate', '$interval', '$timeout', '$ionicModal','$ionicLoading', 'localStorageService', 'AppVersionService', 'IonicService', 'MsgBox', 'Con', function($scope, $rootScope, $ionicPopup, $ionicHistory, $state, $cordovaBarcodeScanner, $ionicSlideBoxDelegate, $interval, $timeout, $ionicModal,$ionicLoading, localStorageService, AppVersionService, IonicService, MsgBox, Con) {
     /*        AppVersionService.getVersionNumber().then(function (data) {
      $scope.appVersion = data;
      });*/
@@ -57,8 +57,17 @@ appController.controller('loginCtrl', ['$scope', '$rootScope', '$ionicPopup', '$
     };
     //测试账号2快速登陆
     $scope.test2Login = function() {
+         // Setup the loader
+        $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
         IonicService.postLogin({ account: '377210718@qq.com', password: 'yf123456' }).then(function(data) {
             Con.log(data.status);
+            $ionicLoading.hide();
             switch (data.status) {
                 case '0':
                     MsgBox.showTexts('账号或密码错误');
@@ -96,8 +105,17 @@ appController.controller('loginCtrl', ['$scope', '$rootScope', '$ionicPopup', '$
             MsgBox.showTexts('请输入密码');
             return false;
         }
+        // Setup the loader
+        $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
         IonicService.postLogin(user).then(function(data) {
             Con.log(data.status);
+            $ionicLoading.hide();
             switch (data.status) {
                 case '0':
                     MsgBox.showTexts('账号或密码错误');

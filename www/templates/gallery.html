@@ -1,0 +1,41 @@
+<ion-modal-view class="gallery">
+    <div class="gallery-option-box">
+        <button class="button button-clear button-primary pull-left" ng-click="closeGalleryEditModal(true)">取消</button>
+        <div class="gallery-option">
+            <a ng-class="{active:isSelf}" on-tap="onSelf()">我的</a><a  on-tap="onLine()" ng-class="{active:isLine}">在线</a>
+        </div>
+    </div>
+    <div class="cate-box">
+        <span class="cate-op" on-tap="cateOp()">{{cates[cateIndex].name}}</span>
+        <ul class="cates-self" ng-show="cateShow &&  isSelf">
+            <li on-tap="cateChoose($index)" ng-repeat="cate in cates" >{{cate.name}}</li>
+        </ul>
+        <ul class="cates-online" ng-show="cateShow && isLine ">
+            <li on-tap ="cateSChoose($index)" ng-repeat="cate in mainCates" >{{cate.name}}</li>
+        </ul>
+        <ul class="cates-second"   ng-show="cateShow && isLine" >
+            <li on-tap="cateChoose($index)" ng-repeat="cate in secondCates" >{{cate.name}}</li>
+        </ul>
+    </div>
+    <ion-content scroll="true" lazy-scroll class="gallery-box">
+       <!-- <input type="file" accept="image/*" id="upload"   />-->
+        <div class="list-gallery"  >
+            <div class="content-block" style="height:{{img_w}};width:{{img_w}}" ng-show="isSelf">
+                <div id="uploader" class="wu-example">
+                    <div class="queueList">
+                        <div id="dndArea" class="placeholder">
+                            <div id="thelist" class="uploader-list">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="picker">选择文件</div>
+                </div>
+            </div>
+            <a class="item-gallery"   on-tap="imageOp($index)" nav-transition="ios"  ng-repeat="image in images">
+                <img class="img-gallery"  style="height:{{img_w}}" lazy-src="{{image.thumbnailsurl}}">
+            </a>
+        </div>
+        <!-- <div ng-if="!more">无更多数据</div> -->
+        <ion-infinite-scroll ng-if="more" on-infinite="galleryLoadMore()" distance="10%"></ion-infinite-scroll>
+    </ion-content>
+</ion-modal-view>

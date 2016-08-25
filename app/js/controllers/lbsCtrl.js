@@ -48,7 +48,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
                 orderBy: '_id:ASC'
             };
             //加载CloudDataSearch服务插件
-            search = new AMap.CloudDataSearch('57ad4f42afdf520b895a76ed', searchOptions); //构造云数据检索类
+            search = new AMap.CloudDataSearch('57b67df9afdf522d4e2ab76d', searchOptions); //构造云数据检索类
             //周边检索
             search.searchNearBy(center, 10000, function(status, result) {
                 // alert(status)

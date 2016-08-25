@@ -78,6 +78,16 @@ angular.module('IonicClub.router', [])
                 },
                 // cache:false,
             })
+            .state('tab.design', {
+                url: '/design',
+                views: {
+                    'design': {
+                        templateUrl: 'templates/design.html',
+                        controller: 'designCtrl'
+                    }
+                },
+                // cache:false,
+            })
             .state('tab.edit', {
                 url: '/edit:storyId',
                 views: {
