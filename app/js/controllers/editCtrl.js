@@ -2,6 +2,8 @@
 appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$ionicSlideBoxDelegate', '$timeout', 'localStorageService', 'ShareService', 'IonicService', 'Con', 'SectionEvent', 'MsgBox', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $ionicSlideBoxDelegate, $timeout, localStorageService, ShareService, IonicService, Con, SectionEvent, MsgBox) {
     // Con.log($stateParams.storyId);
     var storyId = $stateParams.storyId;
+    // 默认一进来是透明
+    $scope.opacity = 0;
     $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(false);
     $ionicLoading.show({
         content: 'Loading',
@@ -13,12 +15,17 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     });
     IonicService.postStoryData({ "storyId": storyId }).then(function(data) {
         console.log(data);
-        if (data.message == "Success") {
+
+        if (data.status == '0') {
+            MsgBox.showTexts('该app不存在');
+            $ionicLoading.hide();
+        } else if (data.message == "Success") {
             $scope.pages = data.pages;
 
             $scope.resetPage();
 
         }
+
     });
     //更新数据之后重置页面
     $scope.resetPage = function() {
@@ -45,9 +52,13 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 });
                 SectionEvent.cli();
                 SectionEvent.blurFn();
+                // 当加载完之后要显示出来
+                $scope.opacity = 1;
                 $timeout(function() {
+
                     $ionicLoading.hide();
                 }, 500);
+
             }, 50);
         }
         // 切换按钮
@@ -258,6 +269,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     }
 
     $scope.closeGalleryEditModal = function() {
+        SectionEvent.start();
         $scope.galleryEditmodal.hide();
     }
 
@@ -272,6 +284,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         $scope.getOnlineMainCates();
         $scope.getMyCates();
         // 初始化Web Uploader
+        SectionEvent.stop();
         var win_w = angular.element(window)[0].innerWidth;
         $scope.img_w = win_w * 0.33 * 0.9 + 'px';
         // if( $scope.uploader==null){
@@ -290,7 +303,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: {
                 id: '#picker',
-                innerHTML: "上传图片",
+                innerHTML: "<i class='icon-add'></>",
                 multiple: false //是否开起同时选择多个文件能力
             },
             accept: {
@@ -418,10 +431,9 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         });
         $scope.uploader = uploader;
         // }
+
+
     };
-
-
-
 
     $scope.cateChoose = function(order) {
         if ($scope.cateIndex == order) {
@@ -431,13 +443,14 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         $scope.cateShow = false;
         $scope.pageNum = 1;
         $scope.galleryLoadMore();
-        if ($scope.isLine) {
-            $scope.cates = $scope.secondCates;
-        }
+
     }
 
-
+    $scope.activeOLCateIndex = 0;
     $scope.cateSChoose = function(order) {
+        $scope.activeOLCateIndex = order;
+        $scope.cateIndex = 0;
+        $scope.pageNum = 1;
         var parentId = $scope.mainCates[order].id
         var postParams = {
             parentId: parentId
@@ -451,7 +464,8 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             angular.forEach(data.categorys, function(item) {
                 $scope.onLineCates.push(item);
             });
-            $scope.secondCates = $scope.onLineCates;
+            $scope.cates = $scope.onLineCates;
+            $scope.galleryLoadMore();
         }).finally(function() {
             Con.log('完成');
         });
@@ -510,7 +524,8 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         $scope.isSelf = false;
         $scope.isLine = true;
         $scope.cateShow = false;
-
+        $scope.activeOLCateIndex = 0;
+        $scope.currentOLCateIndex = 0;
         var parentId = $scope.mainCates[0].id
         var postParams = {
             parentId: parentId
@@ -533,12 +548,15 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         });
     }
 
+
+    $scope.isActiveCate = function(index) {
+        return index == $scope.activeOLCateIndex;
+    }
+
     //图库注册事件
     $scope.cateOp = function() {
         $scope.cateShow = !$scope.cateShow;
-        if ($scope.isLine) {
-            $scope.secondCates = $scope.cates;
-        }
+
     }
 
     $scope.imageOp = function(order) {
@@ -549,6 +567,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         jQuery('.mobileEvent').find('img').attr("src", imageurl);
         console.log(jQuery('.mobileEvent').find('img'));
         $scope.galleryEditmodal.hide();
+        SectionEvent.start();
     };
 
 

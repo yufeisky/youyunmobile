@@ -14,8 +14,8 @@
         故事
     </ion-nav-title>
     <ion-content scroll="false" lazy-scroll class="storySlideBox ">
-        <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox">
-            <ion-slide ng-repeat="page in pages" class="editSlide">
+        <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox" style="opacity:{{opacity}}">
+            <ion-slide ng-repeat="page in pages" class="editSlide" >
                 <div class="storyPage" ng-bind-html="page.content|trustHtml" page_id="{{page.id}}">
                     <!-- {{page.content}} -->
                 </div>

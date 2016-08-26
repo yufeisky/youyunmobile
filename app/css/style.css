@@ -822,18 +822,6 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
     opacity: 0;
 }
 
-.rightbottomcopy {
-    position: absolute;
-    left: 0;
-    z-index: 200000;
-    top: 0;
-    width: 50px;
-    height: 50px;
-    background: #000;
-    color: #fff;
-    /*display: none;*/
-}
-
 .righttop {
     width: 50px;
     height: 50px;
@@ -1091,36 +1079,14 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 
 /*以下是gallery的代码*/
 
-.gallery .gallery-box {
-    margin-top: 80px;
-}
-
 .gallery .gallery-option-box {
-    color: #ffffff;
-    text-align: center;
-    height: 35px;
-    padding: 2px 0;
-    margin: 0 auto;
-}
-
-.gallery .gallery-option-box {
-    color: #ffffff;
+    color: #fbfbfb;
     text-align: center;
     height: 40px;
-    padding: 5px 0;
-    margin: 0 auto;
-    margin-top: 5px;
-}
-
-.gallery .gallery-option {
-    width: 100px;
-    margin: 0px auto;
-    padding: 0;
-    border: solid #333333 1px;
-    border-radius: 5px;
-    background-color: #ffffff;
-    height: 30px;
-    box-sizing: border-box;
+    padding: 10px 0;
+    margin: 0;
+    width: 100%;
+    position: relative;
 }
 
 .gallery .gallery-option-box button {
@@ -1129,18 +1095,34 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     left: 5px;
 }
 
+.gallery .gallery-option-box button {
+    position: absolute;
+    top: 2px;
+    left: 5px;
+}
+
+.gallery .gallery-option {
+    width: 152px;
+    margin: 0px auto;
+    padding: 0;
+    border-radius: 2px;
+    border: solid #ea5856 1px;
+    background-color: #fbfbfb;
+    height: 30px;
+    box-sizing: border-box;
+}
+
 .gallery .gallery-option-box .gallery-option a {
-    width: 49px;
+    width: 75px;
     line-height: 28px;
     height: 28px;
-    color: #333333;
+    color: #f29293;
     display: inline-block;
 }
 
 .gallery .gallery-option-box .gallery-option a.active {
-    background-color: #333333;
-    border-radius: 5px;
     color: #ffffff;
+    background-color: #ea5856;
 }
 
 .gallery .cate-box {
@@ -1149,68 +1131,110 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 
 .gallery .cate-box .cate-op {
     width: 100%;
-    background-color: #f2f2f2;
-    border: solid #aeaeae 1px;
     display: block;
     height: 30px;
     text-align: center;
     line-height: 30px;
+    color: #666666;
+    padding: 4px 0;
+    font-size: 16px;
 }
 
 .gallery .cate-box .cates-self {
     position: absolute;
-    top: 30px;
+    top: 35px;
     width: 100%;
     z-index: 1000;
-    height: 300px;
-    overflow: scroll;
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-bottom: 6px;
+    border-top: solid #afafaf 1px;
+    background-color: #f9f9f9;
+}
+
+.gallery .cate-box .cates-self::-webkit-scrollbar {
+    width: 0px
 }
 
 .gallery .cate-box .cates-self li {
     width: 100%;
     text-align: center;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    background-color: #acacac;
-    border-bottom: solid #aeaeae 1px;
+    color: #666666;
+}
+
+.gallery .cate-box .cates-self li span {
+    width: 280px;
+    margin: 0 auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: solid #ededed 1px;
+    display: block;
+}
+
+.gallery .cate-box .cate-online-box {
+    position: absolute;
+    top: 35px;
+    width: 100%;
+    z-index: 1000;
+    height: 160px;
+    background-color: #f9f9f9;
+    border-top: solid #afafaf 1px;
+    color: #666666;
 }
 
 .gallery .cate-box .cates-online {
     position: absolute;
-    top: 30px;
+    top: 20px;
     width: 35%;
     z-index: 1000;
-    height: 85px;
-    overflow: scroll;
+    height: 120px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-right: solid #aeaeae 1px;
+}
+
+.gallery .cate-box .cates-online::-webkit-scrollbar {
+    width: 0px
 }
 
 .gallery .cate-box .cates-online li {
     width: 100%;
     text-align: center;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    background-color: #acacac;
-    border-bottom: solid #aeaeae 1px;
+    padding-top: 0;
+    padding-bottom: 20px;
+}
+
+.gallery .cate-box .cates-online li.active {
+    color: #d84e43;
 }
 
 .gallery .cate-box .cates-second {
     position: absolute;
-    top: 30px;
+    top: 20px;
     left: 35%;
     width: 65%;
     z-index: 1000;
-    background-color: #ccdbdc;
-    height: 85px;
-    overflow: scroll;
+    height: 120px;
+    overflow: hidden;
+    padding-left: 15px;
 }
 
 .gallery .cate-box .cates-second li {
     text-align: center;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-right: 10px;
-    border-bottom: solid #aeaeae 1px;
+    padding-top: 0;
+    padding-bottom: 10px;
+    padding-right: 20px;
     float: left;
+    text-decoration: none;
+}
+
+.gallery .cate-box .cates-second li.active {
+    color: #d84e43;
+}
+
+.gallery .gallery-box {
+    margin-top: 80px;
 }
 
 .gallery .list-gallery {
@@ -1320,7 +1344,6 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     width: 20px;
     height: 20px;
     background-size: 100% 100%;
-    background: url("../images/success.png");
 }
 
 .file-item .progress {
@@ -1343,7 +1366,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     overflow: hidden;
     width: 0;
     height: 100%;
-    background: #d14 url(../images/progress.png) repeat-x;
+    background: #d14;
     -webit-transition: width 200ms linear;
     -moz-transition: width 200ms linear;
     -o-transition: width 200ms linear;
@@ -1405,10 +1428,20 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 .gallery #picker .webuploader-pick {
     width: 100%;
     height: 100%;
+    background-color: #aaaaaa;
+    font-size: 30px;
 }
 
+.gallery #picker .webuploader-pick .icon-add {
+    line-height: 122px;
+}
+
+
+/* 选择框css*/
+
 .mobileEvent {
-    border: 1px solid #1490ef;
+    border: 2px solid #ea5856;
+    border-radius: 0;
 }
 
 .mainType {
@@ -1422,38 +1455,46 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     float: left;
     text-align: center;
 }
-.mainType li .icon{
+
+.mainType li .icon {
     font-size: 62px;
     height: 70px;
 }
-.mainType li>p{
+
+.mainType li>p {
     color: #585858;
     padding-top: 5px;
 }
-.personalTemplateArea{
+
+.personalTemplateArea {
     border-top: 13px solid #f6f6f6;
     padding-bottom: 10px;
 }
-.personalTemplateAreaHead{
+
+.personalTemplateAreaHead {
     overflow: hidden;
     height: 45px;
     line-height: 45px;
     padding: 0 10px;
     margin-top: 10px;
 }
-.personalTemplateAreaHead h3{
+
+.personalTemplateAreaHead h3 {
     line-height: 45px;
     float: left;
 }
-.personalTemplateAreaHead p{
+
+.personalTemplateAreaHead p {
     line-height: 45px;
     float: right;
 }
-.personalTemplateAreaContent{
+
+.personalTemplateAreaContent {
     overflow: hidden;
     padding: 0 10px;
 }
-.personalTemplateAreaContent .item{
+
+.personalTemplateAreaContent .item {
     overflow: hidden;
     width: 50%;
     /*margin-right: 3%;*/
@@ -1462,6 +1503,204 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     border: none;
     padding: 10px;
 }
-.personalTemplateAreaContent .item img{
+
+.personalTemplateAreaContent .item .imgList {
     width: 100%;
+    background-size: cover;
+}
+
+.personalTemplateAreaContent .item h2 {
+    height: 24px;
+    line-height: 24px;
+}
+
+.personalTemplateAreaContent .item p {
+    height: 24px;
+    line-height: 24px;
+}
+
+.rightbottom {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background: red;
+    right: -15px;
+    bottom: -15px;
+    opacity: 0;
+}
+
+.control-button {
+    position: absolute;
+    left: 0;
+    z-index: 200000;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    color: #fff;
+    border-radius: 50%;
+    border: solid 2px #ea5856;
+}
+
+.control-button-copy {
+    position: absolute;
+    left: 0;
+    z-index: 200000;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background: #ffffff;
+    color: #fff;
+    border-radius: 50%;
+    border: solid 4px #ea5856;
+    color: #ea5856;
+    font-size: 22px;
+}
+
+.moreDesignPage .bar-subheader .row {
+    padding: 0;
+}
+
+.typeBox {
+    z-index: 99;
+    height: 44px;
+    line-height: 44px;
+    position: absolute;
+    top: 44px;
+    border-bottom: 1px solid #afafaf;
+    position: relative;
+    background: #ffffff;
+}
+
+.latestandhottest {
+    height: 26px;
+    line-height: 26px;
+    background: #ffffff;
+    border: 1px solid #c66763;
+    padding: 0;
+    text-align: center;
+    color: #ee5557;
+    font-size: 12px;
+}
+
+.latestandhottest.active {
+    background: #ee5557;
+    color: #ffffff;
+}
+.mainTypeWrap{
+    overflow: hidden;
+    overflow-x: scroll; 
+}
+.mainTypeList{
+    height: 30px;
+    /*width: 3000000px;*/
+    float: left;
+}
+.mainTypeList li {
+    float: left;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 5px;
+}
+
+.mainTypeList li.active {
+    color: #ec5658;
+}
+
+.mainTypeList .dropPic {
+    bottom: 7px;
+}
+
+.restList {
+    width: 100%;
+    position: absolute;
+    width: 100%;
+    min-height: 30px;
+    left: 0;
+    top: -1000%;
+    z-index: 999;
+    padding: 10px 5% 30px;
+    border-bottom: 1px solid #7b7b7b;
+    background: #ffffff;
+}
+
+.restList li {
+    float: left;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 8px;
+    background: #fff;
+}
+.restList li.active {
+    color: #ec5658;
+}
+.restList.restListHide {
+    top: 44px;
+}
+
+.overDiv {
+    /*display: none;*/
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+}
+
+.overDivHide {
+    display: none;
+}
+
+.moreDesignPageContent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.cf {
+    *zoom: 1
+}
+
+.cf:before,
+.cf:after {
+    display: table;
+    line-height: 0;
+    content: ""
+}
+
+.cf:after {
+    clear: both
+}
+
+.moreDesignPage .personalTemplateAreaContent {
+    margin-top: 44px;
+}
+
+.designLoadDiv {
+    background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    left: 0;
+    top: 0;
+}
+.designBtn{
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    right: 30px;
+    bottom: 60px;
+    z-index: 999;
+    text-align: center;
+    line-height: 60px;
+    color: #ffffff;
+}
+.typeBoxIsHide{
+    display: none;
+}
+.moreDesignPage .personalTemplateAreaContent.isHaveMargin{
+    margin-top: 0;
 }

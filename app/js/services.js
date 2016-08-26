@@ -331,6 +331,82 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
+            //获取模板展示页的三大类别的最热故事
+            getTemplateIndex: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/template/gettemplateindex';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                }).success(
+                    function(data, status, header, config) {
+                        console.log(data);
+                        deferred.resolve(data);
+                    }).error(
+                    function(data, status, header, config) {
+                        console.log(data);
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;    
+            },
+            //获取模板展示页的三大类别的最热故事
+            getTemplateByName: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/template/gettemplate';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    params: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    }).error(
+                    function(data, status, header, config) {
+                        console.log(data);
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;    
+            },
+             //获取模板分类子分类
+            getChildCategoryByParentId: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/template/getchildcategory';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    params: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    }).error(
+                    function(data, status, header, config) {
+                        console.log(data);
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;    
+            },
+             //根据分类id检索故事列表
+            getStoryListByCategoryId: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/template/gettemplate';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    params: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    }).error(
+                    function(data, status, header, config) {
+                        console.log(data);
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;    
+            },
         };
     }])
     .service('ConfigService', [function() {
@@ -500,6 +576,7 @@ angular.module('IonicClub.services', [])
     .service('SectionEvent', ['$timeout', '$ionicSlideBoxDelegate', function($timeout, $ionicSlideBoxDelegate) {
         var d1 = null;
         var isSave = true;
+        var isControl=true;
         var service = {
             blurFn: function() {
                 //要是点击的不是可以改变的元素就把之前的选中状态清除
@@ -511,7 +588,7 @@ angular.module('IonicClub.services', [])
 
                 }
                 $('.bf-basic').removeClass('mobileEvent');
-                $('.leftright,.topbottom,.rightbottom,.righttop,.rightbottomcopy').remove();
+                $('.leftright,.topbottom,.rightbottom,.righttop,.rightbottomcopy, .control-button ,.control-button-copy').remove();
                 $('.editBox').appendTo(jQuery('.storySlideBox')).hide();
                 // $('.editBox').hide();
             },
@@ -538,6 +615,34 @@ angular.module('IonicClub.services', [])
                     left: rightbottomoffsetleft,
                     top: rightbottomoffsettop
                 });
+                var leftbottomoffsetleft =  $('.mobileEvent')[0].offsetLeft- 15;
+                var leftbottomoffsettop =$('.mobileEvent')[0].offsetTop + $('.rightbottom')[0].offsetTop;
+
+                console.log($('.leftbottomcopy')[0].width);
+
+                $('.leftbottomcopy').css({
+                    left: leftbottomoffsetleft,
+                    top:  leftbottomoffsettop
+                });
+
+                var lefttopffsetleft =  $('.mobileEvent')[0].offsetLeft- 10;
+                var lefttopoffsettop =$('.mobileEvent')[0].offsetTop-10 ;
+
+                $('.lefttopcopy').css({
+                    left: lefttopffsetleft,
+                    top:  lefttopoffsettop
+                });
+
+                var righttopffsetleft =  $('.mobileEvent')[0].offsetLeft+ $('.rightbottom')[0].offsetLeft+5;
+                var righttopoffsettop =$('.mobileEvent')[0].offsetTop-10 ;
+
+                $('.righttopcopy').css({
+                    left: righttopffsetleft,
+                    top: righttopoffsettop
+                });
+
+
+
             },
             // 设置编辑栏的位置方法
             setToolTipPoint: function(targetObj, toolTipObj) {
@@ -603,6 +708,12 @@ angular.module('IonicClub.services', [])
                 }
 
             },
+            stop:function(){
+                isControl=false;
+            },
+            start:function(){
+                isControl=true;
+            },
             cli: function() {
                 jQuery(function() {
                     var $ = jQuery;
@@ -659,7 +770,7 @@ angular.module('IonicClub.services', [])
                             $('.bf-basic').css({
                                 border: ''
                             }).removeClass('mobileEvent');
-                            $('.leftright,.topbottom,.rightbottom,.righttop,.rightbottomcopy').remove();
+                            $('.leftright,.topbottom,.rightbottom,.righttop,.rightbottomcopy, .control-button, .control-button-copy').remove();
                             //给当前点击的元素获得焦点
                             $(e.target).parents('section').addClass('mobileEvent');
                             // console.log(oldzIndex);
@@ -669,8 +780,11 @@ angular.module('IonicClub.services', [])
 
                             // $('<div class="leftright">左右</div>').appendTo($(e.target).parents('section'));
                             // $('<div class="topbottom">上下</div>').appendTo($(e.target).parents('section'));
-                            $('<div class="rightbottom">等比例</div>').appendTo($(e.target).parents('section'));
-                            $('<div class="rightbottomcopy">等比例</div>').appendTo($(e.target).parents('.storyPage'));
+                            $('<div class="rightbottom "></div>').appendTo($(e.target).parents('section'));
+                            $('<div class="rightbottomcopy control-button-copy icon-duodong"></div>').appendTo($(e.target).parents('.storyPage'));
+                            $('<div class="leftbottomcopy control-button-copy"></div>').appendTo($(e.target).parents('.storyPage'));
+                            $('<div class="lefttopcopy control-button"></div>').appendTo($(e.target).parents('.storyPage'));
+                            $('<div class="righttopcopy control-button"></div>').appendTo($(e.target).parents('.storyPage'));
                             // console.log($('.rightbottom'))
                             service.setFollow();
                             // $('<div class="righttop">X</div>').appendTo($(e.target).parents('section'));
@@ -712,6 +826,7 @@ angular.module('IonicClub.services', [])
             },
             drag: function() {
                 // console.log('拖拽开启');
+
                 jQuery(function() {
                     var $ = jQuery;
 
@@ -742,6 +857,9 @@ angular.module('IonicClub.services', [])
 
                     };
                     Drag.prototype.fnStart = function(e) {
+                        if(isControl==false){
+                            return false;
+                        }
                         console.log(e);
                         e.preventDefault();
                         e.stopPropagation();
@@ -786,6 +904,9 @@ angular.module('IonicClub.services', [])
                     };
                     Drag.prototype.fnMove = function(e) {
                         // 当有移动的时候需要把isSave设为true,下一次选中的时候需要保存回退数据
+                        if(isControl==false){
+                            return false;
+                        }
                         isSave =true;
                         console.log(e);
                         e.preventDefault();
@@ -837,6 +958,9 @@ angular.module('IonicClub.services', [])
 
                     };
                     Drag.prototype.fnEnd = function() {
+                        if(isControl==false){
+                            return false;
+                        }
                         this.settings.toEnd();
                         if (this.touchType == 'del') {
                             this.obj.remove();
