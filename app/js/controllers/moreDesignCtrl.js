@@ -55,10 +55,9 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
 		isLoad:通过点击li加载的不传值，通过上拉加载方式的要设为true;
     */
     $scope.searchItemByCategoryId = function(categoryId, type, index, pageNo, isLoad) {
-    	// jQuery('.moreDesignPageContent .scroll')[0].style='transform: translate3d(0px, 0px, 0px) scale(1)';
-    	// jQuery('.moreDesignPageContent .scroll').scrollTop(0);
-    	console.log('------scrollTop-----')
-    	// console.log(jQuery('.moreDesignPageContent .scroll').css('scrollTop'))
+
+        console.log('------scrollTop-----')
+            // console.log(jQuery('.moreDesignPageContent .scroll').css('scrollTop'))
         console.log(index)
         if (type == '0') {
             console.log('点击了未展开的li');
@@ -74,14 +73,7 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
             // jQuery('.searchAll').hide();
             $scope.toggle();
         }
-        $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: false,
-            maxWidth: 200,
-            showDelay: 0,
-            duration: 10000
-        });
+
 
         var pageNo = pageNo || 1;
         $scope.getListInfo = {
@@ -102,7 +94,17 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
             //     }
             //     // console.log($scope.getListInfo);
         if (!isLoad) {
-        	$scope.mainNo = 1;
+        	// 通过按钮切换的时候才需要走这部分逻辑
+            $ionicLoading.show({
+                content: 'Loading',
+                animation: 'fade-in',
+                showBackdrop: false,
+                maxWidth: 200,
+                showDelay: 0,
+                duration: 10000
+            });
+            $scope.more = true;
+            $scope.mainNo = 1;
             $scope.getListInfo = {
                 "category": categoryId,
                 "pageNo": 1,
@@ -111,7 +113,7 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
                 "search": ''
             }
             IonicService.getStoryListByCategoryId($scope.getListInfo).then(function(data) {
-            	console.log(data)
+                console.log(data)
                 $ionicLoading.hide();
                 if (data.status == 1 && data.message == "Success") {
                     if (pageNo == 1) {
@@ -125,6 +127,8 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
                     $scope.storyList = [];
                 }
             });
+            jQuery('.scroll-bar-indicator').css({ transform: 'translate3d(0px, 0px, 0px) scale(1)' });
+            jQuery('.moreDesignPageContent .scroll').css({ transform: 'translate3d(0px, 0px, 0px) scale(1)' });
         }
     }
 
@@ -147,7 +151,6 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
             try {
                 if ($stateParams.main) {
                     // 假如是运营列出的几个重点分类：旅游 结婚 教育，需要走这部分逻辑
-
                     var sendData = {
                             categoryName: $stateParams.designType,
                             pageNo: pageNo,
@@ -177,8 +180,8 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
                     });
 
                 } else {
-                	console.log('不是推荐的几个分类')
-                    //不是推荐的几个分类的时候，需要把对应的子分类列表显示出来
+                    console.log('不是推荐的几个分类')
+                        //不是推荐的几个分类的时候，需要把对应的子分类列表显示出来
                     $scope.typeBoxIsHide = false;
                     if (!$scope.getListInfo) {
                         //第一次加载才load分类列表，第二次就不重新加载
