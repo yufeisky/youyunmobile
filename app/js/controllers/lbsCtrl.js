@@ -50,7 +50,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             //加载CloudDataSearch服务插件
             search = new AMap.CloudDataSearch('57b67df9afdf522d4e2ab76d', searchOptions); //构造云数据检索类
             //周边检索
-            search.searchNearBy(center, 10000, function(status, result) {
+            search.searchNearBy(center, 10000000000000, function(status, result) {
                 // alert(status)
                 if (status == "complete" && result.info == "OK") {
                     console.log(result);

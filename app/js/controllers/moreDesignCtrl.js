@@ -54,6 +54,7 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
 		pageNo:页码
 		isLoad:通过点击li加载的不传值，通过上拉加载方式的要设为true;
     */
+    $scope.displayOrder = 0;
     $scope.searchItemByCategoryId = function(categoryId, type, index, pageNo, isLoad) {
 
         console.log('------scrollTop-----')
@@ -80,7 +81,7 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
                 "category": categoryId,
                 "pageNo": pageNo,
                 "loadCount": '4',
-                "displayOrder": 0,
+                "displayOrder": $scope.displayOrder,
                 "search": ''
             }
             // // console.log(this)
@@ -94,7 +95,7 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
             //     }
             //     // console.log($scope.getListInfo);
         if (!isLoad) {
-        	// 通过按钮切换的时候才需要走这部分逻辑
+            // 通过按钮切换的时候才需要走这部分逻辑
             $ionicLoading.show({
                 content: 'Loading',
                 animation: 'fade-in',
@@ -109,7 +110,7 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
                 "category": categoryId,
                 "pageNo": 1,
                 "loadCount": '4',
-                "displayOrder": 0,
+                "displayOrder": $scope.displayOrder,
                 "search": ''
             }
             IonicService.getStoryListByCategoryId($scope.getListInfo).then(function(data) {
@@ -151,11 +152,12 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
             try {
                 if ($stateParams.main) {
                     // 假如是运营列出的几个重点分类：旅游 结婚 教育，需要走这部分逻辑
+                    $scope.pageTitle = $stateParams.designType;
                     var sendData = {
                             categoryName: $stateParams.designType,
                             pageNo: pageNo,
                             loadCount: '4',
-                            displayOrder: '0'
+                            displayOrder: $scope.displayOrder
                         }
                         // 把分类列表隐藏
                     $scope.typeBoxIsHide = true;
@@ -195,6 +197,8 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
                             //     $scope.more = false;
                             //     $scope.$broadcast('scroll.infiniteScrollComplete');
                             // }
+                            console.log('--------------data------------')
+                            console.log(data)
                             if (data.status == 1 && data.message == "Success") {
                                 ul_width = 0;
                                 console.log(data.categories)
@@ -223,7 +227,7 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
                     }
 
                     // console.log(this)
-                    // console.log($scope.getListInfo);
+                    // console.log($scope.getListInfo
                     IonicService.getStoryListByCategoryId($scope.getListInfo).then(function(data) {
                         $ionicLoading.hide();
                         console.log('-------data.tempates------');
@@ -258,4 +262,50 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
         }, 500)
     };
 
+    $scope.hottest = function() {
+        jQuery('.latestandhottest').removeClass('active');
+        jQuery('.latestandhottest').eq(0).addClass('active');
+        jQuery('.scroll-bar-indicator').css({ transform: 'translate3d(0px, 0px, 0px) scale(1)' });
+        jQuery('.moreDesignPageContent .scroll').css({ transform: 'translate3d(0px, 0px, 0px) scale(1)' });
+        $scope.displayOrder = 0;
+        $scope.getListInfo.pageNo = 1;
+        $scope.loadStoryMore();
+        IonicService.getStoryListByCategoryId($scope.getListInfo).then(function(data) {
+            $ionicLoading.hide();
+            console.log('-------data.tempates------');
+            console.log(data.tempates);
+            if (angular.equals(data.tempates, undefined)) {
+                $scope.more = false;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
+            if (data.status == 1 && data.message == "Success") {
+                $scope.storyList = data.tempates;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
+
+        });
+    }
+    $scope.newest = function() {
+        jQuery('.latestandhottest').removeClass('active');
+        jQuery('.latestandhottest').eq(1).addClass('active');
+        jQuery('.scroll-bar-indicator').css({ transform: 'translate3d(0px, 0px, 0px) scale(1)' });
+        jQuery('.moreDesignPageContent .scroll').css({ transform: 'translate3d(0px, 0px, 0px) scale(1)' });
+        $scope.displayOrder = 1;
+        $scope.getListInfo.pageNo = 1;
+        $scope.loadStoryMore();
+        IonicService.getStoryListByCategoryId($scope.getListInfo).then(function(data) {
+            $ionicLoading.hide();
+            console.log('-------data.tempates------');
+            console.log(data.tempates);
+            if (angular.equals(data.tempates, undefined)) {
+                $scope.more = false;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
+            if (data.status == 1 && data.message == "Success") {
+                $scope.storyList = data.tempates;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
+
+        });
+    }
 }]);

@@ -1,4 +1,4 @@
-<ion-view view-title="个人模板" class="moreDesignPage">
+<ion-view view-title="{{pageTitle}}" class="moreDesignPage">
     <ion-nav-bar>
         <!-- 自定义的后退按钮 -->
         <ion-nav-buttons side="left">
@@ -10,8 +10,8 @@
     <div class="row typeBox" ng-class="{'typeBoxIsHide': typeBoxIsHide}">
         <div class="col col-33" style="padding:0;">
             <div class="row">
-                <div class="col latestandhottest active">最热</div>
-                <div class="col latestandhottest">最新</div>
+                <div class="col latestandhottest active" ng-click="hottest()">最热</div>
+                <div class="col latestandhottest" ng-click="newest()">最新</div>
             </div>
         </div>
         <div class="col col-67">
