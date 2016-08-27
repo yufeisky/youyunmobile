@@ -350,7 +350,7 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;    
             },
-            //获取模板展示页的三大类别的最热故事
+            //根据分类名获取模板展示页的故事
             getTemplateByName: function(data) {
                 var deferred = $q.defer();
                 var url = 'http://test.upalapp.com/mobileplatform/template/gettemplate';
@@ -814,11 +814,8 @@ angular.module('IonicClub.services', [])
                             } else {
                                 $('.editElementText').show();
                             }
-                            service.setToolTipPoint($(e.target).parents('section'), $('.editBox'));
                             $('.editBox').appendTo($(e.target).parents('.storyPage'));
-
-
-
+                            service.setToolTipPoint($(e.target).parents('section'), $('.editBox'));
                             service.drag();
                             // console.log(d1)
                         } else if ($(e.target).parent().hasClass('editBox')) {
