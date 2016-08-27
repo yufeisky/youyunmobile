@@ -7,15 +7,17 @@
     </div>
     <div class="cate-box">
         <span class="cate-op" on-tap="cateOp()">{{cates[cateIndex].name}}</span>
-        <ul class="cates-self" ng-show="cateShow &&  isSelf">
-            <li on-tap="cateChoose($index)" ng-repeat="cate in cates" >{{cate.name}}</li>
+        <ul class="cates-self scroll" ng-show="cateShow &&  isSelf">
+            <li on-tap="cateChoose($index)" ng-repeat="cate in cates" ><span>{{cate.name}}</span></li>
         </ul>
-        <ul class="cates-online" ng-show="cateShow && isLine ">
-            <li on-tap ="cateSChoose($index)" ng-repeat="cate in mainCates" >{{cate.name}}</li>
-        </ul>
-        <ul class="cates-second"   ng-show="cateShow && isLine" >
-            <li on-tap="cateChoose($index)" ng-repeat="cate in secondCates" >{{cate.name}}</li>
-        </ul>
+        <div class="cate-online-box" ng-show="cateShow && isLine ">
+            <ul class="cates-online" ng-show="cateShow && isLine " >
+                <li on-tap ="cateSChoose($index)" ng-repeat="cate in mainCates"  ng-class="{active:isActiveCate($index)}" >{{cate.name}}</li>
+            </ul>
+            <ul class="cates-second"   ng-show="cateShow && isLine" >
+                <li on-tap="cateChoose($index)" ng-repeat="cate in cates" ng-class="{'active': $index == cateIndex}" >{{cate.name}}</li>
+            </ul>
+        </div>
     </div>
     <ion-content scroll="true" lazy-scroll class="gallery-box">
        <!-- <input type="file" accept="image/*" id="upload"   />-->
@@ -28,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="picker">选择文件</div>
+                    <div id="picker"></div>
                 </div>
             </div>
             <a class="item-gallery"   on-tap="imageOp($index)" nav-transition="ios"  ng-repeat="image in images">

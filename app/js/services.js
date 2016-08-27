@@ -650,9 +650,17 @@ angular.module('IonicClub.services', [])
                 var storyPageWidth = $('.storyPage').width();
                 // targetObj
                 var targetLeft = targetObj[0].offsetLeft;
+                console.log('----------targetLeft----------');
+                console.log(targetLeft);
                 var targetWidth = targetObj[0].offsetWidth;
+                console.log('----------targetWidth----------');
+                console.log(targetWidth);
                 var toolTipWidth = toolTipObj[0].offsetWidth;
+                 console.log('----------toolTipWidth----------');
+                console.log(toolTipWidth);
                 var toolTipLeft = toolTipObj[0].offsetLeft;
+                 console.log('----------toolTipLeft----------');
+                console.log(toolTipLeft);
                 var targetCenter = targetLeft + targetWidth / 2;
                 var rightTargetCenter = storyPageWidth - targetCenter;
                 //  当为提示栏在左边时候，三角形的位置
@@ -663,6 +671,7 @@ angular.module('IonicClub.services', [])
                     console.log('在左边');
                     toolTipObj.css({
                         left: 0,
+                        right:''
                     });
                     leftToolPoint = leftToolPoint < 20 ? 20 : leftToolPoint;
                     $('.triangle-down,.triangle-up').css({
@@ -671,9 +680,10 @@ angular.module('IonicClub.services', [])
                 } else {
                     console.log('在右边');
                     var toolleft = storyPageWidth - toolTipWidth;
-                    rightToolPoint = rightToolPoint > toolTipWidth ? (toolTipWidth - 30) : rightToolPoint;
+                    rightToolPoint = rightToolPoint > (toolTipWidth-30) ? (toolTipWidth - 30) : rightToolPoint;
                     toolTipObj.css({
-                        left: toolleft,
+                        left: '',
+                        right:0
                     });
                     $('.triangle-down,.triangle-up').css({
                         left: rightToolPoint
@@ -684,6 +694,7 @@ angular.module('IonicClub.services', [])
                     var middleToolLeft = targetCenter - toolTipWidth / 2;
                     toolTipObj.css({
                         left: middleToolLeft,
+                        right:''
                     });
                     $('.triangle-down,.triangle-up').css({
                         left: toolTipWidth / 2
@@ -866,7 +877,8 @@ angular.module('IonicClub.services', [])
 
                         // 当拖动的目标是当前被选中元素才操作,因为修改了监听的对象为document，所以需要这个判断
                         console.log($(e.target));
-                        if ($(e.target).hasClass('rightbottomcopy') || this.obj.find($(e.target)).length > 0) {
+
+                        if ($(e.target).hasClass('rightbottomcopy')||$(e.target).hasClass('lefttopcopy') ||$(e.target).hasClass('leftbottomcopy') || $(this.obj).find($(e.target)).length > 0) {
                             console.log($(e.target));
                             this.settings.toStart();
                             e.preventDefault();
@@ -878,10 +890,10 @@ angular.module('IonicClub.services', [])
                             this.sectionWidth = this.obj[0].offsetWidth;
                             this.sectionHeight = this.obj[0].offsetHeight;
                             $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(false);
-                            if ($(e.target).hasClass('leftright')) {
+                            if ($(e.target).hasClass('lefttopcopy')) {
                                 console.log('改变宽度');
                                 this.touchType = 'widthMove';
-                            } else if ($(e.target).hasClass('topbottom')) {
+                            } else if ($(e.target).hasClass('leftbottomcopy')) {
                                 console.log('改变高度');
                                 this.touchType = 'heightMove';
                             } else if ($(e.target).hasClass('rightbottomcopy')) {
@@ -913,7 +925,9 @@ angular.module('IonicClub.services', [])
                         e.stopPropagation();
                         // console.log($(e.target));
                         // console.log(this.obj.find($(e.target)).length>0)
-                        if (!$(e.target).hasClass('rightbottomcopy') && this.obj.find($(e.target)).length > 0) {
+                        console.log('--------this.obj--------');
+                        console.log(this.obj);
+                        if (!$(e.target).hasClass('rightbottomcopy') && $(this.obj).find($(e.target)).length > 0) {
                             service.setToolTipPoint($(e.target).parents('section'), $('.editBox'));
                         } else {
                             $('.editBox').hide();
