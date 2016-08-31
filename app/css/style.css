@@ -1739,6 +1739,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 }
 
 .setStoryList .item {
+    margin: 0;
     margin-top: 25px;
 }
 
@@ -1779,22 +1780,24 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     top: 6px;
 }
 
-.setStoryList .coverNext img{
+.setStoryList .coverNext img {
     width: 30px;
     position: absolute;
     right: 10px;
     top: 35px;
 }
-.setStoryInfoContent .saveStoryInfoBtn{
+
+.setStoryInfoContent .saveStoryInfoBtn {
     width: 80%;
     margin-left: 10%;
-    border:1px solid #9b4f59;
+    border: 1px solid #9b4f59;
     color: #9b4f59;
     padding: 0;
     border-radius: 8px;
-    
     position: relative;
 }
+
+
 /*.saveStoryBottomColor {
     position: absolute;
     width: 100%;
@@ -1804,7 +1807,8 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     border-radius: 16px;
     background: #f9b9b9;
 }*/
-.saveStoryInfoBtn span{
+
+.saveStoryInfoBtn span {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -1812,4 +1816,143 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     top: 0;
     border-radius: 7px;
     border-bottom: 5px solid #f8b1b7;
+}
+
+.user-page {
+    background-color: #f6f6f6;
+}
+
+.user-page .user-info {
+    width: 100%;
+    height: 140px;
+    background-color: #e6616c;
+    padding-top: 8px;
+}
+
+.user-page .user-info .user-image {
+    width: 80px;
+    height: 80px;
+    background-color: #c0c0c0;
+    border: solid 1px #c9c9c9;
+    margin: 0 auto;
+}
+
+.user-page .user-info .user-name {
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.user-page .user-info .user-email {
+    width: 100%;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.user-page .user-info .user-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.user-page .user-main-nav-box {
+    width: 100%;
+    height: 60px;
+    position: relative;
+    border-bottom: solid 1px #c9c9c9;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.user-page .user-main-nav-box .user-main-nav {
+    width: 300px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+.user-page .user-main-nav-box .user-main-nav li {
+    float: left;
+    display: block;
+    height: 60px;
+    padding-top: 8px;
+    width: 100px;
+    text-align: center;
+}
+
+.user-page .user-main-nav-box .user-main-nav li i {
+    display: block;
+    font-size: 24px;
+    color: #989898;
+    padding-bottom: 5px;
+}
+
+.user-page .user-main-nav-box .user-main-nav li span {
+    display: block;
+    font-size: 12px;
+    color: #6d6d6d;
+}
+
+.user-page .user-assist-nav-box {
+    width: 100%;
+    border-top: solid 1px #c9c9c9;
+    border-bottom: solid 1px #c9c9c9;
+    position: relative;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.user-page .user-assist-nav-box .user-assist-nav {
+    width: 90%;
+    margin-left: 10%;
+}
+
+.user-page .user-assist-nav-box .user-assist-nav li {
+    width: 100%;
+    color: #080808;
+    box-sizing: border-box;
+    padding-left: 20px;
+    border-top: solid 1px #c9c9c9;
+    font-size: 14px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+.user-page .user-assist-nav-box .user-assist-nav li i {
+    float: right;
+    display: block;
+    font-size: 12px;
+    padding-left: 2px;
+    box-sizing: border-box;
+    color: #c6c6c6;
+    margin-right: 10px;
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    /* IE 9 */
+    -moz-transform: rotate(90deg);
+    /* Firefox */
+    -webkit-transform: rotate(90deg);
+    /* Safari 和 Chrome */
+    -o-transform: rotate(90deg);
+    /* Opera */
+}
+
+.user-page .user-assist-nav-box .user-assist-nav li:first-child {
+    border-top: none;
+}
+
+.user-page .user-third-nav-box .user-third-nav li {
+    color: #ff3c38;
+}
+
+.user-page .logout-box {
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 auto;
+    text-align: center;
 }

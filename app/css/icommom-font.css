@@ -24,16 +24,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-add:before {
+.icon-collect-57:before {
   content: "\e900";
 }
-.icon-arrow-59:before {
+.icon-duodong:before {
   content: "\e901";
 }
-.icon-arrow-60:before {
+.icon-info-56:before {
   content: "\e902";
 }
-.icon-duodong:before {
+.icon-works-58:before {
   content: "\e903";
 }
+.icon-add:before {
+  content: "\e904";
+}
+.icon-arrow-59:before {
+  content: "\e905";
+}
+.icon-arrow-60:before {
+  content: "\e906";
+}
+
 

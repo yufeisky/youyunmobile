@@ -45,7 +45,7 @@
     <div class="footer">
         <ul class="appEdit" ng-class="{'appEditHide': visible}">
             <li><i class="icon ion-star"></i>更换背景音乐</li>
-            <li><i class="icon ion-star"></i>更换背景图片</li>
+            <li ng-click="openBackEditModal()"><i class="icon ion-star"></i>更换背景图片</li>
             <li><i class="icon ion-star"></i>插入图片</li>
             <li><i class="icon ion-star"></i>插入文字</li>
         </ul>
@@ -53,7 +53,7 @@
             <ion-tab title="保存" icon="ion-eye" nav-transition="ios" ng-click="storySave()">
             </ion-tab>
             <!-- ng-click="cancelOperation()" -->
-            <ion-tab title="撤销" icon="ion-reply" nav-transition="ios" >
+            <ion-tab title="撤销" icon="ion-reply" nav-transition="ios" ng-click="cancelOperation()">
             </ion-tab>
             <ion-tab title="模板" icon="icon-upalapp-zhizuo-off" nav-transition="ios">
             </ion-tab>
