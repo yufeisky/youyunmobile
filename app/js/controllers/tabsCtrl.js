@@ -4,7 +4,7 @@ appController.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageServi
         // Con.log('-------statename----');
         // Con.log(statename);
         //tabs中存在的主页面不需要隐藏，hidetabs=false
-        if (statename === 'tab.homeDetail' || statename === 'tab.edit'||statename === 'tab.moreDesign'||statename === 'tab.designDetail') {
+        if (statename === 'tab.homeDetail' || statename === 'tab.edit' || statename === 'tab.moreDesign' || statename === 'tab.designDetail' || statename === 'tab.previewStory' || statename === 'tab.setStoryInfo') {
             $rootScope.hideTabs = true;
         } else {
             $rootScope.hideTabs = false;
@@ -43,7 +43,7 @@ appController.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageServi
             return false;
         }
         if ($rootScope.UserInfo) {
-            if (($rootScope.changeState == 'tab.user') && reload) {
+            if ((($rootScope.changeState == 'tab.user') || ($rootScope.changeState == 'tab.design')) && reload) {
                 Con.log('重载');
                 $state.go(state);
                 $timeout(function() {

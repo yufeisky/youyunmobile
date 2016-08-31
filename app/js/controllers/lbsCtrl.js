@@ -9,34 +9,43 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
     });
     //获取坐标
     $scope.getLocation = function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition($scope.showPosition);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition($scope.showPosition, $scope.showError);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
         }
-    }
-
+        //用户同意获取地理位置执行该函数
     $scope.showPosition = function(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        AMap.convertFrom([longitude, latitude],
-            // AMap.convertFrom([116.368904, 39.923423],
-            'gps',
-            function(status, result) {
-                if (status == "complete") {
-                    latitude = result.locations[0].lat;
-                    longitude = result.locations[0].lng;
-                    // alert(latitude);
-                    // alert(longitude);
-                    $scope.ininMap(longitude, latitude);
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            AMap.convertFrom([longitude, latitude],
+                // AMap.convertFrom([116.368904, 39.923423],
+                'gps',
+                function(status, result) {
+                    if (status == "complete") {
+                        latitude = result.locations[0].lat;
+                        longitude = result.locations[0].lng;
+                        // alert(latitude);
+                        // alert(longitude);
+                        $scope.ininMap(longitude, latitude);
 
-                }
+                    }
 
-                // if(status=='compile'){}
-            })
+                    // if(status=='compile'){}
+                })
 
+        }
+        //用户不同或出错的时候执行该函数
+    $scope.showError = function(error) {
+        $scope.ininMap(113.366693, 23.096714, true);
     }
-    $scope.ininMap = function(longitude, latitude) {
+    /*
+      longitude:经度
+      latitude：维度
+      type：当true代表出错时候，不显示当前位置
+    */
+    $scope.ininMap = function(longitude, latitude, type) {
         // alert(latitude);
         // alert(longitude);
         AMap.service('AMap.CloudDataSearch', function() { //回调函数
@@ -50,7 +59,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             //加载CloudDataSearch服务插件
             search = new AMap.CloudDataSearch('57b67df9afdf522d4e2ab76d', searchOptions); //构造云数据检索类
             //周边检索
-            search.searchNearBy(center, 10000000000000, function(status, result) {
+            search.searchNearBy(center, 100000000000, function(status, result) {
                 // alert(status)
                 if (status == "complete" && result.info == "OK") {
                     console.log(result);
@@ -67,13 +76,18 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             });
             // console.log(search.searchNearBy(center, 10000))
         })
+
         var infoWindow = new AMap.InfoWindow();
-        marker = new AMap.Marker({
-            position: [longitude, latitude],
-            map: map
-        });
-        marker.content = '你的位置';
-        marker.on('click', markerClick);
+
+        if (!type) {
+            marker = new AMap.Marker({
+                position: [longitude, latitude],
+                map: map
+            });
+            marker.content = '你的位置';
+            marker.on('click', markerClick);
+        }
+
 
         function markerClick(e) {
             infoWindow.setContent(e.target.content);
@@ -87,7 +101,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
     // var isPC=true;
     // 为了方便电脑伤调试
     if (isPC) {
-        $scope.ininMap(113.366693, 23.096714);
+        $scope.ininMap(113.366693, 23.096714, true);
     }
 
 
@@ -149,31 +163,39 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
         }
         //描标注点并添加监听的方法 
     $scope.createMap = function(obj) {
+        console.log('----------obj-----------');
+        console.log(obj);
+        console.log(obj.length);
         var infoWindow = new AMap.InfoWindow();
         for (var i = 0, marker; i < obj.length; i++) {
-            if (obj[i].type == 'group') {
-                marker = new AMap.Marker({
-                    position: [obj[i]._location.lng, obj[i]._location.lat],
-                    icon: 'http://vdata.amap.com/icons/b18/1/2.png',
-                    map: map
-                });
-                marker.content = '<div class="markerDiv groupDiv" groupid="' + obj[i].groupID + '" grouptit="' + obj[i].h5title + '"><a href="javascript:;" class="markerDiva"><div class="imgarea"><img class="h5Img" src="' + obj[i].h5logo + '" /></div><div class="wordArea"><h2>' + obj[i].h5title + '</h2><p>' + obj[i].description + '</p></div><div class="linkIcon"><img  src="img/iconRight.png" /></div></a></div>';
-            } else if (obj[i].type == 'story' && obj[i].groupID == '0') {
+            console.log(obj[i])
+            if (obj[i].type) {
+                if (obj[i].type == 'group') {
+                    var iconArr = $filter('filter')($scope.dropDownArr, { name: '全部' })[0];
+                    var IconUrl = iconArr.lbsIconUrl;
+                    marker = new AMap.Marker({
+                        position: [obj[i]._location.lng, obj[i]._location.lat],
+                        icon: IconUrl,
+                        map: map
+                    });
+                    marker.content = '<div class="markerDiv groupDiv" groupid="' + obj[i].groupID + '" grouptit="' + obj[i].h5title + '"><a href="javascript:;" class="markerDiva"><div class="imgarea"><img class="h5Img" src="' + obj[i].h5logo + '" /></div><div class="wordArea"><h2>' + obj[i].h5title + '</h2><p>' + obj[i].description + '</p></div><div class="linkIcon"><img  src="img/iconRight.png" /></div></a></div>';
+                } else if (obj[i].type == 'story' && obj[i].groupID == '0') {
 
-                var iconArr = $filter('filter')($scope.dropDownArr, { name: obj[i].category })[0];
-                var IconUrl = iconArr.lbsIconUrl;
-                marker = new AMap.Marker({
-                    position: [obj[i]._location.lng, obj[i]._location.lat],
-                    icon: IconUrl,
-                    map: map
-                });
-                marker.content = '<div class="markerDiv storyDiv" storyId="' + obj[i].storyId + '"><a href="javascript:;" ><div class="imgarea"><img class="h5Img" src="' + obj[i].h5logo + '" /></div><div class="wordArea"><h2>' + obj[i].h5title + '</h2><p>' + obj[i].description + '</p></div></a></div>';
+                    var iconArr = $filter('filter')($scope.dropDownArr, { name: obj[i].category })[0];
+
+                    var IconUrl = iconArr.lbsIconUrl;
+                    marker = new AMap.Marker({
+                        position: [obj[i]._location.lng, obj[i]._location.lat],
+                        icon: IconUrl,
+                        map: map
+                    });
+                    marker.content = '<div class="markerDiv storyDiv" storyId="' + obj[i].storyId + '"><a href="javascript:;" ><div class="imgarea"><img class="h5Img" src="' + obj[i].h5logo + '" /></div><div class="wordArea"><h2>' + obj[i].h5title + '</h2><p>' + obj[i].description + '</p></div></a></div>';
+                }
+                //给Marker绑定单击事件
+                marker.on('click', markerClick);
+                marker.emit('click', { target: marker });
+                $scope.markers.push(marker);
             }
-            //给Marker绑定单击事件
-            marker.on('click', markerClick);
-            marker.emit('click', { target: marker });
-            $scope.markers.push(marker);
-
         }
         map.setFitView(); //加这句所有点会聚焦
 
@@ -270,7 +292,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
 
     // 切换按钮
     $scope.activeTit = '全部';
-    $scope.dropDownArr = [{ name: '全部', icon: '', active: true, lbsIconUrl: '' }, { name: '线下活动', icon: 'icon-upalapp-huodong-off', active: false, lbsIconUrl: 'img/huodong@2x.png' }, { name: '神秘事件', icon: 'icon-upalapp-shijian-off', active: false, lbsIconUrl: 'img/shijian@2x.png' }, { name: '折扣优惠', icon: 'icon-upalapp-zhekou-off', active: false, lbsIconUrl: 'img/zhekou.png' }, { name: '文青聚点', icon: 'icon-upalapp-wenqing-off', active: false, lbsIconUrl: 'img/wenqing@2x.png' }, { name: '桌游聚点', icon: 'icon-upalapp-zhuoyou-off', active: false, lbsIconUrl: 'img/zhuoyou@2x.png' }];
+    $scope.dropDownArr = [{ name: '全部', icon: '', active: true, lbsIconUrl: 'img/more@2x.png' }, { name: '线下活动', icon: 'icon-upalapp-huodong-off', active: false, lbsIconUrl: 'img/huodong@2x.png' }, { name: '神秘事件', icon: 'icon-upalapp-shijian-off', active: false, lbsIconUrl: 'img/shijian@2x.png' }, { name: '折扣优惠', icon: 'icon-upalapp-zhekou-off', active: false, lbsIconUrl: 'img/zhekou.png' }, { name: '文青聚点', icon: 'icon-upalapp-wenqing-off', active: false, lbsIconUrl: 'img/wenqing@2x.png' }, { name: '桌游聚点', icon: 'icon-upalapp-zhuoyou-off', active: false, lbsIconUrl: 'img/zhuoyou@2x.png' }];
     $scope.visible = false;
     $scope.toggle = function(json) {
         console.log(json);

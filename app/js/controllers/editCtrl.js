@@ -135,6 +135,24 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             console.log(data);
             if (data.status == '1') {
                 MsgBox.showTexts('保存成功');
+                // $scope.storyInfo = {
+                //     puburl: data.puburl,
+                //     storyId: data.storyId,
+                //     title: data.title,
+                //     description: data.description,
+                //     logo:data.logo,
+                // }
+                $scope.storyInfo = {
+                    puburl: 'http://test.upalapp.com/p/template/qUjaA3.html',
+                    storyId:'22115',
+                    title: '模拟标题',
+                    description: '模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述',
+                    logo:'http://cdn.upalapp.com/upload/images/2016/08/thumb/1472179734159_d0426ff4-bdb9-4f51-b0ec-caf47ca07f76.png',
+                }
+                console.log($scope.storyInfo);
+                $scope.storyInfo = JSON.stringify($scope.storyInfo);
+                // 跳转到预览界面
+                $state.go('tab.previewStory', { storyInfo: $scope.storyInfo });
             }
         });
     };
@@ -144,7 +162,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             jQuery('.editSlide .storyPage output').each(function(k, v) {
                 var idval = jQuery(v).parents('.storyPage').attr('page_id');
                 var numval = k + 1;
-                console.log(v)
+                // console.log(v)
                 var contenthtml = jQuery(v).prop('outerHTML').toString();
                 // Con.log(contenthtml);
                 var pageInfo = {
@@ -153,7 +171,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                     "number": numval.toString(),
                     "content": contenthtml
                 };
-                console.log($scope.pageData)
+                // console.log($scope.pageData)
                 $scope.pageData.push(pageInfo);
             });
             // console.log(data)
@@ -194,7 +212,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         // $ionicGoBack()
     }
 
-    // 模态框登陆
+    // 加载文字修改模态框
     $ionicModal.fromTemplateUrl('templates/textedit.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -202,13 +220,13 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         $scope.textEditmodal = modal;
     });
     $scope.model = { text: 123 };
-    $rootScope.openTextEditModal = function() {
+    $scope.openTextEditModal = function() {
         $scope.textEditmodal.show();
         var oldText = jQuery('.mobileEvent').find('.txt-con').text();
         $scope.model = { text: oldText };
         jQuery('.editTextArea').focus();
     };
-    $rootScope.closeTextEditModal = function(type) {
+    $scope.closeTextEditModal = function(type) {
         $scope.textEditmodal.hide();
     };
     $scope.changeText = function(text) {

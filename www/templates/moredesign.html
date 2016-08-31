@@ -40,7 +40,7 @@
         <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
         <div class="personalTemplateAreaContent " ng-class="{'isHaveMargin': typeBoxIsHide}">
             <div class="list">
-                <a class="item item-thumbnail-top" href="javascript:;" ng-repeat="storyItem in storyList">
+                <a class="item item-thumbnail-top" href="javascript:;" ui-sref="tab.designDetail({ itemPars: '{{storyItem}}'})" ng-repeat="storyItem in storyList">
                     <div class="imgList" style="height:{{img_w}}; background-image:url('{{storyItem.logo}}')"> </div>
                     <h2>{{storyItem.title}}</h2>
                     <p>{{storyItem.description}}</p>

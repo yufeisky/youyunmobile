@@ -1587,15 +1587,18 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     background: #ee5557;
     color: #ffffff;
 }
-.mainTypeWrap{
+
+.mainTypeWrap {
     overflow: hidden;
-    overflow-x: scroll; 
+    overflow-x: scroll;
 }
-.mainTypeList{
+
+.mainTypeList {
     height: 30px;
     /*width: 3000000px;*/
     float: left;
 }
+
 .mainTypeList li {
     float: left;
     height: 26px;
@@ -1631,9 +1634,11 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     padding: 0 8px;
     background: #fff;
 }
+
 .restList li.active {
     color: #ec5658;
 }
+
 .restList.restListHide {
     top: 44px;
 }
@@ -1677,7 +1682,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 }
 
 .designLoadDiv {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.5);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -1685,11 +1690,12 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     left: 0;
     top: 0;
 }
-.designBtn{
+
+.designBtn {
     width: 60px;
     height: 60px;
     border-radius: 30px;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     position: absolute;
     right: 30px;
     bottom: 60px;
@@ -1698,9 +1704,112 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     line-height: 60px;
     color: #ffffff;
 }
-.typeBoxIsHide{
+
+.typeBoxIsHide {
     display: none;
 }
-.moreDesignPage .personalTemplateAreaContent.isHaveMargin{
+
+.moreDesignPage .personalTemplateAreaContent.isHaveMargin {
     margin-top: 0;
+}
+
+.mainType .path2,
+.mainType .path3,
+.mainType .path4,
+.mainType .path5 {
+    position: absolute;
+}
+
+.previewStoryPage .designBtn {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    line-height: 80px;
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    right: 30px;
+    bottom: 60px;
+    z-index: 999;
+    text-align: center;
+    color: #ffffff;
+}
+
+.setStoryInfoContent {
+    background: #f6f6f6;
+}
+
+.setStoryList .item {
+    margin-top: 25px;
+}
+
+.setStoryList .content {
+    white-space: normal;
+    text-align: right;
+}
+
+.setStoryList .content img {
+    width: 80px;
+    height: 80px;
+    display: block;
+    position: absolute;
+    right: 0;
+}
+
+.setStoryList .itemTit {
+    line-height: 80px;
+}
+
+.setStoryList .row {
+    padding: 5px;
+}
+
+.setStoryList .col {
+    padding: 5px;
+}
+
+.setStoryList .next {
+    text-align: right;
+    line-height: 80px;
+}
+
+.setStoryList .next img {
+    width: 30px;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+}
+
+.setStoryList .coverNext img{
+    width: 30px;
+    position: absolute;
+    right: 10px;
+    top: 35px;
+}
+.setStoryInfoContent .saveStoryInfoBtn{
+    width: 80%;
+    margin-left: 10%;
+    border:1px solid #9b4f59;
+    color: #9b4f59;
+    padding: 0;
+    border-radius: 8px;
+    
+    position: relative;
+}
+/*.saveStoryBottomColor {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    bottom: 0;
+    height: 32px;
+    border-radius: 16px;
+    background: #f9b9b9;
+}*/
+.saveStoryInfoBtn span{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 7px;
+    border-bottom: 5px solid #f8b1b7;
 }

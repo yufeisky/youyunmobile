@@ -4,6 +4,7 @@
     <ion-content scroll="true" overflow-scroll="true">
         <iframe class="pubIframe" ng-src="{{pubUrl}}"></iframe>
         <!-- <div class="designBtn" ui-sref="tab.edit({ storyId: '{{story.id}}'})">使用</div> -->
-        <div class="designBtn" ui-sref="tab.edit({ storyId: '21789'})">使用</div>
+        <!-- ui-sref="tab.edit({ storyId: storyId})" -->
+        <div class="designBtn" ng-click="createStoryByTemplateId(templateId)">使用</div>
     </ion-content>
 </ion-view>

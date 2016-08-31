@@ -92,9 +92,27 @@ angular.module('IonicClub.router', [])
                 // url: '/homeDetail:pubUrl:imgSrc:storyId:storyTitle:secondTitle:shareCount:browseCount:collectCount',
                 url: '/designDetail:itemPars',
                 views: {
-                    'home': {
+                    'design': {
                         templateUrl: 'templates/designDetail.html',
                         controller: 'designDetailCtrl'
+                    }
+                }
+            })
+            .state('tab.previewStory', {
+                url: '/previewStory:storyInfo',
+                views: {
+                    'design': {
+                        templateUrl: 'templates/previewStory.html',
+                        controller: 'previewStoryCtrl'
+                    }
+                }
+            })
+            .state('tab.setStoryInfo', {
+                url: '/setStoryInfo:storyInfo',
+                views: {
+                    'design': {
+                        templateUrl: 'templates/setStoryInfo.html',
+                        controller: 'setStoryInfoCtrl'
                     }
                 }
             })
