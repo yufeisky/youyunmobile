@@ -38,13 +38,13 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
         }
         //用户不同或出错的时候执行该函数
     $scope.showError = function(error) {
-        $scope.ininMap(113.366693, 23.096714, true);
-    }
-    /*
-      longitude:经度
-      latitude：维度
-      type：当true代表出错时候，不显示当前位置
-    */
+            $scope.ininMap(113.366693, 23.096714, true);
+        }
+        /*
+          longitude:经度
+          latitude：维度
+          type：当true代表出错时候，不显示当前位置
+        */
     $scope.ininMap = function(longitude, latitude, type) {
         // alert(latitude);
         // alert(longitude);
@@ -54,13 +54,15 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             var searchOptions = {
                 keywords: '',
                 // pageSize: 5,
-                orderBy: '_id:ASC'
+                orderBy: '_id:ASC',
+                filter: "status:1"
             };
             //加载CloudDataSearch服务插件
             search = new AMap.CloudDataSearch('57b67df9afdf522d4e2ab76d', searchOptions); //构造云数据检索类
             //周边检索
             search.searchNearBy(center, 100000000000, function(status, result) {
                 // alert(status)
+                console.log(result)
                 if (status == "complete" && result.info == "OK") {
                     console.log(result);
                     console.log(result.datas);
@@ -68,9 +70,10 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
 
                     // $scope.datas = $filter('filter')(result.datas,{category:'线下活动'});
                     $scope.datas = result.datas;
+                    // $scope.datas = $filter('filter')($scope.datas, { status: '1' });
                     console.log($scope.datas);
                     console.log($scope.datas.length)
-                    console.log($filter('filter')($scope.datas, { category: '线下' }));
+                        // console.log($filter('filter')($scope.datas, { category: '线下' }));
                     $scope.createMap($scope.datas);
                 }
             });
@@ -172,29 +175,40 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             if (obj[i].type) {
                 if (obj[i].type == 'group') {
                     var iconArr = $filter('filter')($scope.dropDownArr, { name: '全部' })[0];
-                    var IconUrl = iconArr.lbsIconUrl;
-                    marker = new AMap.Marker({
-                        position: [obj[i]._location.lng, obj[i]._location.lat],
-                        icon: IconUrl,
-                        map: map
-                    });
-                    marker.content = '<div class="markerDiv groupDiv" groupid="' + obj[i].groupID + '" grouptit="' + obj[i].h5title + '"><a href="javascript:;" class="markerDiva"><div class="imgarea"><img class="h5Img" src="' + obj[i].h5logo + '" /></div><div class="wordArea"><h2>' + obj[i].h5title + '</h2><p>' + obj[i].description + '</p></div><div class="linkIcon"><img  src="img/iconRight.png" /></div></a></div>';
+                    console.log(iconArr);
+                    if (iconArr) {
+                        var IconUrl = iconArr.lbsIconUrl;
+
+                        marker = new AMap.Marker({
+                            position: [obj[i]._location.lng, obj[i]._location.lat],
+                            icon: IconUrl,
+                            map: map
+                        });
+                        marker.content = '<div class="markerDiv groupDiv" groupid="' + obj[i].groupID + '" grouptit="' + obj[i].h5title + '"><a href="javascript:;" class="markerDiva"><div class="imgarea"><img class="h5Img" src="' + obj[i].h5logo + '" /></div><div class="wordArea"><h2>' + obj[i].h5title + '</h2><p>' + obj[i].description + '</p></div><div class="linkIcon"><img  src="img/iconRight.png" /></div></a></div>';
+                        //给Marker绑定单击事件
+                        marker.on('click', markerClick);
+                        marker.emit('click', { target: marker });
+                        $scope.markers.push(marker);
+                    }
                 } else if (obj[i].type == 'story' && obj[i].groupID == '0') {
-
                     var iconArr = $filter('filter')($scope.dropDownArr, { name: obj[i].category })[0];
+                    console.log(iconArr);
+                    if (iconArr) {
+                        var IconUrl = iconArr.lbsIconUrl;
 
-                    var IconUrl = iconArr.lbsIconUrl;
-                    marker = new AMap.Marker({
-                        position: [obj[i]._location.lng, obj[i]._location.lat],
-                        icon: IconUrl,
-                        map: map
-                    });
-                    marker.content = '<div class="markerDiv storyDiv" storyId="' + obj[i].storyId + '"><a href="javascript:;" ><div class="imgarea"><img class="h5Img" src="' + obj[i].h5logo + '" /></div><div class="wordArea"><h2>' + obj[i].h5title + '</h2><p>' + obj[i].description + '</p></div></a></div>';
+                        marker = new AMap.Marker({
+                            position: [obj[i]._location.lng, obj[i]._location.lat],
+                            icon: IconUrl,
+                            map: map
+                        });
+                        marker.content = '<div class="markerDiv storyDiv" storyId="' + obj[i].storyId + '"><a href="javascript:;" ><div class="imgarea"><img class="h5Img" src="' + obj[i].h5logo + '" /></div><div class="wordArea"><h2>' + obj[i].h5title + '</h2><p>' + obj[i].description + '</p></div></a></div>';
+                        //给Marker绑定单击事件
+                        marker.on('click', markerClick);
+                        marker.emit('click', { target: marker });
+                        $scope.markers.push(marker);
+                    }
                 }
-                //给Marker绑定单击事件
-                marker.on('click', markerClick);
-                marker.emit('click', { target: marker });
-                $scope.markers.push(marker);
+
             }
         }
         map.setFitView(); //加这句所有点会聚焦
@@ -280,7 +294,9 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
         map.remove($scope.markers);
         // jQuery('.amap-info').remove();
         if (json.category == "全部") {
+            console.log($scope.datas)
             $scope.filterDatas = $filter('filter')($scope.datas, {});
+            console.log($scope.filterDatas)
         } else {
             $scope.filterDatas = $filter('filter')($scope.datas, json);
         }

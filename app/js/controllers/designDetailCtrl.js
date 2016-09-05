@@ -22,6 +22,7 @@ appController.controller('designDetailCtrl', ['$scope', '$rootScope', '$sce', '$
         console.log($scope.urlParams)
 
         $scope.createStoryByTemplateId = function(templateId) {
+            User = JSON.parse(localStorageService.get('User'));
             var createStoryInfo = {
                 templateID: templateId,
                 userId: User.id,
@@ -40,6 +41,10 @@ appController.controller('designDetailCtrl', ['$scope', '$rootScope', '$sce', '$
                 $ionicLoading.hide();
                 if (data.status == 1 && data.message == 'success') {
                     $state.go('tab.edit', { storyId: data.storyId });
+                }else{
+                    localStorageService.remove('User');
+                    MsgBox.showTexts('未登录');
+                    $rootScope.openLoginModal();
                 }
             })
         }

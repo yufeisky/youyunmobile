@@ -46,7 +46,8 @@ angular.module('IonicClub.router', [])
                         templateUrl: 'templates/homeDetail.html',
                         controller: 'homeDetailCtrl'
                     }
-                }
+                },
+                cache:false,
             })
             .state('tab.lbs', {
                 url: '/lbs',
@@ -86,6 +87,7 @@ angular.module('IonicClub.router', [])
                         controller: 'moreDesignCtrl'
                     }
                 },
+                cache:false,
                 // cache:false,
             })
             .state('tab.designDetail', {
@@ -96,7 +98,8 @@ angular.module('IonicClub.router', [])
                         templateUrl: 'templates/designDetail.html',
                         controller: 'designDetailCtrl'
                     }
-                }
+                },
+                cache:false,
             })
             .state('tab.previewStory', {
                 url: '/previewStory:storyInfo',
@@ -105,7 +108,8 @@ angular.module('IonicClub.router', [])
                         templateUrl: 'templates/previewStory.html',
                         controller: 'previewStoryCtrl'
                     }
-                }
+                },
+                cache:false,
             })
             .state('tab.setStoryInfo', {
                 url: '/setStoryInfo:storyInfo',
@@ -114,7 +118,18 @@ angular.module('IonicClub.router', [])
                         templateUrl: 'templates/setStoryInfo.html',
                         controller: 'setStoryInfoCtrl'
                     }
-                }
+                },
+                cache:false,
+            })
+            .state('tab.setStoryCategories', {
+                url: '/setStoryCategories:storyInfo',
+                views: {
+                    'design': {
+                        templateUrl: 'templates/setStoryCategories.html',
+                        controller: 'setStoryCategoriesCtrl'
+                    }
+                },
+                cache:false,
             })
             .state('tab.edit', {
                 url: '/edit:storyId',

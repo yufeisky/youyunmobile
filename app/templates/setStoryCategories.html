@@ -1,0 +1,37 @@
+<ion-view view-title="作品类型" class="homeDetail ">
+    <ion-nav-bar>
+        <!-- 自定义的后退按钮 -->
+        <ion-nav-buttons side="left">
+            <button class="button-clear " ng-click="goBackView()">
+                <i class="ion-chevron-left"></i> 后退
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content scroll="true">
+        <div class="categoriesWrap">
+            <h2 class="categoriesTit">品牌故事</h2>
+            <ul class="cf">
+                <!-- <li class="active" id="10" ng-click="toggleClick('10')" >科技互联</li> -->
+                <li id="{{category.id}}" ng-click="toggleClick(category.id)" ng-repeat="category in brandStoryCategories">{{category.name}}</li>
+            </ul>
+        </div>
+        <div class="categoriesWrap">
+            <h2 class="categoriesTit">热点新闻</h2>
+            <ul class="cf">
+                <li id="{{category.id}}" ng-click="toggleClick(category.id)" ng-repeat="category in hotNewsCategories">{{category.name}}</li>
+            </ul>
+        </div>
+        <div class="categoriesWrap">
+            <h2 class="categoriesTit">生活故事</h2>
+            <ul class="cf">
+                <li id="{{category.id}}" ng-click="toggleClick(category.id)" ng-repeat="category in lifeStoryCategories">{{category.name}}</li>
+            </ul>
+        </div>
+        <div class="row">
+            <!-- <button class="button  button-light col col-50 col-offset-25 setCategoryBtn" ng-click="setCategory()">确定</button> -->
+            <div class="button button-block col col-50 col-offset-25 setCategoryBtn" ng-click="setCategory()">
+                <span>确定</span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

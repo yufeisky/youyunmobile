@@ -1,0 +1,10 @@
+<ion-modal-view >
+    <ion-header-bar class="bar bar-header">
+        <button class="button button-clear button-primary pull-left" ng-click="closeTextEditModal(true)">取消</button>
+        <h1 class="title">编辑文本</h1>
+        <button class="button button-clear button-primary pull-right" ng-click="changeText(model.text)">确定</button>
+    </ion-header-bar>
+    <ion-content scroll="false" >
+       <textarea class="editTextArea" ng-model="model.text"></textarea>
+    </ion-content>
+</ion-modal-view>

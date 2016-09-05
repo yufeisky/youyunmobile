@@ -1,0 +1,49 @@
+<ion-modal-view ng-controller="loginCtrl">
+    <ion-header-bar class="bar bar-header">
+        <button class="button button-clear button-primary pull-left" ng-click="closeLoginModal(true)">取消</button>
+        <h1 class="title">{{loginTitile}}</h1>
+    </ion-header-bar>
+    <ion-content scroll="false" class="page-login">
+        <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="my-handle" on-slide-changed="loginslideChange(index)">
+            <ion-slide>
+                <div class="box-main">
+                    <div class="box-input">
+                        <div class="box-input-field">
+                            <span class="icon-input icon-username"></span>
+                            <input type="text" ng-model="quickUser.phoneNumber" placeholder="手机号" />
+                        </div>
+                    </div>
+                    <div class="box-input">
+                        <div class="box-input-field box-verify">
+                            <span class="icon-input icon-password"></span>
+                            <input type="number" class="phoneCode"  ng-model="quickUser.validateCode" placeholder="验证码" />
+                        </div>
+                        <button class="btn-verify" ng-disabled="isDisabled" ng-class="{'btn-dis':isDisabled}" ng-click="ajaxSendValidate(quickUser.phoneNumber)">{{verTxt}}</button>
+                    </div>
+                    <button class="btn-login" ng-click="quickLogin(quickUser)">登 录</button>
+                    <a class="btn-assist" ng-click="slideChangefn('1')">密码登录</a>
+                     <a class="button  button-light" style="margin-bottom:10px;" ng-click="testLogin()">测试账号1快速登录</a>
+                     <a class="button  button-light" ng-click="test2Login()">测试账号2快速登录</a>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="box-main">
+                    <div class="box-input">
+                        <div class="box-input-field">
+                            <span class="icon-input icon-username"></span>
+                            <input type="text" ng-model="user.account" placeholder="邮箱/手机号" />
+                        </div>
+                    </div>
+                    <div class="box-input">
+                        <div class="box-input-field">
+                            <span class="icon-input icon-password"></span>
+                            <input type="password" ng-model="user.password" placeholder="密码" />
+                        </div>
+                    </div>
+                    <button class="btn-login" ng-click="login(user)">登 录</button>
+                    <a class="btn-assist" ng-click="slideChangefn('0')">手机登录</a>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+</ion-modal-view>

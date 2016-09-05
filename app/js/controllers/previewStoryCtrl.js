@@ -23,7 +23,7 @@ appController.controller('previewStoryCtrl', ['$scope', '$rootScope', '$sce', '$
         
         $scope.storyInfo = JSON.stringify(storyInfo);
         console.log(storyInfo);
-        // 跳转到预览界面
+        // 跳转到设置页面
         $state.go('tab.setStoryInfo', { storyInfo: $scope.storyInfo });
         // var createStoryInfo = {
         //     templateID: templateId,

@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'edit';
+  src:  url('../fonts/edit.eot?cj40ic');
+  src:  url('../fonts/edit.eot?cj40ic#iefix') format('embedded-opentype'),
+    url('../fonts/edit.ttf?cj40ic') format('truetype'),
+    url('../onts/edit.woff?cj40ic') format('woff'),
+    url('../fonts/edit.svg?cj40ic#edit') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-edit-"], [class*=" icon-edit-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'edit' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-edit-baochun:before {
+  content: "\e900";
+}
+

@@ -1,0 +1,38 @@
+<!-- <ion-modal-view>
+    <ion-header-bar class="bar bar-header">
+        <button class="button button-clear button-primary pull-left" ng-click="closeGroupModal()">返回</button>
+        <h1 class="title">{{groupTitle}}</h1>
+    </ion-header-bar>
+    <ion-content scroll="false">
+        <div class="list">
+            <a class="item item-thumbnail-left" href="javascript:;" ui-sref="tab.homeDetail({ storyObject: '{{story}}'})" ng-repeat="story in lbsStoryList">
+                <img lazy-src="{{story.img_src}}">
+                <h2>{{story.story_title}}</h2>
+                <p>{{story.second_title}}</p>
+            </a>
+        </div>
+    </ion-content>
+</ion-modal-view> -->
+<ion-view  hide-back-button=false>
+    <!-- <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
+        <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button> -->
+    <ion-nav-bar>
+        <!-- 自定义的后退按钮 -->
+        <ion-nav-back-button class="button-clear">
+            <i class="ion-chevron-left"></i> 后退
+        </ion-nav-back-button>
+    </ion-nav-bar>
+   <!--  <ion-nav-back-button class="button-clear">
+        <i class="ion-arrow-left-c"></i> 后退
+    </ion-nav-back-button> -->
+    <ion-nav-title>{{grouptit}}</ion-nav-title>
+    <ion-content scroll="true">
+        <div class="list">
+            <a class="item item-thumbnail-left" href="javascript:;" ui-sref="tab.homeDetail({ storyObject: '{{story}}'})" ng-repeat="story in lbsStoryList">
+                <img lazy-src="{{story.img_src}}">
+                <h2>{{story.story_title}}</h2>
+                <p>{{story.second_title}}</p>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

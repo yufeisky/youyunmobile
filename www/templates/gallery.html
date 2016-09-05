@@ -1,8 +1,8 @@
 <ion-modal-view class="gallery">
     <div class="gallery-option-box">
-        <button class="button button-clear button-primary pull-left" ng-click="closeGalleryEditModal(true)">取消</button>
+        <button class="button button-clear button-primary pull-left" ng-click="closeGalleryModal()">取消</button>
         <div class="gallery-option">
-            <a ng-class="{active:isSelf}" on-tap="onSelf()">我的</a><a  on-tap="onLine()" ng-class="{active:isLine}">在线</a>
+            <a ng-class="{active:isSelf}" on-tap="onSelf()">我的</a><a  on-tap="onLine()" class="onlineBtn" ng-class="{active:isLine}">在线</a>
         </div>
     </div>
     <div class="cate-box">

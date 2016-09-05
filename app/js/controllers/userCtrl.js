@@ -103,6 +103,8 @@ var appController = angular.module('IonicClub.controllers', [])
                     postParams.storyStatus = $scope.navs[myActiveSlide].storyStatus;
                     $scope.navs[myActiveSlide].pageNum = 1;
                     postParams.pageNum = $scope.navs[myActiveSlide].pageNum;
+                    // -2按时间从新到旧排序
+                    postParams.category=0;
                     Con.log(postParams.storyStatus);
                     switch (postParams.storyStatus) {
                         case '1':
@@ -203,6 +205,8 @@ var appController = angular.module('IonicClub.controllers', [])
                     postParams.storyStatus = $scope.navs[myActiveSlide].storyStatus;
                     $scope.navs[myActiveSlide].pageNum = $scope.navs[myActiveSlide].pageNum + 1;
                     postParams.pageNum = $scope.navs[myActiveSlide].pageNum;
+                    // -2按时间从新到旧排序
+                    postParams.category=0;
                     Con.log(postParams.storyStatus);
                     switch (postParams.storyStatus) {
                         case '1':

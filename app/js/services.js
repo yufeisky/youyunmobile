@@ -199,6 +199,7 @@ angular.module('IonicClub.services', [])
             saveStoryData: function(data) {
                 var deferred = $q.defer();
                 var url = 'http://test.upalapp.com/mobileplatform/page/h5save';
+                // var url = 'http://192.168.4.195:8090/mobileplatform/page/h5save';
                 $http({
                     method: 'POST',
                     url: url,
@@ -348,7 +349,7 @@ angular.module('IonicClub.services', [])
                         console.log(data);
                         deferred.resolve(data);
                     });
-                return deferred.promise;    
+                return deferred.promise;
             },
             //根据分类名获取模板展示页的故事
             getTemplateByName: function(data) {
@@ -367,9 +368,9 @@ angular.module('IonicClub.services', [])
                         console.log(data);
                         deferred.resolve(data);
                     });
-                return deferred.promise;    
+                return deferred.promise;
             },
-             //获取模板分类子分类
+            //获取模板分类子分类
             getChildCategoryByParentId: function(data) {
                 var deferred = $q.defer();
                 var url = 'http://test.upalapp.com/mobileplatform/template/getchildcategory';
@@ -386,9 +387,9 @@ angular.module('IonicClub.services', [])
                         console.log(data);
                         deferred.resolve(data);
                     });
-                return deferred.promise;    
+                return deferred.promise;
             },
-             //根据分类id检索故事列表
+            //根据分类id检索故事列表
             getStoryListByCategoryId: function(data) {
                 var deferred = $q.defer();
                 var url = 'http://test.upalapp.com/mobileplatform/template/gettemplate';
@@ -405,7 +406,7 @@ angular.module('IonicClub.services', [])
                         console.log(data);
                         deferred.resolve(data);
                     });
-                return deferred.promise;    
+                return deferred.promise;
             },
             //根据模板id新建轻故事
             createStoryByTemplateId: function(data) {
@@ -424,12 +425,33 @@ angular.module('IonicClub.services', [])
                         console.log(data);
                         deferred.resolve(data);
                     });
-                return deferred.promise;    
+                return deferred.promise;
             },
-             //得到用户信息:
+            //得到用户信息:
             getUserInfo: function(data) {
                 var deferred = $q.defer();
                 var url = 'http://test.upalapp.com/mobileplatform/user/getuserinfo';
+                $http({
+                    method: 'POST',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
+            //设置故事信息:封面 标题 描述
+            setStoryInfo: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/page/finishcreate';
                 $http({
                     method: 'POST',
                     url: url,
@@ -616,9 +638,9 @@ angular.module('IonicClub.services', [])
     .service('SectionEvent', ['$timeout', '$ionicSlideBoxDelegate', function($timeout, $ionicSlideBoxDelegate) {
         var d1 = null;
         var isSave = true;
-        var isControl=true;
+        var isControl = true;
         var service = {
-            blurFn: function() {
+            blurFn: function($scope) {
                 //要是点击的不是可以改变的元素就把之前的选中状态清除
                 if (d1 && d1.obj) {
                     d1.obj = null;
@@ -630,7 +652,10 @@ angular.module('IonicClub.services', [])
                 $('.bf-basic').removeClass('mobileEvent');
                 $('.leftright,.topbottom,.rightbottom,.righttop,.rightbottomcopy, .control-button ,.control-button-copy').remove();
                 $('.editBox').appendTo(jQuery('.storySlideBox')).hide();
-                // $('.editBox').hide();
+                $timeout(function() {
+                    $scope.textEditHide = false;
+                })
+                    // $('.editBox').hide();
             },
             // cancelblurFn: function() {
             //     //要是点击的不是可以改变的元素就把之前的选中状态清除
@@ -655,26 +680,26 @@ angular.module('IonicClub.services', [])
                     left: rightbottomoffsetleft,
                     top: rightbottomoffsettop
                 });
-                var leftbottomoffsetleft =  $('.mobileEvent')[0].offsetLeft- 15;
-                var leftbottomoffsettop =$('.mobileEvent')[0].offsetTop + $('.rightbottom')[0].offsetTop;
+                var leftbottomoffsetleft = $('.mobileEvent')[0].offsetLeft - 15;
+                var leftbottomoffsettop = $('.mobileEvent')[0].offsetTop + $('.rightbottom')[0].offsetTop;
 
                 console.log($('.leftbottomcopy')[0].width);
 
                 $('.leftbottomcopy').css({
                     left: leftbottomoffsetleft,
-                    top:  leftbottomoffsettop
+                    top: leftbottomoffsettop
                 });
 
-                var lefttopffsetleft =  $('.mobileEvent')[0].offsetLeft- 10;
-                var lefttopoffsettop =$('.mobileEvent')[0].offsetTop-10 ;
+                var lefttopffsetleft = $('.mobileEvent')[0].offsetLeft - 10;
+                var lefttopoffsettop = $('.mobileEvent')[0].offsetTop - 10;
 
                 $('.lefttopcopy').css({
                     left: lefttopffsetleft,
-                    top:  lefttopoffsettop
+                    top: lefttopoffsettop
                 });
 
-                var righttopffsetleft =  $('.mobileEvent')[0].offsetLeft+ $('.rightbottom')[0].offsetLeft+5;
-                var righttopoffsettop =$('.mobileEvent')[0].offsetTop-10 ;
+                var righttopffsetleft = $('.mobileEvent')[0].offsetLeft + $('.rightbottom')[0].offsetLeft + 5;
+                var righttopoffsettop = $('.mobileEvent')[0].offsetTop - 10;
 
                 $('.righttopcopy').css({
                     left: righttopffsetleft,
@@ -696,10 +721,10 @@ angular.module('IonicClub.services', [])
                 console.log('----------targetWidth----------');
                 console.log(targetWidth);
                 var toolTipWidth = toolTipObj[0].offsetWidth;
-                 console.log('----------toolTipWidth----------');
+                console.log('----------toolTipWidth----------');
                 console.log(toolTipWidth);
                 var toolTipLeft = toolTipObj[0].offsetLeft;
-                 console.log('----------toolTipLeft----------');
+                console.log('----------toolTipLeft----------');
                 console.log(toolTipLeft);
                 var targetCenter = targetLeft + targetWidth / 2;
                 var rightTargetCenter = storyPageWidth - targetCenter;
@@ -711,7 +736,7 @@ angular.module('IonicClub.services', [])
                     console.log('在左边');
                     toolTipObj.css({
                         left: 0,
-                        right:''
+                        right: ''
                     });
                     leftToolPoint = leftToolPoint < 20 ? 20 : leftToolPoint;
                     $('.triangle-down,.triangle-up').css({
@@ -720,10 +745,10 @@ angular.module('IonicClub.services', [])
                 } else {
                     console.log('在右边');
                     var toolleft = storyPageWidth - toolTipWidth;
-                    rightToolPoint = rightToolPoint > (toolTipWidth-30) ? (toolTipWidth - 30) : rightToolPoint;
+                    rightToolPoint = rightToolPoint > (toolTipWidth - 30) ? (toolTipWidth - 30) : rightToolPoint;
                     toolTipObj.css({
                         left: '',
-                        right:0
+                        right: 0
                     });
                     $('.triangle-down,.triangle-up').css({
                         left: rightToolPoint
@@ -734,7 +759,7 @@ angular.module('IonicClub.services', [])
                     var middleToolLeft = targetCenter - toolTipWidth / 2;
                     toolTipObj.css({
                         left: middleToolLeft,
-                        right:''
+                        right: ''
                     });
                     $('.triangle-down,.triangle-up').css({
                         left: toolTipWidth / 2
@@ -759,13 +784,13 @@ angular.module('IonicClub.services', [])
                 }
 
             },
-            stop:function(){
-                isControl=false;
+            stop: function() {
+                isControl = false;
             },
-            start:function(){
-                isControl=true;
+            start: function() {
+                isControl = true;
             },
-            cli: function() {
+            cli: function($scope) {
                 jQuery(function() {
                     var $ = jQuery;
                     // console.log(jQuery('.bf-basic'))z
@@ -851,19 +876,27 @@ angular.module('IonicClub.services', [])
 
                             if ($(e.target).parents('section').find('.txt-con').length === 0) {
                                 $('.editElementText').hide();
+                                $timeout(function() {
+                                    $scope.textEditHide = false;
+                                })
                             } else {
                                 $('.editElementText').show();
+                                $timeout(function() {
+                                    $scope.textEditHide = true;
+                                })
                             }
+                            console.log($scope);
                             $('.editBox').appendTo($(e.target).parents('.storyPage'));
                             service.setToolTipPoint($(e.target).parents('section'), $('.editBox'));
                             service.drag();
+
                             // console.log(d1)
                         } else if ($(e.target).parent().hasClass('editBox')) {
                             console.log('点击的是编辑框');
                         } else {
                             // console.log($(e.target))
                             // 执行失去焦点事件
-                            service.blurFn();
+                            service.blurFn($scope);
                         }
 
 
@@ -905,7 +938,7 @@ angular.module('IonicClub.services', [])
 
                     };
                     Drag.prototype.fnStart = function(e) {
-                        if(isControl==false){
+                        if (isControl == false) {
                             return false;
                         }
                         console.log(e);
@@ -915,7 +948,7 @@ angular.module('IonicClub.services', [])
                         // 当拖动的目标是当前被选中元素才操作,因为修改了监听的对象为document，所以需要这个判断
                         console.log($(e.target));
 
-                        if ($(e.target).hasClass('rightbottomcopy')||$(e.target).hasClass('lefttopcopy') ||$(e.target).hasClass('leftbottomcopy') || $(this.obj).find($(e.target)).length > 0) {
+                        if ($(e.target).hasClass('rightbottomcopy') || $(e.target).hasClass('lefttopcopy') || $(e.target).hasClass('leftbottomcopy') || $(this.obj).find($(e.target)).length > 0) {
                             console.log($(e.target));
                             this.settings.toStart();
                             e.preventDefault();
@@ -953,10 +986,10 @@ angular.module('IonicClub.services', [])
                     };
                     Drag.prototype.fnMove = function(e) {
                         // 当有移动的时候需要把isSave设为true,下一次选中的时候需要保存回退数据
-                        if(isControl==false){
+                        if (isControl == false) {
                             return false;
                         }
-                        isSave =true;
+                        isSave = true;
                         console.log(e);
                         e.preventDefault();
                         e.stopPropagation();
@@ -1009,7 +1042,7 @@ angular.module('IonicClub.services', [])
 
                     };
                     Drag.prototype.fnEnd = function() {
-                        if(isControl==false){
+                        if (isControl == false) {
                             return false;
                         }
                         this.settings.toEnd();
@@ -1019,7 +1052,7 @@ angular.module('IonicClub.services', [])
                         this.touchType = null;
                         $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(true);
 
-                        
+
                         // this.obj = null;//
                     };
 
@@ -1047,13 +1080,13 @@ angular.module('IonicClub.services', [])
         };
         return service;
     }])
- // 获取图片
-     .service('Gallery', ['$ionicModal','IonicService',  'localStorageService','Con', function($ionicModal,IonicService,localStorageService,Con) {
-        var initGalleryModal = function ($scope) {
-            var modal = $ionicModal.fromTemplateUrl('templates/gallery.html',{
-                scope:$scope,
-                animation:'slide-in-up'
-            }).then(function (modal) {
+    // 获取图片
+    .service('Gallery', ['$ionicModal', 'IonicService', 'localStorageService', 'Con', function($ionicModal, IonicService, localStorageService, Con) {
+        var initGalleryModal = function($scope) {
+            var modal = $ionicModal.fromTemplateUrl('templates/gallery.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function(modal) {
                 $scope.gallerymodal = modal;
                 return modal
             });
@@ -1099,8 +1132,9 @@ angular.module('IonicClub.services', [])
                     Con.log('完成');
                 });
             }
-            $scope.openGalleryModal = function (galleryChoose) {
-                $scope.galleryChoose= galleryChoose;
+            $scope.openGalleryModal = function(galleryChoose, isHide) {
+                $scope.galleryChoose = galleryChoose;
+
                 //默认显示我的图库
                 $scope.isSelf = true;
                 $scope.isLine = false;
@@ -1259,6 +1293,18 @@ angular.module('IonicClub.services', [])
                     }
                 });
                 $scope.uploader = uploader;
+                //当第二个参数isHide设置为true时，隐藏在线那个栏目
+                if (isHide) {
+                    jQuery('.onlineBtn').hide();
+                    jQuery('.gallery .gallery-option').css({
+                        width: '76px'
+                    });
+                } else {
+                    jQuery('.onlineBtn').show();
+                    jQuery('.gallery .gallery-option').css({
+                        width: '152px'
+                    });
+                }
                 // }
             };
             $scope.cateChoose = function(order) {
@@ -1394,16 +1440,15 @@ angular.module('IonicClub.services', [])
 
             };
 
-            $scope.closeGalleryModal = function () {
+            $scope.closeGalleryModal = function() {
                 $scope.gallerymodal.hide();
             };
-            $scope.$on('$destroy', function () {
+            $scope.$on('$destroy', function() {
                 $scope.gallerymodal.remove();
             });
             return modal;
         };
         return {
-            initGalleryModal : initGalleryModal
+            initGalleryModal: initGalleryModal
         }
     }]);
-

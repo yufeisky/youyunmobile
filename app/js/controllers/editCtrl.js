@@ -51,8 +51,8 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                     left: storyBoxLeft,
                     top: storyBoxTop
                 });
-                SectionEvent.cli();
-                SectionEvent.blurFn();
+                SectionEvent.cli($scope);
+                SectionEvent.blurFn($scope);
                 // 当加载完之后要显示出来
                 $scope.opacity = 1;
                 $timeout(function() {
@@ -72,6 +72,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         $scope.virtualSave();
         jQuery('.mobileEvent').remove();
         jQuery('.editBox').hide();
+        $('.rightbottomcopy,.leftbottomcopy,.lefttopcopy,.righttopcopy').hide();
     };
     //上一层
     $scope.upElement = function() {
@@ -130,26 +131,31 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
         // 遍历页面信息
         $scope.eachData();
-
+        console.log($scope.stringData);
         IonicService.saveStoryData($scope.stringData).then(function(data) {
             $ionicLoading.hide();
             console.log(data);
+
             if (data.status == '1') {
                 MsgBox.showTexts('保存成功');
-                // $scope.storyInfo = {
-                //     puburl: data.puburl,
-                //     storyId: data.storyId,
-                //     title: data.title,
-                //     description: data.description,
-                //     logo:data.logo,
-                // }
+
+                var storycategories = JSON.stringify(data.storycategories);
                 $scope.storyInfo = {
-                    puburl: 'http://test.upalapp.com/p/template/qUjaA3.html',
-                    storyId: '22115',
-                    title: '模拟标题',
-                    description: '模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述',
-                    logo: 'http://cdn.upalapp.com/upload/images/2016/08/thumb/1472179734159_d0426ff4-bdb9-4f51-b0ec-caf47ca07f76.png',
-                }
+                        puburl: data.puburl,
+                        storyId: data.storyId,
+                        title: data.title,
+                        description: data.description,
+                        logo: data.logo,
+                        storycategory: data.storycategory,
+                        storycategories: storycategories
+                    }
+                    // $scope.storyInfo = {
+                    //     puburl: 'http://test.upalapp.com/p/template/qUjaA3.html',
+                    //     storyId: '22115',
+                    //     title: '模拟标题',
+                    //     description: '模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述模拟描述',
+                    //     logo: 'http://cdn.upalapp.com/upload/images/2016/08/thumb/1472179734159_d0426ff4-bdb9-4f51-b0ec-caf47ca07f76.png',
+                    // }
                 console.log($scope.storyInfo);
                 $scope.storyInfo = JSON.stringify($scope.storyInfo);
                 // 跳转到预览界面
@@ -261,4 +267,89 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     }
 
 
+    // 文字样式字体字号字色对齐方式编辑栏部分
+    // 默认隐藏修改文字样式编辑栏
+    $scope.textEditHide = false;
+    // 第三级别：文字样式编辑栏
+    $scope.textStyleEditShow = false;
+    // 打开文字样式设置栏并且保存并设置初始值
+    $scope.textStyleEditShowFn = function() {
+        $scope.textStyleEditShow = true;
+        $scope.fontWeightVal = jQuery('.mobileEvent').css('fontWeight');
+        $scope.fontStyleVal = jQuery('.mobileEvent').css('fontStyle');
+        $scope.textDecorationVal = jQuery('.mobileEvent').css('textDecoration');
+        if ($scope.fontWeightVal == 'bold' || $scope.fontWeightVal == 'bolder') {
+            jQuery('.setfontWeightBtn').addClass('active');
+        } else {
+            jQuery('.setfontWeightBtn').removeClass('active');
+        }
+        console.log($scope.fontStyleVal)
+        if ($scope.fontStyleVal == 'italic') {
+            console.log('有斜体')
+            jQuery('.setFontStyleBtn').addClass('active');
+        } else {
+            jQuery('.setFontStyleBtn').removeClass('active');
+        }
+        if ($scope.textDecorationVal == 'underline') {
+            jQuery('.setTextDecorationBtn').addClass('active');
+        } else {
+            jQuery('.setTextDecorationBtn').removeClass('active');
+        }
+    }
+
+    // 设置文字粗细
+    $scope.setFontWeightFn = function() {
+            if (jQuery('.setfontWeightBtn').hasClass('active')) {
+                jQuery('.setfontWeightBtn').removeClass('active');
+                jQuery('.mobileEvent').css({
+                    'fontWeight': 'normal',
+                });
+            } else {
+                jQuery('.setfontWeightBtn').addClass('active');
+                jQuery('.mobileEvent').css({
+                    'fontWeight': 'bold',
+                });
+            }
+        }
+        // 设置斜体
+    $scope.setFontStyleFn = function() {
+            if (jQuery('.setFontStyleBtn').hasClass('active')) {
+                jQuery('.setFontStyleBtn').removeClass('active');
+                jQuery('.mobileEvent').css({
+                    'fontStyle': 'normal',
+                });
+            } else {
+                jQuery('.setFontStyleBtn').addClass('active');
+                jQuery('.mobileEvent').css({
+                    'fontStyle': 'italic',
+                });
+            }
+        }
+        // 设置文字下划线
+    $scope.setTextDecorationFn = function() {
+            if (jQuery('.setTextDecorationBtn').hasClass('active')) {
+                jQuery('.setTextDecorationBtn').removeClass('active');
+                jQuery('.mobileEvent').css({
+                    'textDecoration': 'none',
+                });
+            } else {
+                jQuery('.setTextDecorationBtn').addClass('active');
+                jQuery('.mobileEvent').css({
+                    'textDecoration': 'underline',
+                });
+            }
+        }
+        // 取消设置并恢复默认值
+    $scope.textStyleCancelFn = function() {
+            $scope.textStyleEditShow = false;
+            jQuery('.mobileEvent').css({
+                'fontWeight': $scope.fontWeightVal,
+                'fontStyle': $scope.fontStyleVal,
+                'textDecoration': $scope.textDecorationVal,
+            })
+        }
+        // 确认修改
+    $scope.textStyleSureFn = function() {
+        $scope.textStyleEditShow = false;
+    }
 }]);
