@@ -64,16 +64,16 @@
         </ion-tabs>
         <!-- 文字的编辑栏目（底下的编辑栏） -->
         <ion-tabs class="tabs-icon-top textEditTab" ng-class="{'textEditHide': textEditHide}">
-            <ion-tab title="样式" icon="icon-edit-baochun" nav-transition="ios" ng-click="textStyleEditShowFn()">
+            <ion-tab title="样式" icon="ion-edit" nav-transition="ios" ng-click="textStyleEditShowFn()">
             </ion-tab>
             <!-- ng-click="cancelOperation()" -->
-            <ion-tab title="字体" icon="ion-reply" nav-transition="ios">
+            <ion-tab title="字体" icon="ion-edit" nav-transition="ios" ng-click="fontFamilyEditShowFn()">
             </ion-tab>
-            <ion-tab title="字号" icon="icon-upalapp-zhizuo-off" nav-transition="ios">
+            <ion-tab title="字号" icon="ion-edit" nav-transition="ios" ng-click="fontSizeEditShowFn()">
             </ion-tab>
-            <ion-tab title="字色" icon="icon-upalapp-shouye-off" nav-transition="ios">
+            <ion-tab title="字色" icon="ion-edit" nav-transition="ios" ng-click="fontColorEditShowFn()">
             </ion-tab>
-            <ion-tab title="对齐" icon="icon-upalapp-shouye-off" nav-transition="ios">
+            <ion-tab title="对齐" icon="ion-edit" nav-transition="ios" ng-click="textAlignEditShowFn()">
             </ion-tab>
         </ion-tabs>
         <!-- 文字样式修改：粗体 斜体 下划线 -->
@@ -98,5 +98,111 @@
                 <div class="col col-10" ng-click="textStyleSureFn()"><i class="icon ion-checkmark-round"></i></div>
             </div>
         </div>
+        <!-- 字体修改模块 -->
+        <div class="fontFamilyEdit row" ng-class="{'fontFamilyEditShow':fontFamilyEditShow}">
+            <div class="col col-10" ng-click="fontFamilyCancelFn()"><i class="icon ion-close-round"></i></div>
+            <div class="col col-80">
+                <select name="" id="" ng-model="fontFamilySelVal" class="fontFamilySel">
+                    <option value="YaHei" style="font-family:'YaHei';">微软雅黑</option>
+                    <option value="ExLight" style="font-family:'ExLight';">尚黑</option>
+                    <option value="SentyMaruko" style="font-family:'SentyMaruko';">手写</option>
+                    <option value="maobiRegular" style="font-family:'maobiRegular';">毛笔</option>
+                    <option value="fzjlt" style="font-family:'fzjlt';">方正静蕾体</option>
+                    <option value="fzmwt" style="font-family:'fzmwt';">方正喵呜体</option>
+                </select>
+            </div>
+            <div class="col col-10" ng-click="fontFamilySureFn()"><i class="icon ion-checkmark-round"></i></div>
+        </div>
+        <!-- 字体大小 -->
+        <div class="fontSizeEdit row" ng-class="{'fontSizeEditShow':fontSizeEditShow}">
+            <div class="col col-10" ng-click="fontSizeCancelFn()"><i class="icon ion-close-round"></i></div>
+            <div class="col col-80">
+                <select name="" id="" ng-model="fontSizeSelVal" class="fontSizeSel">
+                    <option value="12px">12px</option>
+                    <option value="14px">14px</option>
+                    <option value="16px">16px</option>
+                    <option value="18px">18px</option>
+                    <option value="20px">20px</option>
+                    <option value="22px">22px</option>
+                    <option value="24px">24px</option>
+                    <option value="26px">26px</option>
+                    <option value="28px">28px</option>
+                    <option value="32px">32px</option>
+                    <option value="36px">36px</option>
+                    <option value="40px">40px</option>
+                    <option value="48px">48px</option>
+                    <option value="56px">56px</option>
+                    <option value="60px">60px</option>
+                    <option value="64px">64px</option>
+                    <option value="72px">72px</option>
+                    <option value="96px">96px</option>
+                    <option value="112px">112px</option>
+                    <option value="128px">128px</option>
+                </select>
+            </div>
+            <div class="col col-10" ng-click="fontSizeSureFn()"><i class="icon ion-checkmark-round"></i></div>
+        </div>
+        <!-- 字体颜色 -->
+        <div class="fontColorEdit row" ng-class="{'fontColorEditShow':fontColorEditShow}">
+            <div class="col col-10" ng-click="fontColorCancelFn()"><i class="icon ion-close-round"></i></div>
+            <div class="col col-80">
+                <input type="color">
+            </div>
+            <div class="col col-10" ng-click="fontColorSureFn()"><i class="icon ion-checkmark-round"></i></div>
+        </div>
+
+        <!-- 文字对齐方式-->
+        <div class="textAlignEdit" ng-class="{'textAlignEditShow':textAlignEditShow}">
+            <div class="textAlignType row">
+                <div class="col col-20 col-offset-20 active setTextAligntBtn left" ng-click="setTextAlignFn('left')">
+                    <i class="icon ion-social-bitcoin"></i>
+                    <p>左对齐</p>
+                </div>
+                <div class="col col-20 setTextAligntBtn center" ng-click="setTextAlignFn('center')">
+                    <i class="icon ion-social-bitcoin"></i>
+                    <p>居中对齐</p>
+                </div>
+                <div class="col col-20 setTextAligntBtn right" ng-click="setTextAlignFn('right')">
+                    <i class="icon ion-social-bitcoin"></i>
+                    <p>右对齐</p>
+                </div>
+            </div>
+            <div class="cancelAndSureArea row">
+                <div class="col col-10" ng-click="textAlignCancelFn()"><i class="icon ion-close-round"></i></div>
+                <div class="col col-80">文字对齐方式</div>
+                <div class="col col-10" ng-click="textAlignSureFn()"><i class="icon ion-checkmark-round"></i></div>
+            </div>
+        </div>
     </div>
 </ion-view>
+<!-- 导入字体 -->
+<style>
+@font-face {
+    font-family: 'SentyMaruko';
+    src: url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.eot'), url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.woff') format('woff');
+}
+</style>
+<style>
+@font-face {
+    font-family: 'maobiRegular';
+    src: url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.eot'), url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.woff') format('woff');
+}
+</style>
+<style>
+@font-face {
+    font-family: 'MFShangHei';
+    src: url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.eot'), url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.woff') format('woff');
+}
+</style>
+<style>
+@font-face {
+    font-family: 'fzmwt';
+    src: url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.eot'), url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.woff') format('woff');
+}
+</style>
+<style>
+@font-face {
+    font-family: 'fzjlt';
+    src: url('http://cdn.upalapp.com/font/subFont/8bb82a77-3ca7-48bd-a052-ef9cc21945e7.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/8bb82a77-3ca7-48bd-a052-ef9cc21945e7.eot'), url('http://cdn.upalapp.com/font/subFont/8bb82a77-3ca7-48bd-a052-ef9cc21945e7.woff') format('woff');
+}
+</style>

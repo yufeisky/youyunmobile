@@ -267,7 +267,9 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     }
 
 
-    // 文字样式字体字号字色对齐方式编辑栏部分
+    /**
+     *文字样式字体字号字色对齐方式编辑栏部分
+     **/
     // 默认隐藏修改文字样式编辑栏
     $scope.textEditHide = false;
     // 第三级别：文字样式编辑栏
@@ -350,6 +352,149 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 确认修改
     $scope.textStyleSureFn = function() {
-        $scope.textStyleEditShow = false;
+            $scope.textStyleEditShow = false;
+        }
+        /**
+         *字体编辑
+         **/
+        // 默认不显示字体选择框
+    $scope.fontFamilyEditShow = false;
+    // 点击字体时候设置框弹出的方法
+    $scope.fontFamilyEditShowFn = function() {
+            $scope.fontFamilyEditShow = true;
+            $scope.fontFamilyVal = jQuery('.mobileEvent').css('fontFamily');
+            $scope.attrFamily = jQuery('.mobileEvent').attr('family');
+            console.log($scope.fontFamilyVal);
+            console.log($scope.attrFamily);
+            if (!$scope.attrFamily) {
+                console.log('为默认');
+                $scope.fontFamilySelVal = 'YaHei';
+            } else {
+                $scope.fontFamilySelVal = $scope.attrFamily;
+            }
+            // 
+        }
+        // 当字体设置select值改变的时候，更新字体大小
+    jQuery('.fontFamilySel').on('change', function() {
+        $timeout(function() {
+            jQuery('.mobileEvent').css({
+                'fontFamily': $scope.fontFamilySelVal,
+            });
+            jQuery('.mobileEvent').attr("family", $scope.fontFamilySelVal);
+        })
+    });
+
+    // $scope.fontFamilyChange = function(){
+    //     console.log('change')
+    // }
+    $scope.fontFamilyCancelFn = function() {
+            jQuery('.mobileEvent').css({
+                'fontFamily': $scope.fontFamilyVal,
+            });
+            jQuery('.mobileEvent').attr("family", $scope.attrFamily);
+            $scope.fontFamilyEditShow = false;
+        }
+        // 确认修改
+    $scope.fontFamilySureFn = function() {
+        $scope.fontFamilyEditShow = false;
+    }
+    console.log("-------fontFamilySel-----------")
+    console.log(jQuery('.fontFamilySel'))
+
+    /**
+     *字体大小编辑
+     **/
+    // 默认不显示编辑框
+    $scope.fontSizeEditShow = false;
+    $scope.fontSizeEditShowFn = function() {
+        $scope.fontSizeEditShow = true;
+        $scope.fontSizeVal = jQuery('.mobileEvent').css('fontSize');
+        console.log($scope.fontSizeVal);
+        $scope.fontSizeSelVal = $scope.fontSizeVal;
+    }
+
+    $scope.fontSizeCancelFn = function() {
+            jQuery('.mobileEvent').css({
+                'fontSize': $scope.fontSizeVal,
+            });
+            $scope.fontSizeEditShow = false;
+        }
+        // 确认修改
+    $scope.fontSizeSureFn = function() {
+            $scope.fontSizeEditShow = false;
+        }
+        // 当select值改变的时候，更新字体大小
+    jQuery('.fontSizeSel').on('change', function() {
+        $timeout(function() {
+            jQuery('.mobileEvent').css({
+                'fontSize': $scope.fontSizeSelVal,
+            });
+        })
+    });
+    /**
+     *字体颜色部分
+     **/
+    $scope.fontColorEditShow = false;
+    $scope.fontColorEditShowFn = function() {
+        $scope.fontColorEditShow = true;
+        $scope.fontColorVal = jQuery('.mobileEvent').css('color');
+        console.log($scope.fontColorVal);
+    }
+    $scope.fontColorCancelFn = function() {
+            $scope.fontColorEditShow = false;
+        }
+        // 确认修改
+    $scope.fontColorSureFn = function() {
+        $scope.fontColorEditShow = false;
+    }
+
+    /**
+     *设置对齐方式
+     **/
+    $scope.textAlignEditShow = false;
+    $scope.textAlignEditShowFn = function() {
+        $scope.textAlignEditShow = true;
+        $scope.textAlignVal = jQuery('.mobileEvent').css('textAlign');
+        jQuery('.setTextAligntBtn').removeClass('active');
+        switch ($scope.textAlignVal) {
+            case 'center':
+                jQuery('.setTextAligntBtn.center').addClass('active');
+                break;
+            case 'left':
+                jQuery('.setTextAligntBtn.left').addClass('active');
+                break;
+            case 'right':
+                jQuery('.setTextAligntBtn.right').addClass('active');
+                break;
+        }
+        console.log($scope.textAlignVal);
+    }
+    $scope.textAlignCancelFn = function() {
+            jQuery('.mobileEvent').css({
+                'textAlign': $scope.textAlignVal,
+            });
+            $scope.textAlignEditShow = false;
+        }
+        // 确认修改
+    $scope.textAlignSureFn = function() {
+            $scope.textAlignEditShow = false;
+        }
+        //  设置对齐方式的方法
+    $scope.setTextAlignFn = function(type) {
+        jQuery('.mobileEvent').css({
+            'textAlign': type,
+        });
+        jQuery('.setTextAligntBtn').removeClass('active');
+        switch (type) {
+            case 'center':
+                jQuery('.setTextAligntBtn.center').addClass('active');
+                break;
+            case 'left':
+                jQuery('.setTextAligntBtn.left').addClass('active');
+                break;
+            case 'right':
+                jQuery('.setTextAligntBtn.right').addClass('active');
+                break;
+        }
     }
 }]);

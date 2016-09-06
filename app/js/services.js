@@ -653,8 +653,12 @@ angular.module('IonicClub.services', [])
                 $('.leftright,.topbottom,.rightbottom,.righttop,.rightbottomcopy, .control-button ,.control-button-copy').remove();
                 $('.editBox').appendTo(jQuery('.storySlideBox')).hide();
                 $timeout(function() {
-                    $scope.textEditHide = false;
-                })
+                        $scope.textEditHide = false;
+                        $scope.textStyleEditShow = false;
+                        $scope.fontFamilyEditShow = false;
+                        $scope.fontSizeEditShow = false;
+                        $scope.textAlignEditShow = false;
+                    })
                     // $('.editBox').hide();
             },
             // cancelblurFn: function() {
@@ -849,6 +853,25 @@ angular.module('IonicClub.services', [])
                             $('.leftright,.topbottom,.rightbottom,.righttop,.rightbottomcopy, .control-button, .control-button-copy').remove();
                             //给当前点击的元素获得焦点
                             $(e.target).parents('section').addClass('mobileEvent');
+
+                            // 把第二级别的操作框隐藏
+                            $scope.textStyleEditShow = false;
+                            $scope.fontFamilyEditShow = false;
+                            $scope.fontSizeEditShow = false;
+                            $scope.textAlignEditShow = false;
+                            // if ($scope.textStyleEditShow == true) {
+                            //     console.log('文字样式框')
+                            //     $scope.textStyleCancelFn();
+                            // }
+                            // if ($scope.fontFamilyEditShow == true) {
+                            //     console.log('文字字体框')
+                            //     $scope.fontFamilyCancelFn();
+                            // }
+                            // //当字体大小框显示的时候，取消，没有显示的时候 
+                            // if ($scope.fontSizeEditShow == true) {
+                            //     console.log('文字字体大小框')
+                            //     $scope.fontSizeCancelFn();
+                            // }
                             // console.log(oldzIndex);
                             // $('.mobileEvent').css({
                             //     zIndex: 100000
