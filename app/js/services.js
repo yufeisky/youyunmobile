@@ -658,6 +658,8 @@ angular.module('IonicClub.services', [])
                         $scope.fontFamilyEditShow = false;
                         $scope.fontSizeEditShow = false;
                         $scope.textAlignEditShow = false;
+                        $scope.visible = false;
+                        service.start();
                     })
                     // $('.editBox').hide();
             },
@@ -719,17 +721,17 @@ angular.module('IonicClub.services', [])
                 var storyPageWidth = $('.storyPage').width();
                 // targetObj
                 var targetLeft = targetObj[0].offsetLeft;
-                console.log('----------targetLeft----------');
-                console.log(targetLeft);
+                // console.log('----------targetLeft----------');
+                // console.log(targetLeft);
                 var targetWidth = targetObj[0].offsetWidth;
-                console.log('----------targetWidth----------');
-                console.log(targetWidth);
+                // console.log('----------targetWidth----------');
+                // console.log(targetWidth);
                 var toolTipWidth = toolTipObj[0].offsetWidth;
-                console.log('----------toolTipWidth----------');
-                console.log(toolTipWidth);
+                // console.log('----------toolTipWidth----------');
+                // console.log(toolTipWidth);
                 var toolTipLeft = toolTipObj[0].offsetLeft;
-                console.log('----------toolTipLeft----------');
-                console.log(toolTipLeft);
+                // console.log('----------toolTipLeft----------');
+                // console.log(toolTipLeft);
                 var targetCenter = targetLeft + targetWidth / 2;
                 var rightTargetCenter = storyPageWidth - targetCenter;
                 //  当为提示栏在左边时候，三角形的位置
@@ -792,6 +794,7 @@ angular.module('IonicClub.services', [])
                 isControl = false;
             },
             start: function() {
+                console.log('start')
                 isControl = true;
             },
             cli: function($scope) {
@@ -827,6 +830,7 @@ angular.module('IonicClub.services', [])
 
                         //要是点击的是可以改变的元素，就把之前的一个元素还原，让当前元素选中
                         if ($(e.target).parents('section').length > 0) {
+                            service.start();
                             // console.log('even');
                             // console.log(this);
                             // console.log($(e.target).parents('section'));
@@ -859,6 +863,7 @@ angular.module('IonicClub.services', [])
                             $scope.fontFamilyEditShow = false;
                             $scope.fontSizeEditShow = false;
                             $scope.textAlignEditShow = false;
+                            $scope.visible = false;
                             // if ($scope.textStyleEditShow == true) {
                             //     console.log('文字样式框')
                             //     $scope.textStyleCancelFn();
@@ -908,7 +913,7 @@ angular.module('IonicClub.services', [])
                                     $scope.textEditHide = true;
                                 })
                             }
-                            console.log($scope);
+                            // console.log($scope);
                             $('.editBox').appendTo($(e.target).parents('.storyPage'));
                             service.setToolTipPoint($(e.target).parents('section'), $('.editBox'));
                             service.drag();
@@ -945,7 +950,7 @@ angular.module('IonicClub.services', [])
                         //属于哪种拖拽
                         this.touchType = null; //touchMove：移动 widthMove:宽度变换 heightMove：高度变换 equalMove：等比例变换
                         this.settings = {
-                            toStart: function() { console.log('测试开始'); },
+                            toStart: function() {  },
                             toMove: function() {},
                             toEnd: function() {}
                         };
@@ -964,20 +969,20 @@ angular.module('IonicClub.services', [])
                         if (isControl == false) {
                             return false;
                         }
-                        console.log(e);
+                        // console.log(e);
                         e.preventDefault();
                         e.stopPropagation();
 
                         // 当拖动的目标是当前被选中元素才操作,因为修改了监听的对象为document，所以需要这个判断
-                        console.log($(e.target));
+                        // console.log($(e.target));
 
                         if ($(e.target).hasClass('rightbottomcopy') || $(e.target).hasClass('lefttopcopy') || $(e.target).hasClass('leftbottomcopy') || $(this.obj).find($(e.target)).length > 0) {
-                            console.log($(e.target));
+                            // console.log($(e.target));
                             this.settings.toStart();
                             e.preventDefault();
                             this.start_x = e.touches[0].pageX;
                             this.start_y = e.touches[0].pageY;
-                            console.log(this.start_y);
+                            // console.log(this.start_y);
                             this.sectionleft = this.obj[0].offsetLeft;
                             this.sectiontop = this.obj[0].offsetTop;
                             this.sectionWidth = this.obj[0].offsetWidth;
@@ -1013,13 +1018,13 @@ angular.module('IonicClub.services', [])
                             return false;
                         }
                         isSave = true;
-                        console.log(e);
+                        // console.log(e);
                         e.preventDefault();
                         e.stopPropagation();
                         // console.log($(e.target));
                         // console.log(this.obj.find($(e.target)).length>0)
-                        console.log('--------this.obj--------');
-                        console.log(this.obj);
+                        // console.log('--------this.obj--------');
+                        // console.log(this.obj);
                         if (!$(e.target).hasClass('rightbottomcopy') && $(this.obj).find($(e.target)).length > 0) {
                             service.setToolTipPoint($(e.target).parents('section'), $('.editBox'));
                         } else {
@@ -1031,9 +1036,9 @@ angular.module('IonicClub.services', [])
                                 console.log('widthMove');
                                 var move_W = this.sectionWidth - (e.touches[0].pageX - this.start_x);
                                 var move_X = (e.touches[0].pageX - this.start_x) + this.sectionleft;
-                                console.log(this.obj);
-                                console.log(move_W);
-                                console.log(move_X);
+                                // console.log(this.obj);
+                                // console.log(move_W);
+                                // console.log(move_X);
                                 this.obj.css({
                                     width: move_W,
                                     left: move_X,
@@ -1275,7 +1280,7 @@ angular.module('IonicClub.services', [])
                         if (data.message == '0') {
                             $rootScope.loginOut();
                         }
-                        console.log(data);
+                        // console.log(data);
                         //  $scope.images.push(data.image);
                         //  Con.log($scope.images);
                         $scope.pageNum = 1;

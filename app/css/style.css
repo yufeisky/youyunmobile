@@ -841,19 +841,24 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 }
 
 .appEdit li {
+    position: relative;
     padding: 0 10px;
+    padding-left: 30px;
     height: 40px;
     line-height: 40px;
 }
 
 .appEdit li i {
+    left: 5px;
+    top: 10px;
+    position: absolute;
     padding-right: 10px;
     font-size: 20px;
 }
 
 .tab-item.appEditIcon .icon {
-    font-size: 40px;
-    margin-top: 3px;
+    /*font-size: 40px;
+    margin-top: 3px;*/
 }
 
 ion-tabs.myEditTab .tab-item.activated,
@@ -981,7 +986,11 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     line-height: 30px;
     width: 90%;
 }
-
+.WordartSave{
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
 .fontSizeEdit {
     height: 60px;
     width: 100%;
@@ -1025,7 +1034,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 
 .fontColorEdit .col {
     font-size: 20px;
-    line-height: 40px;
+    line-height: 50px;
 }
 
 .fontColorEdit ipnut {
@@ -1033,7 +1042,10 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     line-height: 30px;
     width: 90%;
 }
+
+
 /* 对齐方式 */
+
 .textAlignEdit {
     height: 88px;
     width: 100%;
@@ -1047,6 +1059,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     bottom: 0px;
     transition: bottom 0.5s;
 }
+
 .textAlignType {
     text-align: center;
     height: 58px;
@@ -1064,6 +1077,68 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 .setTextAligntBtn.active {
     color: #d23e3e;
 }
+
+.colorWrap {
+    position: relative;
+    left: 55px;
+    top: -48px;
+    /* width: 100%; */
+    height: 50px;
+    padding-top: 5px;
+    overflow: hidden;
+    overflow-x: scroll;
+}
+
+.activeColorWrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    background: #df3830;
+    position: relative;
+    left: 0;
+    top: 0px;
+}
+
+.activeColorWrap2 {
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+    background: #7e7e7e;
+    position: relative;
+    left: 2px;
+    top: 2px;
+}
+
+.activeColor {
+    width: 38px;
+    height: 38px;
+    border-radius: 19px;
+    background: red;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+}
+
+.colorUl {
+    width: 2000px;
+    float: left;
+}
+
+.colorUl li {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background: red;
+    float: left;
+    margin-right: 10px;
+}
+
+.bf-com-meta {
+    -webkit-appearance: textarea;
+    -webkit-appearance: none;
+}
+
+
 /*向下三角形*/
 
 .triangle-down {
@@ -2173,18 +2248,22 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     border-radius: 7px;
     border-bottom: 5px solid #f8b1b7;
 }
+
 @font-face {
     font-family: 'SentyMaruko';
     src: url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.eot'), url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.woff') format('woff');
 }
+
 @font-face {
     font-family: 'maobiRegular';
     src: url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.eot'), url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.woff') format('woff');
 }
+
 @font-face {
     font-family: 'MFShangHei';
     src: url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.eot'), url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.woff') format('woff');
 }
+
 @font-face {
     font-family: 'fzmwt';
     src: url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.eot'), url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.woff') format('woff');

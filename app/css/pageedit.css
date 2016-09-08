@@ -1,0 +1,153 @@
+@font-face {
+  font-family: 'pageedit';
+  src:  url('../fonts/pageedit.eot?9wgch9');
+  src:  url('../fonts/pageedit.eot?9wgch9#iefix') format('embedded-opentype'),
+    url('../fonts/pageedit.ttf?9wgch9') format('truetype'),
+    url('../fonts/pageedit.woff?9wgch9') format('woff'),
+    url('../fonts/pageedit.svg?9wgch9#pageedit') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-pageedit-"], [class*=" icon-pageedit-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'pageedit' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pageedit-baochun:before {
+  content: "\e900";
+}
+.icon-pageedit-beijing:before {
+  content: "\e901";
+}
+.icon-pageedit-caijian:before {
+  content: "\e902";
+}
+.icon-pageedit-chexiao:before {
+  content: "\e903";
+}
+.icon-pageedit-duiqi:before {
+  content: "\e904";
+}
+.icon-pageedit-gengduo:before {
+  content: "\e908";
+}
+.icon-pageedit-guanli:before {
+  content: "\e909";
+}
+.icon-pageedit-queding:before {
+  content: "\e90c";
+}
+.icon-pageedit-quxiao:before {
+  content: "\e90d";
+}
+.icon-pageedit-tihuan .path1:before {
+  content: "\e90e";
+  color: rgb(232, 58, 55);
+}
+.icon-pageedit-tihuan .path2:before {
+  content: "\e90f";
+  margin-left: -1em;
+  color: rgb(232, 58, 55);
+}
+.icon-pageedit-tihuan .path3:before {
+  content: "\e910";
+  margin-left: -1em;
+  color: rgb(232, 58, 55);
+}
+.icon-pageedit-tihuan .path4:before {
+  content: "\e911";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-pageedit-tihuan .path5:before {
+  content: "\e912";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-pageedit-tihuan .path6:before {
+  content: "\e913";
+  margin-left: -1em;
+  color: rgb(232, 58, 55);
+}
+.icon-pageedit-tihuan .path7:before {
+  content: "\e914";
+  margin-left: -1em;
+  color: rgb(232, 58, 55);
+}
+.icon-pageedit-tihuan .path8:before {
+  content: "\e915";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-pageedit-tihuan .path9:before {
+  content: "\e916";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-pageedit-tihuan .path10:before {
+  content: "\e917";
+  margin-left: -1em;
+  color: rgb(232, 58, 55);
+}
+.icon-pageedit-touming:before {
+  content: "\e918";
+}
+.icon-pageedit-tuichu:before {
+  content: "\e919";
+}
+.icon-pageedit-tupan:before {
+  content: "\e91a";
+}
+.icon-pageedit-wenzi:before {
+  content: "\e91b";
+}
+.icon-pageedit-xiankuang:before {
+  content: "\e91c";
+}
+.icon-pageedit-xianshi:before {
+  content: "\e91d";
+}
+.icon-pageedit-xuanzhuan .path1:before {
+  content: "\e91e";
+  color: rgb(255, 255, 255);
+}
+.icon-pageedit-xuanzhuan .path2:before {
+  content: "\e91f";
+  margin-left: -1em;
+  color: rgb(232, 58, 55);
+}
+.icon-pageedit-xuanzhuan .path3:before {
+  content: "\e920";
+  margin-left: -1em;
+  color: rgb(232, 58, 55);
+}
+.icon-pageedit-yangshi:before {
+  content: "\e921";
+}
+.icon-pageedit-yemian:before {
+  content: "\e922";
+}
+.icon-pageedit-yinyue:before {
+  content: "\e923";
+}
+.icon-pageedit-zihao:before {
+  content: "\e924";
+}
+.icon-pageedit-zise:before {
+  content: "\e925";
+}
+.icon-pageedit-ziti:before {
+  content: "\e926";
+}
+

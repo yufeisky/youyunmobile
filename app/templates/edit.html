@@ -44,36 +44,37 @@
     </ion-content>
     <div class="footer">
         <ul class="appEdit" ng-class="{'appEditHide': visible}">
-            <li><i class="icon ion-star"></i>更换背景音乐</li>
-            <li ng-click="openBackEditModal()"><i class="icon ion-star"></i>更换背景图片</li>
-            <li><i class="icon ion-star"></i>插入图片</li>
-            <li><i class="icon ion-star"></i>插入文字</li>
+            <li><i class="icon icon-pageedit-yinyue"></i><span>更换背景音乐</span></li>
+            <li ng-click="openBackEditModal()"><i class="icon icon-pageedit-beijing"></i><span>更换背景图片</span></li>
+            <li><i class="icon icon-pageedit-tupan"></i>插入图片</li>
+            <li><i class="icon icon-pageedit-wenzi"></i>插入文字</li>
+            <li><i class="icon icon-pageedit-tuichu"></i>退出编辑</li>
         </ul>
         <ion-tabs class="tabs-icon-top myEditTab">
-            <ion-tab title="保存" icon="icon-edit-baochun" nav-transition="ios" ng-click="storySave()">
+            <ion-tab title="保存" icon="icon-pageedit-baochun" nav-transition="ios" ng-click="storySave()">
             </ion-tab>
             <!-- ng-click="cancelOperation()" -->
-            <ion-tab title="撤销" icon="ion-reply" nav-transition="ios">
+            <ion-tab title="撤销" icon="icon-pageedit-chexiao" nav-transition="ios">
             </ion-tab>
-            <ion-tab title="模板" icon="icon-upalapp-zhizuo-off" nav-transition="ios">
+            <ion-tab title="模板" icon="icon-pageedit-yemian" nav-transition="ios">
             </ion-tab>
-            <ion-tab title="页面" icon="icon-upalapp-shouye-off" nav-transition="ios">
+            <ion-tab title="页面" icon="icon-pageedit-guanli" nav-transition="ios">
             </ion-tab>
-            <ion-tab class="appEditIcon" icon="ion-navicon-round" nav-transition="ios" ng-click="toggle()">
+            <ion-tab title="更多" class="appEditIcon" icon="icon-pageedit-gengduo" nav-transition="ios" ng-click="toggle()">
             </ion-tab>
         </ion-tabs>
         <!-- 文字的编辑栏目（底下的编辑栏） -->
         <ion-tabs class="tabs-icon-top textEditTab" ng-class="{'textEditHide': textEditHide}">
-            <ion-tab title="样式" icon="ion-edit" nav-transition="ios" ng-click="textStyleEditShowFn()">
+            <ion-tab title="样式" icon="icon-pageedit-yangshi" nav-transition="ios" ng-click="textStyleEditShowFn()">
             </ion-tab>
             <!-- ng-click="cancelOperation()" -->
-            <ion-tab title="字体" icon="ion-edit" nav-transition="ios" ng-click="fontFamilyEditShowFn()">
+            <ion-tab title="字体" icon="icon-pageedit-ziti" nav-transition="ios" ng-click="fontFamilyEditShowFn()">
             </ion-tab>
-            <ion-tab title="字号" icon="ion-edit" nav-transition="ios" ng-click="fontSizeEditShowFn()">
+            <ion-tab title="字号" icon="icon-pageedit-zihao" nav-transition="ios" ng-click="fontSizeEditShowFn()">
             </ion-tab>
-            <ion-tab title="字色" icon="ion-edit" nav-transition="ios" ng-click="fontColorEditShowFn()">
+            <ion-tab title="字色" icon="icon-pageedit-zise" nav-transition="ios" ng-click="fontColorEditShowFn()">
             </ion-tab>
-            <ion-tab title="对齐" icon="ion-edit" nav-transition="ios" ng-click="textAlignEditShowFn()">
+            <ion-tab title="对齐" icon="icon-pageedit-duiqi" nav-transition="ios" ng-click="textAlignEditShowFn()">
             </ion-tab>
         </ion-tabs>
         <!-- 文字样式修改：粗体 斜体 下划线 -->
@@ -145,12 +146,20 @@
         <!-- 字体颜色 -->
         <div class="fontColorEdit row" ng-class="{'fontColorEditShow':fontColorEditShow}">
             <div class="col col-10" ng-click="fontColorCancelFn()"><i class="icon ion-close-round"></i></div>
-            <div class="col col-80">
-                <input type="color">
+            <div class="col col-80" style="overflow:hidden;">
+                <div class="activeColorWrap">
+                    <div class="activeColorWrap2">
+                        <div class="activeColor" style="background:{{textActiveColor}}"></div>
+                    </div>
+                </div>
+                <div class="colorWrap cf">
+                    <ul class="colorUl" style="width:{{colorUlWidth}}px;">
+                        <li ng-repeat="listColor in colorArr" style="background:{{listColor}}" ng-click="changeTextColor(listColor)"></li>
+                    </ul>
+                </div>
             </div>
             <div class="col col-10" ng-click="fontColorSureFn()"><i class="icon ion-checkmark-round"></i></div>
         </div>
-
         <!-- 文字对齐方式-->
         <div class="textAlignEdit" ng-class="{'textAlignEditShow':textAlignEditShow}">
             <div class="textAlignType row">
@@ -174,35 +183,34 @@
             </div>
         </div>
     </div>
+    <style>
+    @font-face {
+        font-family: 'maobiRegular';
+        src: url('http://cdn.upalapp.com/font/maobiRegular.ttf') format('truetype');
+    }
+    </style>
+    <style>
+    @font-face {
+        font-family: 'MFShangHei';
+        src: url('http://cdn.upalapp.com/font/MFShangHei.ttf') format('truetype');
+    }
+    </style>
+    <style>
+    @font-face {
+        font-family: 'SentyMaruko';
+        src: url('http://cdn.upalapp.com/font/SentyMaruko.ttf') format('truetype');
+    }
+    </style>
+    <style>
+    @font-face {
+        font-family: 'fzmwt';
+        src: url('http://cdn.upalapp.com/font/fzmwt.ttf') format('truetype');
+    }
+    </style>
+    <style>
+    @font-face {
+        font-family: 'fzjlt';
+        src: url('http://cdn.upalapp.com/font/fzjlt.ttf') format('truetype');
+    }
+    </style>
 </ion-view>
-<!-- 导入字体 -->
-<style>
-@font-face {
-    font-family: 'SentyMaruko';
-    src: url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.eot'), url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.woff') format('woff');
-}
-</style>
-<style>
-@font-face {
-    font-family: 'maobiRegular';
-    src: url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.eot'), url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.woff') format('woff');
-}
-</style>
-<style>
-@font-face {
-    font-family: 'MFShangHei';
-    src: url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.eot'), url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.woff') format('woff');
-}
-</style>
-<style>
-@font-face {
-    font-family: 'fzmwt';
-    src: url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.eot'), url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.woff') format('woff');
-}
-</style>
-<style>
-@font-face {
-    font-family: 'fzjlt';
-    src: url('http://cdn.upalapp.com/font/subFont/8bb82a77-3ca7-48bd-a052-ef9cc21945e7.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/8bb82a77-3ca7-48bd-a052-ef9cc21945e7.eot'), url('http://cdn.upalapp.com/font/subFont/8bb82a77-3ca7-48bd-a052-ef9cc21945e7.woff') format('woff');
-}
-</style>

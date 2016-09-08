@@ -51,12 +51,15 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                     left: storyBoxLeft,
                     top: storyBoxTop
                 });
+                //不把contenteditable属性设置成false,点文字会弹出键盘
+                jQuery('.bf-com-impl.txt').attr('contenteditable', false);
+                // 初始化艺术字
+                $scope.setWordart();
                 SectionEvent.cli($scope);
                 SectionEvent.blurFn($scope);
                 // 当加载完之后要显示出来
                 $scope.opacity = 1;
                 $timeout(function() {
-
                     $ionicLoading.hide();
                 }, 500);
 
@@ -111,6 +114,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
     //保存h5的方法：
     $scope.storySave = function() {
+
         $ionicLoading.show({
             content: 'Loading',
             animation: 'fade-in',
@@ -276,6 +280,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     $scope.textStyleEditShow = false;
     // 打开文字样式设置栏并且保存并设置初始值
     $scope.textStyleEditShowFn = function() {
+        SectionEvent.stop();
         $scope.textStyleEditShow = true;
         $scope.fontWeightVal = jQuery('.mobileEvent').css('fontWeight');
         $scope.fontStyleVal = jQuery('.mobileEvent').css('fontStyle');
@@ -343,6 +348,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 取消设置并恢复默认值
     $scope.textStyleCancelFn = function() {
+            SectionEvent.start();
             $scope.textStyleEditShow = false;
             jQuery('.mobileEvent').css({
                 'fontWeight': $scope.fontWeightVal,
@@ -352,7 +358,150 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 确认修改
     $scope.textStyleSureFn = function() {
-            $scope.textStyleEditShow = false;
+        SectionEvent.start();
+        $scope.textStyleEditShow = false;
+    }
+
+    /**
+     * 获取api的domain
+     * @author zhengxinren
+     */
+    $scope.getApiDoMain = function() {
+            var href = document.location.href;
+            if (href.indexOf('www.upalapp.com') != -1 || href.indexOf('beta.upalapp.com') != -1 || href.indexOf('h.upalapp.com') != -1) {
+                return 'http://api.upalapp.com';
+            } else {
+                return 'http://testapi.upalapp.com';
+            }
+        }
+        /*设置艺术字体*/
+
+    $scope.setWordart = function() {
+            /* 艺术字 */
+            var family = [];
+            var texts = [];
+
+            jQuery(".bf-com[_comid=txt][family]").each(function() {
+                var f = jQuery(this).attr('family');
+                var text = jQuery(this).text();
+                if (family.indexOf(f) >= 0) {
+                    texts[family.indexOf(f)] += text;
+                } else {
+                    family.push(f);
+                    texts.push(text);
+                }
+            });
+
+            for (var i = 0; i < texts.length; i++) {
+                var strArr = texts[i].split("");
+                //排序
+                strArr.sort();
+                var result = jQuery.unique(strArr);
+                texts[i] = result.join("");
+                jQuery.ajax({
+                    url: $scope.getApiDoMain() + '/artFontApi/createArtFont',
+                    //url:'/api/artFontApi/createArtFont',
+                    type: 'post',
+                    data: {
+                        str: texts[i],
+                        fontName: family[i]
+                    },
+                    before: function() {
+                        console.log('-------------------------------------before------------------')
+                        console.log(texts[i]);
+                        console.log(family[i]);
+                    },
+                    success: function(result) { //ttf
+                        result = JSON.parse(result);
+                        console.log('----------familyresult---------------');
+                        console.log(result);
+                        jQuery("body").append("<style>@font-face{font-family:'" + result.fontType + "';src:url('" + result.ttfCdnUrl + "') format('truetype'), url('" + result.eotCdnUrl + "'), url('" + result.woffCdnUrl + "') format('woff');}</style>")
+                            //jQuery("body").append("<style>@font-face{font-family:'"+ result.fontType +"';src:url('"+ result.ttfWebPath +"') format('truetype'), url('"+result.eotWebPath+"'), url('"+result.woffWebPath+"') format('woff');}</style>")
+                    },
+                    error: function() {
+                        console.log('生成艺术字库失败！');
+                    }
+                });
+            }
+        }
+        // $scope.setWordart = function() {
+        //     /* 艺术字 */
+        //     var family = [];
+        //     var texts = [];
+
+    //     jQuery(".bf-com[_comid=txt][family]").each(function() {
+    //         var text = jQuery(this).text();
+    //         if (family.indexOf(f) < 0) {
+    //             family.push(f);
+    //         }
+    //         texts.push(text);
+    //     });
+
+    //     for (var i = 0; i < texts.length; i++) {
+    //         var strArr = texts[i].split("");
+    //         //排序
+    //         strArr.sort();
+    //         var result = jQuery.unique(strArr);
+    //         texts[i] = result.join("");
+    //         jQuery.ajax({
+    //             url: $scope.getApiDoMain() + '/artFontApi/createArtFont',
+    //             //url:'/api/artFontApi/createArtFont',
+    //             type: 'post',
+    //             data: {
+    //                 str: texts[i],
+    //                 fontName: family[i]
+    //             },
+    //             success: function(result) { //ttf
+    //                 result = JSON.parse(result);
+    //                 jQuery("body").append("<style>@font-face{font-family:'" + result.fontType + "';src:url('" + result.ttfCdnUrl + "') format('truetype'), url('" + result.eotCdnUrl + "'), url('" + result.woffCdnUrl + "') format('woff');}</style>")
+    //                     //jQuery("body").append("<style>@font-face{font-family:'"+ result.fontType +"';src:url('"+ result.ttfWebPath +"') format('truetype'), url('"+result.eotWebPath+"'), url('"+result.woffWebPath+"') format('woff');}</style>")
+    //             },
+    //             error: function() {
+    //                 console.log('生成艺术字库失败！');
+    //             }
+    //         });
+    //     }
+    // }
+    $scope.updateWordart = function() {
+            /* 更新艺术字 */
+            var family = [];
+            var texts = [];
+
+            jQuery(".mobileEvent.bf-com[_comid=txt][family]").each(function() {
+                var f = jQuery(this).attr('family');
+                var text = jQuery(this).text();
+                if (family.indexOf(f) >= 0) {
+                    texts[family.indexOf(f)] += text;
+                } else {
+                    family.push(f);
+                    texts.push(text);
+                }
+            });
+
+            for (var i = 0; i < texts.length; i++) {
+                var strArr = texts[i].split("");
+                //排序
+                strArr.sort();
+                var result = jQuery.unique(strArr);
+                texts[i] = result.join("");
+                jQuery.ajax({
+                    url: $scope.getApiDoMain() + '/artFontApi/createArtFont',
+                    //url:'/api/artFontApi/createArtFont',
+                    type: 'post',
+                    data: {
+                        str: texts[i],
+                        fontName: family[i]
+                    },
+                    success: function(result) { //ttf
+                        result = JSON.parse(result);
+                        jQuery("body").append("<style>@font-face{font-family:'" + result.fontType + "';src:url('" + result.ttfCdnUrl + "') format('truetype'), url('" + result.eotCdnUrl + "'), url('" + result.woffCdnUrl + "') format('woff');}</style>")
+                            //jQuery("body").append("<style>@font-face{font-family:'"+ result.fontType +"';src:url('"+ result.ttfWebPath +"') format('truetype'), url('"+result.eotWebPath+"'), url('"+result.woffWebPath+"') format('woff');}</style>")
+                    },
+                    error: function() {
+                        console.log('生成艺术字库失败！');
+                    }
+                });
+            }
         }
         /**
          *字体编辑
@@ -361,6 +510,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     $scope.fontFamilyEditShow = false;
     // 点击字体时候设置框弹出的方法
     $scope.fontFamilyEditShowFn = function() {
+            SectionEvent.stop();
             $scope.fontFamilyEditShow = true;
             $scope.fontFamilyVal = jQuery('.mobileEvent').css('fontFamily');
             $scope.attrFamily = jQuery('.mobileEvent').attr('family');
@@ -376,11 +526,13 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 当字体设置select值改变的时候，更新字体大小
     jQuery('.fontFamilySel').on('change', function() {
+
         $timeout(function() {
             jQuery('.mobileEvent').css({
                 'fontFamily': $scope.fontFamilySelVal,
             });
             jQuery('.mobileEvent').attr("family", $scope.fontFamilySelVal);
+            $scope.updateWordart();
         })
     });
 
@@ -388,6 +540,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     //     console.log('change')
     // }
     $scope.fontFamilyCancelFn = function() {
+            SectionEvent.start();
             jQuery('.mobileEvent').css({
                 'fontFamily': $scope.fontFamilyVal,
             });
@@ -396,6 +549,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 确认修改
     $scope.fontFamilySureFn = function() {
+        SectionEvent.start();
         $scope.fontFamilyEditShow = false;
     }
     console.log("-------fontFamilySel-----------")
@@ -407,6 +561,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     // 默认不显示编辑框
     $scope.fontSizeEditShow = false;
     $scope.fontSizeEditShowFn = function() {
+        SectionEvent.stop();
         $scope.fontSizeEditShow = true;
         $scope.fontSizeVal = jQuery('.mobileEvent').css('fontSize');
         console.log($scope.fontSizeVal);
@@ -414,6 +569,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     }
 
     $scope.fontSizeCancelFn = function() {
+            SectionEvent.start();
             jQuery('.mobileEvent').css({
                 'fontSize': $scope.fontSizeVal,
             });
@@ -421,6 +577,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 确认修改
     $scope.fontSizeSureFn = function() {
+            SectionEvent.start();
             $scope.fontSizeEditShow = false;
         }
         // 当select值改变的时候，更新字体大小
@@ -434,25 +591,40 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     /**
      *字体颜色部分
      **/
+    $scope.colorArr = ['#ffffff', '#000000', '#345a7c', '#115ebb', '#00ccff', '#4de6e6', '#cc3300', '#ca3593', '#9933cc', '#f96c8c', '#ffcc00', '#ff7c11', '#095e09', '#009933', '#a6ee44', '#432323'];
     $scope.fontColorEditShow = false;
+    $scope.colorUlWidth = ($scope.colorArr.length + 1) * 50;
+    $scope.textActiveColor = '#ffffff';
     $scope.fontColorEditShowFn = function() {
+        SectionEvent.stop();
         $scope.fontColorEditShow = true;
         $scope.fontColorVal = jQuery('.mobileEvent').css('color');
         console.log($scope.fontColorVal);
+        $scope.textActiveColor = $scope.fontColorVal;
+
     }
     $scope.fontColorCancelFn = function() {
+            SectionEvent.start();
             $scope.fontColorEditShow = false;
         }
         // 确认修改
     $scope.fontColorSureFn = function() {
-        $scope.fontColorEditShow = false;
-    }
-
-    /**
-     *设置对齐方式
-     **/
+            SectionEvent.start();
+            $scope.fontColorEditShow = false;
+        }
+        // 改变颜色的方法
+    $scope.changeTextColor = function(color) {
+            $scope.textActiveColor = color;
+            jQuery('.mobileEvent').css({
+                'color': color
+            })
+        }
+        /**
+         *设置对齐方式
+         **/
     $scope.textAlignEditShow = false;
     $scope.textAlignEditShowFn = function() {
+        SectionEvent.stop();
         $scope.textAlignEditShow = true;
         $scope.textAlignVal = jQuery('.mobileEvent').css('textAlign');
         jQuery('.setTextAligntBtn').removeClass('active');
@@ -470,6 +642,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         console.log($scope.textAlignVal);
     }
     $scope.textAlignCancelFn = function() {
+            SectionEvent.start();
             jQuery('.mobileEvent').css({
                 'textAlign': $scope.textAlignVal,
             });
@@ -477,6 +650,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 确认修改
     $scope.textAlignSureFn = function() {
+            SectionEvent.start();
             $scope.textAlignEditShow = false;
         }
         //  设置对齐方式的方法
@@ -497,4 +671,5 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 break;
         }
     }
+
 }]);
