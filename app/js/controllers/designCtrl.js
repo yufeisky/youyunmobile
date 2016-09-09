@@ -3,7 +3,7 @@ appController.controller('designCtrl', ['$scope', '$rootScope', '$state', '$stat
 
     var User = JSON.parse(localStorageService.get('User'));
     Con.log(User);
-    if (User) {
+    // if (User) {
         //设置图片高度
         var win_w = angular.element(window)[0].innerWidth;
         $scope.img_w = win_w * 0.45 * 229 / 158 + 'px';
@@ -39,9 +39,9 @@ appController.controller('designCtrl', ['$scope', '$rootScope', '$state', '$stat
                 $scope.loadValue = true;
             }
         });
-    } else {
-        $timeout(function() {
-            $rootScope.changePage('tab.design');
-        }, 100);
-    }
+    // } else {
+    //     $timeout(function() {
+    //         $rootScope.changePage('tab.design');
+    //     }, 100);
+    // }
 }]);

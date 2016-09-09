@@ -38,7 +38,7 @@ appController.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageServi
         // Con.log('------changestate------')
         // Con.log(state)
         // Con.log($rootScope.UserInfo)
-        if ($rootScope.changeState == 'tab.home') {
+        if ($rootScope.changeState == 'tab.home'|| ($rootScope.changeState == 'tab.design')) {
             $state.go(state);
             return false;
         }

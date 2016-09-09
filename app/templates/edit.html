@@ -13,7 +13,7 @@
     <ion-nav-title>
         故事
     </ion-nav-title>
-    <ion-content scroll="false" lazy-scroll class="storySlideBox ">
+    <ion-content scroll="true" lazy-scroll class="storySlideBox ">
         <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox" style="opacity:{{opacity}}">
             <ion-slide ng-repeat="page in pages" class="editSlide">
                 <div class="storyPage" ng-bind-html="page.content|trustHtml" page_id="{{page.id}}">
@@ -152,11 +152,11 @@
                         <div class="activeColor" style="background:{{textActiveColor}}"></div>
                     </div>
                 </div>
-                <div class="colorWrap cf">
-                    <ul class="colorUl" style="width:{{colorUlWidth}}px;">
+                <ion-scroll class="colorWrap cf" zooming="true" direction="x">
+                    <ul class="colorUl cf" style="width:{{colorUlWidth}}px;">
                         <li ng-repeat="listColor in colorArr" style="background:{{listColor}}" ng-click="changeTextColor(listColor)"></li>
                     </ul>
-                </div>
+                </ion-scroll>
             </div>
             <div class="col col-10" ng-click="fontColorSureFn()"><i class="icon ion-checkmark-round"></i></div>
         </div>

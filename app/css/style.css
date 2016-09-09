@@ -986,11 +986,13 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     line-height: 30px;
     width: 90%;
 }
-.WordartSave{
+
+.WordartSave {
     width: 0;
     height: 0;
     overflow: hidden;
 }
+
 .fontSizeEdit {
     height: 60px;
     width: 100%;
@@ -1082,7 +1084,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     position: relative;
     left: 55px;
     top: -48px;
-    /* width: 100%; */
+     width: 100%; 
     height: 50px;
     padding-top: 5px;
     overflow: hidden;
@@ -1831,6 +1833,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 .mainTypeWrap {
     overflow: hidden;
     overflow-x: scroll;
+    width: 100%;
 }
 
 .mainTypeList {
@@ -2247,24 +2250,4 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     top: 0;
     border-radius: 7px;
     border-bottom: 5px solid #f8b1b7;
-}
-
-@font-face {
-    font-family: 'SentyMaruko';
-    src: url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.eot'), url('http://cdn.upalapp.com/font/subFont/cd112ed8-fa76-4d9b-a791-5c31e583bf77.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'maobiRegular';
-    src: url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.eot'), url('http://cdn.upalapp.com/font/subFont/09ff4e92-5ff2-4e0f-87dd-65970fd7094d.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'MFShangHei';
-    src: url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.eot'), url('http://cdn.upalapp.com/font/subFont/b67b882f-d4e9-4830-b326-fdce30ebe3b7.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'fzmwt';
-    src: url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.ttf') format('truetype'), url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.eot'), url('http://cdn.upalapp.com/font/subFont/3c2ad1b7-1c6e-495a-8f7f-ddcd2c942db6.woff') format('woff');
 }

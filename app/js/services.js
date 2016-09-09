@@ -656,6 +656,7 @@ angular.module('IonicClub.services', [])
                         $scope.textEditHide = false;
                         $scope.textStyleEditShow = false;
                         $scope.fontFamilyEditShow = false;
+                        $scope.fontColorEditShow = false;
                         $scope.fontSizeEditShow = false;
                         $scope.textAlignEditShow = false;
                         $scope.visible = false;
@@ -861,6 +862,7 @@ angular.module('IonicClub.services', [])
                             // 把第二级别的操作框隐藏
                             $scope.textStyleEditShow = false;
                             $scope.fontFamilyEditShow = false;
+                            $scope.fontColorEditShow = false;
                             $scope.fontSizeEditShow = false;
                             $scope.textAlignEditShow = false;
                             $scope.visible = false;

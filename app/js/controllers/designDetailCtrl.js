@@ -7,21 +7,21 @@ appController.controller('designDetailCtrl', ['$scope', '$rootScope', '$sce', '$
     Con.log('首页详情');
     // console.log($stateParams);
     // 用ifarme展示
+    // console.log(User);
+    $scope.urlParams = JSON.parse($stateParams.itemPars);
+    // console.log($scope.urlParams)
+
+    // var url =$stateParams.puburl;
+    // console.log(url);
+    // iframe需要sce转化之后才可以打开
+    $scope.pubUrl = $sce.trustAsResourceUrl($scope.urlParams.puburl);
+    $scope.storyTit = $scope.urlParams.title;
+    $scope.templateId = $scope.urlParams.id;
+    console.log($scope.urlParams)
+
+    $scope.createStoryByTemplateId = function(templateId) {
     var User = JSON.parse(localStorageService.get('User'));
-    console.log(User);
-    if (User) {
-        $scope.urlParams = JSON.parse($stateParams.itemPars);
-        // console.log($scope.urlParams)
-
-        // var url =$stateParams.puburl;
-        // console.log(url);
-        // iframe需要sce转化之后才可以打开
-        $scope.pubUrl = $sce.trustAsResourceUrl($scope.urlParams.puburl);
-        $scope.storyTit = $scope.urlParams.title;
-        $scope.templateId = $scope.urlParams.id;
-        console.log($scope.urlParams)
-
-        $scope.createStoryByTemplateId = function(templateId) {
+        if (User) {
             User = JSON.parse(localStorageService.get('User'));
             var createStoryInfo = {
                 templateID: templateId,
@@ -41,16 +41,18 @@ appController.controller('designDetailCtrl', ['$scope', '$rootScope', '$sce', '$
                 $ionicLoading.hide();
                 if (data.status == 1 && data.message == 'success') {
                     $state.go('tab.edit', { storyId: data.storyId });
-                }else{
+                } else {
                     localStorageService.remove('User');
                     MsgBox.showTexts('未登录');
                     $rootScope.openLoginModal();
                 }
             })
+        } else {
+            $timeout(function() {
+                // 把当前连接保存，以便登陆后可以重新回到该地址
+                $rootScope.changeState = window.location.href;
+                $rootScope.openLoginModal();
+            }, 100);
         }
-    } else {
-        $timeout(function() {
-            $rootScope.changePage('tab.design');
-        }, 100);
     }
 }]);
