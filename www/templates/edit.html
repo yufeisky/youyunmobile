@@ -5,8 +5,8 @@
     <ion-nav-bar>
         <!-- 自定义的后退按钮 -->
         <ion-nav-buttons side="left">
-            <button class="button-clear "  ng-click="goBackView()">
-                 <i class="ion-chevron-left"></i> 后退
+            <button class="button-clear " ng-click="goBackView()">
+                <i class="ion-chevron-left"></i> 后退
             </button>
         </ion-nav-buttons>
     </ion-nav-bar>
@@ -15,7 +15,7 @@
     </ion-nav-title>
     <ion-content scroll="false" lazy-scroll class="storySlideBox ">
         <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox" style="opacity:{{opacity}}">
-            <ion-slide ng-repeat="page in pages" class="editSlide" >
+            <ion-slide ng-repeat="page in pages" class="editSlide">
                 <div class="storyPage" ng-bind-html="page.content|trustHtml" page_id="{{page.id}}">
                     <!-- {{page.content}} -->
                 </div>
@@ -44,23 +44,173 @@
     </ion-content>
     <div class="footer">
         <ul class="appEdit" ng-class="{'appEditHide': visible}">
-            <li><i class="icon ion-star"></i>更换背景音乐</li>
-            <li ng-click="openBackEditModal()"><i class="icon ion-star"></i>更换背景图片</li>
-            <li><i class="icon ion-star"></i>插入图片</li>
-            <li><i class="icon ion-star"></i>插入文字</li>
+            <li><i class="icon icon-pageedit-yinyue"></i><span>更换背景音乐</span></li>
+            <li ng-click="openBackEditModal()"><i class="icon icon-pageedit-beijing"></i><span>更换背景图片</span></li>
+            <li><i class="icon icon-pageedit-tupan"></i>插入图片</li>
+            <li><i class="icon icon-pageedit-wenzi"></i>插入文字</li>
+            <li><i class="icon icon-pageedit-tuichu"></i>退出编辑</li>
         </ul>
         <ion-tabs class="tabs-icon-top myEditTab">
-            <ion-tab title="保存" icon="icon-edit-baochun" nav-transition="ios" ng-click="storySave()">
+            <ion-tab title="保存" icon="icon-pageedit-baochun" nav-transition="ios" ng-click="storySave()">
             </ion-tab>
             <!-- ng-click="cancelOperation()" -->
-            <ion-tab title="撤销" icon="ion-reply" nav-transition="ios" ng-click="cancelOperation()">
+            <ion-tab title="撤销" icon="icon-pageedit-chexiao" nav-transition="ios">
             </ion-tab>
-            <ion-tab title="模板" icon="icon-upalapp-zhizuo-off" nav-transition="ios">
+            <ion-tab title="模板" icon="icon-pageedit-yemian" nav-transition="ios">
             </ion-tab>
-            <ion-tab title="页面" icon="icon-upalapp-shouye-off" nav-transition="ios">
+            <ion-tab title="页面" icon="icon-pageedit-guanli" nav-transition="ios">
             </ion-tab>
-            <ion-tab class="appEditIcon" icon="ion-navicon-round" nav-transition="ios" ng-click="toggle()">
+            <ion-tab title="更多" class="appEditIcon" icon="icon-pageedit-gengduo" nav-transition="ios" ng-click="toggle()">
             </ion-tab>
         </ion-tabs>
+        <!-- 文字的编辑栏目（底下的编辑栏） -->
+        <ion-tabs class="tabs-icon-top textEditTab" ng-class="{'textEditHide': textEditHide}">
+            <ion-tab title="样式" icon="icon-pageedit-yangshi" nav-transition="ios" ng-click="textStyleEditShowFn()">
+            </ion-tab>
+            <!-- ng-click="cancelOperation()" -->
+            <ion-tab title="字体" icon="icon-pageedit-ziti" nav-transition="ios" ng-click="fontFamilyEditShowFn()">
+            </ion-tab>
+            <ion-tab title="字号" icon="icon-pageedit-zihao" nav-transition="ios" ng-click="fontSizeEditShowFn()">
+            </ion-tab>
+            <ion-tab title="字色" icon="icon-pageedit-zise" nav-transition="ios" ng-click="fontColorEditShowFn()">
+            </ion-tab>
+            <ion-tab title="对齐" icon="icon-pageedit-duiqi" nav-transition="ios" ng-click="textAlignEditShowFn()">
+            </ion-tab>
+        </ion-tabs>
+        <!-- 文字样式修改：粗体 斜体 下划线 -->
+        <div class="textStyleEdit" ng-class="{'textStyleEditShow':textStyleEditShow}">
+            <div class="fontType row">
+                <div class="col col-20 col-offset-20 active setfontWeightBtn" ng-click="setFontWeightFn()">
+                    <i class="icon ion-social-bitcoin"></i>
+                    <p>粗体</p>
+                </div>
+                <div class="col col-20 setFontStyleBtn" ng-click="setFontStyleFn()">
+                    <i class="icon ion-social-bitcoin"></i>
+                    <p>斜体</p>
+                </div>
+                <div class="col col-20 setTextDecorationBtn" ng-click="setTextDecorationFn()">
+                    <i class="icon ion-social-bitcoin"></i>
+                    <p>下划线</p>
+                </div>
+            </div>
+            <div class="cancelAndSureArea row">
+                <div class="col col-10" ng-click="textStyleCancelFn()"><i class="icon ion-close-round"></i></div>
+                <div class="col col-80">文字样式</div>
+                <div class="col col-10" ng-click="textStyleSureFn()"><i class="icon ion-checkmark-round"></i></div>
+            </div>
+        </div>
+        <!-- 字体修改模块 -->
+        <div class="fontFamilyEdit row" ng-class="{'fontFamilyEditShow':fontFamilyEditShow}">
+            <div class="col col-10" ng-click="fontFamilyCancelFn()"><i class="icon ion-close-round"></i></div>
+            <div class="col col-80">
+                <select name="" id="" ng-model="fontFamilySelVal" class="fontFamilySel">
+                    <option value="YaHei" style="font-family:'YaHei';">微软雅黑</option>
+                    <option value="ExLight" style="font-family:'ExLight';">尚黑</option>
+                    <option value="SentyMaruko" style="font-family:'SentyMaruko';">手写</option>
+                    <option value="maobiRegular" style="font-family:'maobiRegular';">毛笔</option>
+                    <option value="fzjlt" style="font-family:'fzjlt';">方正静蕾体</option>
+                    <option value="fzmwt" style="font-family:'fzmwt';">方正喵呜体</option>
+                </select>
+            </div>
+            <div class="col col-10" ng-click="fontFamilySureFn()"><i class="icon ion-checkmark-round"></i></div>
+        </div>
+        <!-- 字体大小 -->
+        <div class="fontSizeEdit row" ng-class="{'fontSizeEditShow':fontSizeEditShow}">
+            <div class="col col-10" ng-click="fontSizeCancelFn()"><i class="icon ion-close-round"></i></div>
+            <div class="col col-80">
+                <select name="" id="" ng-model="fontSizeSelVal" class="fontSizeSel">
+                    <option value="12px">12px</option>
+                    <option value="14px">14px</option>
+                    <option value="16px">16px</option>
+                    <option value="18px">18px</option>
+                    <option value="20px">20px</option>
+                    <option value="22px">22px</option>
+                    <option value="24px">24px</option>
+                    <option value="26px">26px</option>
+                    <option value="28px">28px</option>
+                    <option value="32px">32px</option>
+                    <option value="36px">36px</option>
+                    <option value="40px">40px</option>
+                    <option value="48px">48px</option>
+                    <option value="56px">56px</option>
+                    <option value="60px">60px</option>
+                    <option value="64px">64px</option>
+                    <option value="72px">72px</option>
+                    <option value="96px">96px</option>
+                    <option value="112px">112px</option>
+                    <option value="128px">128px</option>
+                </select>
+            </div>
+            <div class="col col-10" ng-click="fontSizeSureFn()"><i class="icon ion-checkmark-round"></i></div>
+        </div>
+        <!-- 字体颜色 -->
+        <div class="fontColorEdit row" ng-class="{'fontColorEditShow':fontColorEditShow}">
+            <div class="col col-10" ng-click="fontColorCancelFn()"><i class="icon ion-close-round"></i></div>
+            <div class="col col-80" style="overflow:hidden;">
+                <div class="activeColorWrap">
+                    <div class="activeColorWrap2">
+                        <div class="activeColor" style="background:{{textActiveColor}}"></div>
+                    </div>
+                </div>
+                <ion-scroll class="colorWrap cf" zooming="true" direction="x">
+                    <ul class="colorUl cf" style="width:{{colorUlWidth}}px;">
+                        <li ng-repeat="listColor in colorArr" style="background:{{listColor}}" ng-click="changeTextColor(listColor)"></li>
+                    </ul>
+                </ion-scroll>
+            </div>
+            <div class="col col-10" ng-click="fontColorSureFn()"><i class="icon ion-checkmark-round"></i></div>
+        </div>
+        <!-- 文字对齐方式-->
+        <div class="textAlignEdit" ng-class="{'textAlignEditShow':textAlignEditShow}">
+            <div class="textAlignType row">
+                <div class="col col-20 col-offset-20 active setTextAligntBtn left" ng-click="setTextAlignFn('left')">
+                    <i class="icon ion-social-bitcoin"></i>
+                    <p>左对齐</p>
+                </div>
+                <div class="col col-20 setTextAligntBtn center" ng-click="setTextAlignFn('center')">
+                    <i class="icon ion-social-bitcoin"></i>
+                    <p>居中对齐</p>
+                </div>
+                <div class="col col-20 setTextAligntBtn right" ng-click="setTextAlignFn('right')">
+                    <i class="icon ion-social-bitcoin"></i>
+                    <p>右对齐</p>
+                </div>
+            </div>
+            <div class="cancelAndSureArea row">
+                <div class="col col-10" ng-click="textAlignCancelFn()"><i class="icon ion-close-round"></i></div>
+                <div class="col col-80">文字对齐方式</div>
+                <div class="col col-10" ng-click="textAlignSureFn()"><i class="icon ion-checkmark-round"></i></div>
+            </div>
+        </div>
     </div>
+    <style>
+    @font-face {
+        font-family: 'maobiRegular';
+        src: url('http://cdn.upalapp.com/font/maobiRegular.ttf') format('truetype');
+    }
+    </style>
+    <style>
+    @font-face {
+        font-family: 'MFShangHei';
+        src: url('http://cdn.upalapp.com/font/MFShangHei.ttf') format('truetype');
+    }
+    </style>
+    <style>
+    @font-face {
+        font-family: 'SentyMaruko';
+        src: url('http://cdn.upalapp.com/font/SentyMaruko.ttf') format('truetype');
+    }
+    </style>
+    <style>
+    @font-face {
+        font-family: 'fzmwt';
+        src: url('http://cdn.upalapp.com/font/fzmwt.ttf') format('truetype');
+    }
+    </style>
+    <style>
+    @font-face {
+        font-family: 'fzjlt';
+        src: url('http://cdn.upalapp.com/font/fzjlt.ttf') format('truetype');
+    }
+    </style>
 </ion-view>
