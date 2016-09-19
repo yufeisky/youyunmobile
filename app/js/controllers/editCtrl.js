@@ -231,7 +231,11 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         $scope.textEditmodal = modal;
     });
     $scope.model = { text: 123 };
+    // 插入文字控制：为true为插入，false为更改
+    $scope.isInsertText = false;
+    // 打开修改文字编辑框
     $scope.openTextEditModal = function() {
+        $scope.isInsertText = false;
         $scope.textEditmodal.show();
         var oldText = jQuery('.mobileEvent').find('.txt-con').text();
         $scope.model = { text: oldText };
@@ -240,10 +244,31 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     $scope.closeTextEditModal = function(type) {
         $scope.textEditmodal.hide();
     };
+    // 文字框确定之后的方法
     $scope.changeText = function(text) {
-        jQuery('.mobileEvent').find('.txt-con').text(text);
+        if ($scope.isInsertText) {
+            jQuery('ion-slide ').each(function() {
+                var data = jQuery(this).attr("data-index");
+                var nowIndex = $ionicSlideBoxDelegate.currentIndex();
+                if (data == nowIndex) {
+                    console.log(jQuery(this))
+                    jQuery(this).find('output').append('<section id="faglwbkt" class="bf-com bf-basic" _libid="bf-basic" _comid="txt" _version="1.2" style="left: 50px; top: 234px; z-index: 111; width: 224.069px; height: 32px; min-height: inherit; line-height: 1.5; font-size: 16px; padding-top: 0px; padding-bottom: 0px; font-weight: bold; font-family: ExLight;" data-x="2" data-y="0" data-z="1" xf-animatenum="12" xf-animatexh="0" family="ExLight"><div class="bf-com-impl txt" contenteditable="false" style="animation: rotateInDownLeft 2s ease 0s 1 both;"><div class="txt-con">'+text+'</div></div><div class="bf-com-cover" style="display: block;"></div><textarea class="bf-com-meta"></textarea></section>');
+                    SectionEvent.start();
+                }
+            })
+            
+        } else {
+            jQuery('.mobileEvent').find('.txt-con').text(text);
+        }
         $scope.textEditmodal.hide();
     };
+    // 打开文字框并把状态修改为插入状态
+    $scope.openTextEditModalAndInsterText = function() {
+        $scope.isInsertText = true;
+        $scope.textEditmodal.show();
+        $scope.model = { text: '请输入文字' };
+        jQuery('.editTextArea').focus();
+    }
 
     $scope.normalGalleryChoose = function(imageurl) {
         jQuery('.mobileEvent').find('img').attr("src", imageurl);
@@ -270,6 +295,28 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         $scope.openGalleryModal($scope.backGalleryChoose);
     }
 
+    // 插入图片的回调函数
+    $scope.backInsertPictureFn = function(imageurl) {
+            jQuery('.bgbox').each(function() {
+                var data = $(this).parents("ion-slide").attr("data-index");
+                var nowIndex = $ionicSlideBoxDelegate.currentIndex();
+                if (data == nowIndex) {
+                    $(this).parents('output').append('<section xf-animatexh="0" xf-animatenum="14" data-z="1" data-y="0" data-x="2" style="left: 51px; top: 159px; z-index: 105; width: 223.182px; height: 236px;" id="mokmaysj" class="bf-com bf-basic" _libid="bf-basic" _comid="image" _version="1.2">\
+                                                            <div class="bf-com-impl image" style="-webkit-animation: zoomIn 2s ease 0s 1 both;">\
+                                                                <div class="img-con"><img style="width: 100%; height: 100%;" src="' + imageurl + '"></div>\
+                                                            </div>\
+                                                            <div class="bf-com-cover"></div>\
+                                                            <textarea class="bf-com-meta"></textarea>\
+                                                        </section>');
+                }
+            })
+            SectionEvent.start();
+        }
+        // 插入图片时候打开图片modal
+    $scope.openModalAndInsertPicture = function() {
+        SectionEvent.stop();
+        $scope.openGalleryModal($scope.backInsertPictureFn);
+    }
 
     /**
      *文字样式字体字号字色对齐方式编辑栏部分
