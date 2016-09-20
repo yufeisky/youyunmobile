@@ -660,6 +660,7 @@ angular.module('IonicClub.services', [])
                         $scope.fontSizeEditShow = false;
                         $scope.textAlignEditShow = false;
                         $scope.visible = false;
+                        $scope.pageEditHide = false;
                         service.start();
                     })
                     // $('.editBox').hide();
@@ -866,6 +867,7 @@ angular.module('IonicClub.services', [])
                             $scope.fontSizeEditShow = false;
                             $scope.textAlignEditShow = false;
                             $scope.visible = false;
+                            $scope.pageEditHide = false;
                             // if ($scope.textStyleEditShow == true) {
                             //     console.log('文字样式框')
                             //     $scope.textStyleCancelFn();

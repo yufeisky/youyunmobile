@@ -252,11 +252,11 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 var nowIndex = $ionicSlideBoxDelegate.currentIndex();
                 if (data == nowIndex) {
                     console.log(jQuery(this))
-                    jQuery(this).find('output').append('<section id="faglwbkt" class="bf-com bf-basic" _libid="bf-basic" _comid="txt" _version="1.2" style="left: 50px; top: 234px; z-index: 111; width: 224.069px; height: 32px; min-height: inherit; line-height: 1.5; font-size: 16px; padding-top: 0px; padding-bottom: 0px; font-weight: bold; font-family: ExLight;" data-x="2" data-y="0" data-z="1" xf-animatenum="12" xf-animatexh="0" family="ExLight"><div class="bf-com-impl txt" contenteditable="false" style="animation: rotateInDownLeft 2s ease 0s 1 both;"><div class="txt-con">'+text+'</div></div><div class="bf-com-cover" style="display: block;"></div><textarea class="bf-com-meta"></textarea></section>');
+                    jQuery(this).find('output').append('<section id="faglwbkt" class="bf-com bf-basic" _libid="bf-basic" _comid="txt" _version="1.2" style="left: 50px; top: 234px; z-index: 111; width: 224.069px; height: 32px; min-height: inherit; line-height: 1.5; font-size: 16px; padding-top: 0px; padding-bottom: 0px; font-weight: bold; font-family: ExLight;" data-x="2" data-y="0" data-z="1" xf-animatenum="12" xf-animatexh="0" family="ExLight"><div class="bf-com-impl txt" contenteditable="false" style="animation: rotateInDownLeft 2s ease 0s 1 both;"><div class="txt-con">' + text + '</div></div><div class="bf-com-cover" style="display: block;"></div><textarea class="bf-com-meta"></textarea></section>');
                     SectionEvent.start();
                 }
             })
-            
+
         } else {
             jQuery('.mobileEvent').find('.txt-con').text(text);
         }
@@ -719,4 +719,50 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
     }
 
+    /**
+     **页面设置部分
+     **/
+    // 默认隐藏页面设置编辑栏
+    $scope.pageEditHide = false;
+
+    $scope.pageEdit = function() {
+            $scope.pageEditHide = true;
+        }
+        // 删除当前页面
+    $scope.delActivePage = function() {
+            console.log('--------currentIndex-------');
+            $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
+            // console.log($scope.ionCurrentIndex)
+            jQuery('ion-slide').eq($scope.ionCurrentIndex).remove();
+            $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
+            $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
+            // console.log($scope.ionCurrentIndex)
+            $scope.ionSlideLength = jQuery('ion-slide').length;
+            // console.log($scope.ionSlideLength);
+            if ($scope.ionCurrentIndex == $scope.ionSlideLength) {
+                console.log('是最后一个ion');
+                $ionicSlideBoxDelegate.$getByHandle('sectionBox').previous();
+            }
+        }
+        // 复制当前页面
+    $scope.copyActivePage = function() {
+            console.log('复制页面')
+            $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
+            $scope.activePage = jQuery('ion-slide').eq($scope.ionCurrentIndex).prop('outerHTML');
+            console.log($scope.activePage)
+            jQuery('ion-slide').eq($scope.ionCurrentIndex).before($scope.activePage);
+            // $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
+            $scope.resetPage();
+            jQuery('ion-slide').eq($scope.ionCurrentIndex).find('.storyPage').attr('page_id', '');
+        }
+        // 跳转到排序页面
+    $scope.goToSortPage = function() {
+        $scope.eachData();
+        console.log($scope.pageData);
+        $scope.pageDataString = JSON.stringify($scope.pageData);
+        console.log($scope.pageDataString);
+        SectionEvent.stop();
+        // 跳转到排序页面
+        $state.go('tab.sortPage', { pages: $scope.pageDataString });
+    }
 }]);

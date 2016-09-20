@@ -58,7 +58,7 @@
             </ion-tab>
             <ion-tab title="模板" icon="icon-pageedit-yemian" nav-transition="ios">
             </ion-tab>
-            <ion-tab title="页面" icon="icon-pageedit-guanli" nav-transition="ios">
+            <ion-tab title="页面"  icon="icon-pageedit-guanli" nav-transition="ios" ng-click="pageEdit()">
             </ion-tab>
             <ion-tab title="更多" class="appEditIcon" icon="icon-pageedit-gengduo" nav-transition="ios" ng-click="toggle()">
             </ion-tab>
@@ -182,6 +182,18 @@
                 <div class="col col-10" ng-click="textAlignSureFn()"><i class="icon ion-checkmark-round"></i></div>
             </div>
         </div>
+        <!-- 添加复制删除排序页面的编辑栏目（底下的编辑栏） -->
+        <ion-tabs class="tabs-icon-top pageEditTab" ng-class="{'pageEditHide': pageEditHide}">
+            <ion-tab title="添加页面" icon="icon-pageedit-yangshi" nav-transition="ios" >
+            </ion-tab>
+            <!-- ng-click="cancelOperation()" -->
+            <ion-tab title="复制页面" icon="icon-pageedit-ziti" nav-transition="ios" ng-click="copyActivePage()">
+            </ion-tab>
+            <ion-tab title="页面排序"  icon="icon-pageedit-zihao" nav-transition="ios" ng-click="goToSortPage(pageData)">
+            </ion-tab>
+            <ion-tab title="删除" icon="icon-pageedit-zise" nav-transition="ios" ng-click="delActivePage()">
+            </ion-tab>
+        </ion-tabs>
     </div>
     <style>
     @font-face {

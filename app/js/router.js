@@ -141,6 +141,16 @@ angular.module('IonicClub.router', [])
                 },
                 cache:false,
             })
+            .state('tab.sortPage', {
+                url: '/sortPage:pages',
+                views: {
+                    'design': {
+                        templateUrl: 'templates/sortPage.html',
+                        controller: 'sortPageCtrl'
+                    }
+                },
+                cache:false,
+            })
             .state('tab.user', {
                 url: '/user',
                 views: {
