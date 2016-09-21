@@ -1,10 +1,14 @@
+/**
+ * tab控制器：
+ *create by yufei
+ */
 appController.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageService', '$state', '$ionicModal', '$ionicSlideBoxDelegate', '$timeout', 'IonicService', 'TabService', 'WechatApi', 'Con', function($scope, $rootScope, localStorageService, $state, $ionicModal, $ionicSlideBoxDelegate, $timeout, IonicService, TabService, WechatApi, Con) {
     $rootScope.$on('$ionicView.beforeEnter', function() {
         var statename = $state.current.name;
         // Con.log('-------statename----');
         // Con.log(statename);
         //tabs中存在的主页面不需要隐藏，hidetabs=false
-        if (statename === 'tab.homeDetail' || statename === 'tab.edit' || statename === 'tab.moreDesign' || statename === 'tab.designDetail' || statename === 'tab.previewStory' || statename === 'tab.setStoryInfo'|| statename === 'tab.setStoryCategories') {
+        if (statename === 'tab.homeDetail' || statename === 'tab.edit' || statename === 'tab.moreDesign' || statename === 'tab.designDetail' || statename === 'tab.previewStory' || statename === 'tab.setStoryInfo'|| statename === 'tab.setStoryCategories'|| statename === 'tab.sortPage') {
             $rootScope.hideTabs = true;
         } else {
             $rootScope.hideTabs = false;

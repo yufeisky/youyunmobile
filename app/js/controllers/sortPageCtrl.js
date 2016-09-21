@@ -1,5 +1,6 @@
 /**
- * 控制器入口：个人中心控制器
+ * 页面排序控制器：
+ * create by yufei
  */
 // 模板使用页面
 appController.controller('sortPageCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicPopover', '$ionicPopup', '$timeout', '$state', '$ionicHistory', 'localStorageService', 'ShareService', 'IonicService', 'MsgBox', 'WechatApi', 'Con', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicPopover, $ionicPopup, $timeout,
@@ -7,30 +8,38 @@ appController.controller('sortPageCtrl', ['$scope', '$rootScope', '$sce', '$stat
     // $rootScope.menuShow = true;
     // $rootScope.backShow = true;
     // Con.log($stateParams);
-    Con.log('预览页面');
+    Con.log('排序页面');
     // console.log($stateParams);
     // 用ifarme展示
 
     $scope.urlParams = JSON.parse($stateParams.pages);
+    // $scope.storyId = JSON.parse($stateParams.storyId);
+    // 获取编辑的storyId,跳转回去编辑页面的时候需要用
+    $scope.storyId = JSON.parse(localStorageService.get('editStoryId'));
     // console.log($scope.urlParams)
     $scope.pages = $scope.urlParams;
     // 后退历史
     $scope.goBackView = function() {
-        console.log($ionicHistory.viewHistory().backView)
-        if ($ionicHistory.viewHistory().backView) {
+            console.log($ionicHistory.viewHistory().backView)
+            if ($ionicHistory.viewHistory().backView) {
+                // $ionicGoBack()
+                $ionicHistory.goBack();
+            } else {
+                $rootScope.changePage('tab.home');
+            };
+            // stateName
             // $ionicGoBack()
-            $ionicHistory.goBack();
-        } else {
-            $rootScope.changePage('tab.home');
-        };
-        // stateName
-        // $ionicGoBack()
-    }
+        }
+        /**
+         * 渲染页面的方法： 
+         * 1. 计算出单个item的宽高跟页面的缩放比scale；
+         * 2. 把所有元素的动画属性清除；
+         **/
     $scope.renderPage = function() {
         // 计算出块的高度
         var win_w = angular.element(window)[0].innerWidth;
         // $scope.itemWith = win_w * 0.30 + 'px';
-        $scope.itemWith = win_w * 0.30;
+        $scope.itemWith = win_w * 0.45;
         console.log($scope.itemWith)
         $scope.pageWidthScale = $scope.itemWith / 320;
         console.log($scope.pageWidthScale)
@@ -56,13 +65,54 @@ appController.controller('sortPageCtrl', ['$scope', '$rootScope', '$sce', '$stat
         })
     }
     $scope.renderPage();
-
-    $scope.moveItem = function(item, fromIndex, toIndex) {
-        if (fromIndex > 0) {
+    /**
+     * 排序方法:
+     *item:需要配需的元素
+     *fromIndex:需要移动元素的位置
+     *toIndex:需要移动到的目标位置
+     *type:up:往上 down:往下
+     **/
+     $scope.sortedPageData=[];
+    $scope.moveItem = function(item, fromIndex, toIndex, type) {
+        if (fromIndex > 0 && type == "up") {
             //把该项移动到数组中
             $scope.pages.splice(fromIndex, 1);
             $scope.pages.splice(toIndex, 0, item);
             console.log($scope.pages);
         }
+        if ((fromIndex < ($scope.pages.length - 1)) && type == "down") {
+            //把该项移动到数组中
+            $scope.pages.splice(fromIndex, 1);
+            $scope.pages.splice(toIndex, 0, item);
+            console.log($scope.pages);
+        }
+        jQuery.each($scope.pages,function(index, el) {
+        	console.log(index)
+        	console.log(el)
+        	el.number = index+1;
+        	// $scope.sortedPageData.push(el);
+        });
     };
+    /*确定修改排序方法并返回到编辑页面*/
+    $scope.saveSortData = function() {
+    	$scope.stringData = JSON.stringify($scope.pages);
+    	console.log($scope.pages);
+    	// console.log($scope.sortedPageData);
+        $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: false,
+            maxWidth: 200,
+            showDelay: 0,
+            duration: 10000
+        });
+        IonicService.saveStoryData($scope.stringData).then(function(data) {
+            $ionicLoading.hide();
+            console.log(data);
+            if (data.status == '1') {
+                // 跳转到排序页面
+                $state.go('tab.edit', { storyId: $scope.storyId });
+            }
+        });
+    }
 }]);

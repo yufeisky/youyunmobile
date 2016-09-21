@@ -2271,12 +2271,18 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     border-bottom: 5px solid #f8b1b7;
 }
 
-.sortPageContent .sortUl {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+.sortPageContent .scroll {
+    margin-bottom: 50px;
 }
 
+.sortPageContent .sortUl {
+   /* position: absolute;
+    width: 100%;
+    height: 100%;*/
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.cf{*zoom:1}.cf:before,.cf:after{display:table;line-height:0;content:""}.cf:after{clear:both}
 .sortPageContent .sortUl .storyPage {
     width: 320px;
     overflow: hidden;
@@ -2295,20 +2301,22 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 
 .sort-item {
     position: relative;
-    width: 30%;
+    width: 45%;
     height: 200px;
     float: left;
-    margin-left: 2.5%;
+    margin-left: 3.33%;
     margin-bottom: 10px;
     margin-top: 10px;
     display: block;
     padding: 0;
 }
-.sortPageContent .item-content{
+
+.sortPageContent .item-content {
     position: absolute;
     width: 100%;
     height: 100%;
 }
+
 
 /*.sortPageContent .storyPage .bf-com-impl{
     animation-play-state: paused;
@@ -2324,9 +2332,22 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     -webkit-animation-fill-mode:forwards;
 }
 */
-.sortPageBtn{
+
+.sortPageBtn {
     position: absolute;
     z-index: 999999;
     bottom: 0px;
-    left: 50%;
+    left: 25%;
+}
+
+.downSortPageBtn {
+    position: absolute;
+    z-index: 999999;
+    bottom: 0px;
+    right: 25%;
+}
+
+.sortSureBtn {
+    font-size: 18px;
+    padding-right: 8px;
 }

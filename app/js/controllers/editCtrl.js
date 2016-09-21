@@ -252,7 +252,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 var nowIndex = $ionicSlideBoxDelegate.currentIndex();
                 if (data == nowIndex) {
                     console.log(jQuery(this))
-                    jQuery(this).find('output').append('<section id="faglwbkt" class="bf-com bf-basic" _libid="bf-basic" _comid="txt" _version="1.2" style="left: 50px; top: 234px; z-index: 111; width: 224.069px; height: 32px; min-height: inherit; line-height: 1.5; font-size: 16px; padding-top: 0px; padding-bottom: 0px; font-weight: bold; font-family: ExLight;" data-x="2" data-y="0" data-z="1" xf-animatenum="12" xf-animatexh="0" family="ExLight"><div class="bf-com-impl txt" contenteditable="false" style="animation: rotateInDownLeft 2s ease 0s 1 both;"><div class="txt-con">' + text + '</div></div><div class="bf-com-cover" style="display: block;"></div><textarea class="bf-com-meta"></textarea></section>');
+                    jQuery(this).find('output').append('<section id="faglwbkt" class="bf-com bf-basic" _libid="bf-basic" _comid="txt" _version="1.2" style="left: 50px; top: 234px; z-index: 111; width: 224.069px; height: 32px; min-height: inherit; line-height: 1.5; font-size: 16px; padding-top: 0px; padding-bottom: 0px; font-weight: bold; font-family: ExLight;" data-x="2" data-y="0" data-z="1" xf-animatenum="12" xf-animatexh="0" family="ExLight"><div class="bf-com-impl txt" contenteditable="false" ><div class="txt-con">' + text + '</div></div><div class="bf-com-cover" style="display: block;"></div><textarea class="bf-com-meta"></textarea></section>');
                     SectionEvent.start();
                 }
             })
@@ -762,7 +762,8 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         $scope.pageDataString = JSON.stringify($scope.pageData);
         console.log($scope.pageDataString);
         SectionEvent.stop();
+        localStorageService.set('editStoryId', storyId);
         // 跳转到排序页面
-        $state.go('tab.sortPage', { pages: $scope.pageDataString });
+        $state.go('tab.sortPage', { pages: $scope.pageDataString});
     }
 }]);
