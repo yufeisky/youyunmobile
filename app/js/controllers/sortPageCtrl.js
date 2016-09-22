@@ -18,6 +18,7 @@ appController.controller('sortPageCtrl', ['$scope', '$rootScope', '$sce', '$stat
     $scope.storyId = JSON.parse(localStorageService.get('editStoryId'));
     // console.log($scope.urlParams)
     $scope.pages = $scope.urlParams;
+    $scope.oldPages= angular.copy($scope.pages);
     // 后退历史
     $scope.goBackView = function() {
             console.log($ionicHistory.viewHistory().backView)
@@ -97,7 +98,7 @@ appController.controller('sortPageCtrl', ['$scope', '$rootScope', '$sce', '$stat
     $scope.saveSortData = function() {
     	$scope.stringData = JSON.stringify($scope.pages);
     	console.log($scope.pages);
-    	// console.log($scope.sortedPageData);
+    	console.log($scope.oldPages);
         $ionicLoading.show({
             content: 'Loading',
             animation: 'fade-in',
@@ -110,7 +111,7 @@ appController.controller('sortPageCtrl', ['$scope', '$rootScope', '$sce', '$stat
             $ionicLoading.hide();
             console.log(data);
             if (data.status == '1') {
-                // 跳转到排序页面
+                // 跳转到编辑页面
                 $state.go('tab.edit', { storyId: $scope.storyId });
             }
         });

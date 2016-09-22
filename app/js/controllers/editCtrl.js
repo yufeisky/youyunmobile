@@ -275,9 +275,10 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         SectionEvent.start();
     }
     $scope.backGalleryChoose = function(imageurl) {
+        var nowIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
         jQuery('.bgbox').each(function() {
             var data = $(this).parents("ion-slide").attr("data-index");
-            var nowIndex = $ionicSlideBoxDelegate.currentIndex();
+            // var nowIndex = $ionicSlideBoxDelegate.currentIndex();
             if (data == nowIndex) {
                 $(this).css("background", "url(" + imageurl + ")  no-repeat 50% 50%");
             }
@@ -297,9 +298,12 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
     // 插入图片的回调函数
     $scope.backInsertPictureFn = function(imageurl) {
+            var nowIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
             jQuery('.bgbox').each(function() {
                 var data = $(this).parents("ion-slide").attr("data-index");
-                var nowIndex = $ionicSlideBoxDelegate.currentIndex();
+                // var nowIndex = $ionicSlideBoxDelegate.currentIndex();
+                console.log(data);
+                console.log(nowIndex);
                 if (data == nowIndex) {
                     $(this).parents('output').append('<section xf-animatexh="0" xf-animatenum="14" data-z="1" data-y="0" data-x="2" style="left: 51px; top: 159px; z-index: 105; width: 223.182px; height: 236px;" id="mokmaysj" class="bf-com bf-basic" _libid="bf-basic" _comid="image" _version="1.2">\
                                                             <div class="bf-com-impl image" style="-webkit-animation: zoomIn 2s ease 0s 1 both;">\
@@ -733,7 +737,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             console.log('--------currentIndex-------');
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
             // console.log($scope.ionCurrentIndex)
-            jQuery('ion-slide').eq($scope.ionCurrentIndex).remove();
+            jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).remove();
             $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
             // console.log($scope.ionCurrentIndex)
@@ -748,12 +752,13 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     $scope.copyActivePage = function() {
             console.log('复制页面')
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
-            $scope.activePage = jQuery('ion-slide').eq($scope.ionCurrentIndex).prop('outerHTML');
-            console.log($scope.activePage)
-            jQuery('ion-slide').eq($scope.ionCurrentIndex).before($scope.activePage);
+            console.log($scope.ionCurrentIndex)
+            $scope.activePage = jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).prop('outerHTML');
+            // console.log($scope.activePage)
+            jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).before($scope.activePage);
             // $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
             $scope.resetPage();
-            jQuery('ion-slide').eq($scope.ionCurrentIndex).find('.storyPage').attr('page_id', '');
+            jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).find('.storyPage').attr('page_id', '');
         }
         // 跳转到排序页面
     $scope.goToSortPage = function() {
@@ -763,7 +768,22 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         console.log($scope.pageDataString);
         SectionEvent.stop();
         localStorageService.set('editStoryId', storyId);
-        // 跳转到排序页面
-        $state.go('tab.sortPage', { pages: $scope.pageDataString});
+        $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: false,
+            maxWidth: 200,
+            showDelay: 0,
+            duration: 10000
+        });
+        IonicService.saveStoryData($scope.pageDataString).then(function(data) {
+            $ionicLoading.hide();
+            console.log(data);
+            if (data.status == '1') {
+                // 跳转到排序页面
+                $state.go('tab.sortPage', { pages: $scope.pageDataString });
+            }
+        });
+
     }
 }]);

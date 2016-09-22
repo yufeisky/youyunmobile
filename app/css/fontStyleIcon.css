@@ -1,0 +1,54 @@
+@font-face {
+  font-family: 'fontStyleIcon';
+  src:  url('../fonts/fontStyleIcon.eot?t928km');
+  src:  url('../fonts/fontStyleIcon.eot?t928km#iefix') format('embedded-opentype'),
+    url('../fonts/fontStyleIcon.ttf?t928km') format('truetype'),
+    url('../fonts/fontStyleIcon.woff?t928km') format('woff'),
+    url('../fonts/fontStyleIcon.svg?t928km#fontStyleIcon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-font-style-"], [class*=" icon-font-style-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'fontStyleIcon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-font-style-jc_n:before {
+  content: "\e900";
+}
+.icon-font-style-lbdq_n:before {
+  content: "\e901";
+}
+.icon-font-style-qx:before {
+  content: "\e902";
+}
+.icon-font-style-xhx_n:before {
+  content: "\e903";
+}
+.icon-font-style-xt_n:before {
+  content: "\e904";
+}
+.icon-font-style-xz:before {
+  content: "\e905";
+}
+.icon-font-style-ydq_n:before {
+  content: "\e906";
+}
+.icon-font-style-zdq_n:before {
+  content: "\e907";
+}
+.icon-font-style-zjdq_n:before {
+  content: "\e908";
+}
+

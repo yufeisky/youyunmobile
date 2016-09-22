@@ -932,6 +932,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     text-align: center;
     height: 58px;
     padding: 0;
+    padding-top: 7px;
 }
 
 .fontType .icon {
@@ -991,13 +992,14 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 }
 
 .fontFamilyEditShow {
+    padding-top: 12px;
     bottom: 0px;
     transition: bottom 0.5s;
 }
 
 .fontFamilyEdit .col {
     font-size: 20px;
-    line-height: 40px;
+    line-height: 20px;
 }
 
 .fontFamilyEdit select {
@@ -1022,14 +1024,15 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     text-align: center;
 }
 
-.fontSizeEditShow {
+.footer .fontSizeEditShow {
     bottom: 0px;
+        padding-top: 10px;
     transition: bottom 0.5s;
 }
 
 .fontSizeEdit .col {
     font-size: 20px;
-    line-height: 40px;
+    line-height:20px;
 }
 
 .fontSizeEdit select {
@@ -2276,13 +2279,28 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 }
 
 .sortPageContent .sortUl {
-   /* position: absolute;
+    /* position: absolute;
     width: 100%;
     height: 100%;*/
     padding-top: 10px;
     padding-bottom: 20px;
 }
-.cf{*zoom:1}.cf:before,.cf:after{display:table;line-height:0;content:""}.cf:after{clear:both}
+
+.cf {
+    *zoom: 1
+}
+
+.cf:before,
+.cf:after {
+    display: table;
+    line-height: 0;
+    content: ""
+}
+
+.cf:after {
+    clear: both
+}
+
 .sortPageContent .sortUl .storyPage {
     width: 320px;
     overflow: hidden;
@@ -2336,18 +2354,48 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 .sortPageBtn {
     position: absolute;
     z-index: 999999;
-    bottom: 0px;
-    left: 25%;
+    bottom: 10px;
+    left: 10%;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    min-height: 30px;
 }
 
 .downSortPageBtn {
     position: absolute;
     z-index: 999999;
-    bottom: 0px;
-    right: 25%;
+    bottom: 10px;
+    right: 10%;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    min-height: 30px;
 }
 
 .sortSureBtn {
     font-size: 18px;
     padding-right: 8px;
+}
+
+ion-tabs.tabs-color-active-positive .pageEditTab .tab-item.activated,
+ion-tabs.tabs-color-active-positive .pageEditTab .tab-item.active,
+ion-tabs.tabs-color-active-positive .pageEditTab .tab-item.tab-item-active {
+    color: #888;
+}
+
+ion-tabs.tabs-color-active-positive .textEditTab .tab-item.activated,
+ion-tabs.tabs-color-active-positive .textEditTab .tab-item.active,
+ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
+    color: #888;
+}
+
+.closeIcon {
+    color: #e83a37;
+    font-size: 28px;
+}
+
+.sureChangeIcon {
+    font-size: 28px;
+    color: #22ac38;
 }
