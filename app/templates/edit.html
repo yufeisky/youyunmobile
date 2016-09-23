@@ -185,7 +185,7 @@
         </div>
         <!-- 添加复制删除排序页面的编辑栏目（底下的编辑栏） -->
         <ion-tabs class="tabs-icon-top pageEditTab" ng-class="{'pageEditHide': pageEditHide}">
-            <ion-tab title="添加页面" icon="icon-pageedit-yangshi" nav-transition="ios" >
+            <ion-tab title="添加页面" icon="icon-pageedit-yangshi" nav-transition="ios" ng-click="addPageByTemplate()">
             </ion-tab>
             <!-- ng-click="cancelOperation()" -->
             <ion-tab title="复制页面" icon="icon-pageedit-ziti" nav-transition="ios" ng-click="copyActivePage()">

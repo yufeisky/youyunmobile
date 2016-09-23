@@ -151,6 +151,16 @@ angular.module('IonicClub.router', [])
                 },
                 cache:false,
             })
+            .state('tab.addPage', {
+                url: '/addPage',
+                views: {
+                    'design': {
+                        templateUrl: 'templates/addPageByTemplate.html',
+                        controller: 'addPageCtrl'
+                    }
+                },
+                cache:false,
+            })
             .state('tab.user', {
                 url: '/user',
                 views: {

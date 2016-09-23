@@ -786,4 +786,10 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         });
 
     }
+
+    // 根据模板添加页面
+    $scope.addPageByTemplate = function() {
+        // 跳转添加页面
+        $state.go('tab.addPage');
+    }
 }]);
