@@ -43,7 +43,7 @@
                 </ion-scroll>
             </div>
             <ion-scroll zooming="true" direction="y" style="height:{{listHeight}}" class="list templateListCon">
-                <a ng-repeat="template in templateList" class="item item-thumbnail-top" href="javascript:;">
+                <a ng-repeat="template in templateList" class="item item-thumbnail-top" ng-click="addPageByTemplateId(template.id)" href="javascript:;">
                     <div class="imgList" style="height:{{img_w}}; background-image:url('{{template.logo}}')"> </div>
                     <h2>{{template.title}}</h2>
                     <p>使用次数{{template.usedCount}}次</p>

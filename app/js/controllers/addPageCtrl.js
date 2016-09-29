@@ -7,10 +7,10 @@ appController.controller('addPageCtrl', ['$scope', '$rootScope', '$sce', '$state
     $state, $ionicHistory, $filter, localStorageService, ShareService, IonicService, MsgBox, WechatApi, Con) {
 
     Con.log('根据模板添加页面');
-
+    console.log('----------添加页面前的当前页面序号-----------')
+    console.log($rootScope.storyCurrentIndex);
     // $scope.urlParams = JSON.parse($stateParams.pages);
     var User = JSON.parse(localStorageService.get('User'));
-
     if (User) {
         var postParams = {
             userToken: User.token,
@@ -38,14 +38,7 @@ appController.controller('addPageCtrl', ['$scope', '$rootScope', '$sce', '$state
         });
 
 
-        var getSingleTemplateParams = {
-            userToken: User.token,
-            userId: User.id,
-            templateId: '45'
-        }
-        IonicService.getSingleTemplate(getSingleTemplateParams).then(function(data) {
-            console.log(data);
-        });
+
 
         // toggle方法
         $scope.toggle = function() {
@@ -126,4 +119,47 @@ appController.controller('addPageCtrl', ['$scope', '$rootScope', '$sce', '$state
     $scope.img_w = win_w * 0.45 * 229 / 158 + 'px';
     $scope.listHeight = (win_h - 88) + 'px';
     console.log($scope.listHeight)
+
+    $scope.addPageByTemplateId = function(templateId) {
+        console.log(templateId);
+        $scope.storyId = JSON.parse(localStorageService.get('editStoryId'));
+        var storyCurrentIndex = JSON.parse(localStorageService.get('storyCurrentIndex'));
+        var editStoryPages = JSON.parse(localStorageService.get('editStoryPages'));
+        var getSingleTemplateParams = {
+            userToken: User.token,
+            userId: User.id,
+            templateId: templateId
+        }
+        IonicService.getSingleTemplate(getSingleTemplateParams).then(function(data) {
+            console.log(data);
+            //想到的是： 把故事数据循环一次，把新页面添加进去
+
+            $scope.newStoryPages = [];
+            for (var i = 0; i < editStoryPages.length + 1; i++) {
+                if (i < storyCurrentIndex + 1) {
+                    $scope.newStoryPages.push(editStoryPages[i])
+                } else if (i == storyCurrentIndex + 1) {
+                    console.log(data.template);
+                    var pageInfo = {
+                        "storyId": $scope.storyId,
+                        "id": '',
+                        "number": (i + 1).toString(),
+                        "content": data.template
+                    };
+                    $scope.newStoryPages.push(pageInfo)
+                } else {
+                    editStoryPages[i - 1].number = (parseInt(editStoryPages[i - 1].number) + 1).toString();
+                    $scope.newStoryPages.push(editStoryPages[i - 1])
+                }
+            };
+            console.log($scope.newStoryPages)
+            $scope.pageDataString = JSON.stringify($scope.newStoryPages);
+            // 保存当前编辑的故事数据
+            localStorageService.set('editStoryPages', $scope.pageDataString);
+            // 跳转到编辑页面
+            $state.go('tab.edit', { storyId: $scope.storyId });
+           
+        });
+
+    }
 }]);

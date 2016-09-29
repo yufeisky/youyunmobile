@@ -13,6 +13,7 @@ appController.controller('sortPageCtrl', ['$scope', '$rootScope', '$sce', '$stat
     // 用ifarme展示
 
     $scope.urlParams = JSON.parse($stateParams.pages);
+    console.log($scope.urlParams)
     // $scope.storyId = JSON.parse($stateParams.storyId);
     // 获取编辑的storyId,跳转回去编辑页面的时候需要用
     $scope.storyId = JSON.parse(localStorageService.get('editStoryId'));
@@ -96,24 +97,11 @@ appController.controller('sortPageCtrl', ['$scope', '$rootScope', '$sce', '$stat
     };
     /*确定修改排序方法并返回到编辑页面*/
     $scope.saveSortData = function() {
-    	$scope.stringData = JSON.stringify($scope.pages);
-    	console.log($scope.pages);
-    	console.log($scope.oldPages);
-        $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: false,
-            maxWidth: 200,
-            showDelay: 0,
-            duration: 10000
-        });
-        IonicService.saveStoryData($scope.stringData).then(function(data) {
-            $ionicLoading.hide();
-            console.log(data);
-            if (data.status == '1') {
-                // 跳转到编辑页面
-                $state.go('tab.edit', { storyId: $scope.storyId });
-            }
-        });
+        // 把排序后的数据挂载到全局
+        $scope.pageDataString = JSON.stringify($scope.pages);
+        // 保存当前编辑的故事数据
+        localStorageService.set('editStoryPages', $scope.pageDataString);
+        // 跳转到编辑页面
+        $state.go('tab.edit', { storyId: $scope.storyId });
     }
 }]);

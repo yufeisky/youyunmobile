@@ -14,24 +14,16 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         showDelay: 0,
         duration: 10000
     });
-    IonicService.postStoryData({ "storyId": storyId }).then(function(data) {
-        console.log(data);
-
-        if (data.status == '0') {
-            MsgBox.showTexts('该app不存在');
-            $ionicLoading.hide();
-        } else if (data.message == "Success") {
-            $scope.pages = data.pages;
-
-            $scope.resetPage();
-
-        }
-
-    });
+    
     //更新数据之后重置页面
     $scope.resetPage = function() {
             $timeout(function() {
                 $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
+                var storyCurrentIndex = JSON.parse(localStorageService.get('storyCurrentIndex'));
+                if(storyCurrentIndex){
+                  $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex+1,0);
+                  localStorageService.set('storyCurrentIndex', null);
+                }
                 var win_w = angular.element(window)[0].innerWidth;
                 Con.log(win_w);
                 var ionSlideH = jQuery('.storySlideBox .slider-slide')[0].clientHeight;
@@ -65,7 +57,30 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
             }, 50);
         }
-        // 切换按钮
+        // 有初始数据
+    var editStoryPages = JSON.parse(localStorageService.get('editStoryPages'));
+    console.log(editStoryPages);
+    if (editStoryPages&&(storyId==JSON.parse(localStorageService.get('editStoryId')))) {
+        console.log('有初始数据并且是上一次的故事');
+        $scope.pages=editStoryPages;
+        $ionicLoading.hide();
+        $scope.resetPage();
+    } else {
+        IonicService.postStoryData({ "storyId": storyId }).then(function(data) {
+            console.log(data);
+            if (data.status == '0') {
+                MsgBox.showTexts('该app不存在');
+                $ionicLoading.hide();
+            } else if (data.message == "Success") {
+                $scope.pages = data.pages;
+                $scope.resetPage();
+
+            }
+
+        });
+    }
+
+    // 切换按钮
     $scope.visible = false;
     $scope.toggle = function() {
         $scope.visible = !$scope.visible;
@@ -114,7 +129,6 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
     //保存h5的方法：
     $scope.storySave = function() {
-
         $ionicLoading.show({
             content: 'Loading',
             animation: 'fade-in',
@@ -139,7 +153,8 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         IonicService.saveStoryData($scope.stringData).then(function(data) {
             $ionicLoading.hide();
             console.log(data);
-
+            // 把本地数据中的故事数据清空
+            localStorageService.set('editStoryPages', null);
             if (data.status == '1') {
                 MsgBox.showTexts('保存成功');
 
@@ -265,10 +280,10 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     }
 
     $scope.normalGalleryChoose = function(imageurl) {
-        jQuery('.mobileEvent').find('img').attr("src", imageurl);
-        SectionEvent.start();
-    }
-    // 更换背景图片
+            jQuery('.mobileEvent').find('img').attr("src", imageurl);
+            SectionEvent.start();
+        }
+        // 更换背景图片
     $scope.backGalleryChoose = function(imageurl) {
         $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
         jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).find('.bgbox').css("background", "url(" + imageurl + ")  no-repeat 50% 50%");
@@ -289,7 +304,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     $scope.backInsertPictureFn = function(imageurl) {
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
             jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).find('output')
-                                                        .append('<section xf-animatexh="0" xf-animatenum="14" data-z="1" data-y="0" data-x="2" style="left: 51px; top: 159px; z-index: 105; width: 223.182px; height: 236px;" id="mokmaysj" class="bf-com bf-basic" _libid="bf-basic" _comid="image" _version="1.2">\
+                .append('<section xf-animatexh="0" xf-animatenum="14" data-z="1" data-y="0" data-x="2" style="left: 51px; top: 159px; z-index: 105; width: 223.182px; height: 236px;" id="mokmaysj" class="bf-com bf-basic" _libid="bf-basic" _comid="image" _version="1.2">\
                                                             <div class="bf-com-impl image" style="-webkit-animation: zoomIn 2s ease 0s 1 both;">\
                                                                 <div class="img-con"><img style="width: 100%; height: 100%;" src="' + imageurl + '"></div>\
                                                             </div>\
@@ -751,27 +766,18 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         console.log($scope.pageDataString);
         SectionEvent.stop();
         localStorageService.set('editStoryId', storyId);
-        $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: false,
-            maxWidth: 200,
-            showDelay: 0,
-            duration: 10000
-        });
-        IonicService.saveStoryData($scope.pageDataString).then(function(data) {
-            $ionicLoading.hide();
-            console.log(data);
-            if (data.status == '1') {
-                // 跳转到排序页面
-                $state.go('tab.sortPage', { pages: $scope.pageDataString });
-            }
-        });
-
+        $state.go('tab.sortPage', { pages: $scope.pageDataString });
     }
 
     // 根据模板添加页面
     $scope.addPageByTemplate = function() {
+        $rootScope.storyCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
+        localStorageService.set('editStoryId', storyId);
+        localStorageService.set('storyCurrentIndex', $rootScope.storyCurrentIndex);
+        $scope.eachData();
+        $scope.pageDataString = JSON.stringify($scope.pageData);
+        // 保存当前编辑的故事数据
+        localStorageService.set('editStoryPages', $scope.pageDataString);
         // 跳转添加页面
         $state.go('tab.addPage');
     }
