@@ -1026,13 +1026,13 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 
 .footer .fontSizeEditShow {
     bottom: 0px;
-        padding-top: 10px;
+    padding-top: 10px;
     transition: bottom 0.5s;
 }
 
 .fontSizeEdit .col {
     font-size: 20px;
-    line-height:20px;
+    line-height: 20px;
 }
 
 .fontSizeEdit select {
@@ -2398,4 +2398,128 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
 .sureChangeIcon {
     font-size: 28px;
     color: #22ac38;
+}
+
+.addBlankPage {
+    color: red;
+}
+
+.dropDownContent {
+    background: #fff;
+    width: 100%;
+    height: 205px;
+    position: fixed;
+    padding-top: 15px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 999;
+    /*border: 1px solid #afaeac;*/
+    top: -400px;
+    transition: top 0.3s;
+}
+
+.addPageContent .dropDownListHide {
+    top:0px;
+    transition: top 0.3s;
+}
+
+.firstLevel {
+    text-align: right;
+    overflow: scroll;
+    height: 186px;
+    border-right: 1px solid #b4b4b4;
+}
+
+.firstLevelList li {
+    font-size: 16px;
+    line-height: 16px;
+    margin-bottom: 34px;
+    padding-right: 3px;
+}
+
+.firstLevName {
+    padding-right: 15px;
+    color: #646464;
+}
+
+.firstLevelList i {
+    color: #dedede;
+}
+
+.firstLevelList li.active .firstLevName {
+    color: #e55264;
+}
+
+.firstLevelList li.active i {
+    color: #e55264;
+}
+
+.twoLevelList li {
+    float: left;
+    font-size: 16px;
+    line-height: 16px;
+    margin-left: 25px;
+    margin-bottom: 22px;
+}
+.twoLevelList li.active{
+    color: #e55264;
+}
+.addPageContent {
+    overflow: hidden;
+    /*padding-top: 44px;*/
+}
+.addPageContent .list{
+    margin-top: 44px;
+    height: 100%;
+}
+.addPageContent .list .item {
+    overflow: hidden;
+    width: 50%;
+    /*margin-right: 3%;*/
+    float: left;
+    overflow: hidden;
+    border: none;
+    padding: 10px;
+}
+
+.addPageContent .item .imgList {
+    width: 100%;
+    background-size: cover;
+}
+
+.addPageContent .item h2 {
+    height: 24px;
+    line-height: 24px;
+}
+
+.addPageContent .item p {
+    height: 24px;
+    line-height: 24px;
+}
+.noDataTip{
+    text-align: center;
+    width: 100%;
+    line-height: 40px;
+    font-size: 16px;
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.noDataTip.showNoDataTip{
+    display: block;
+}
+.hoverPage{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    display: none;
+}
+.showHoverPage{
+    display: block;
 }

@@ -511,6 +511,27 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
+            //根据分类id获取对应的模板列表接口
+            getSingleTemplateCategoryList: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/template/getSingleTemplateCategoryList';
+                $http({
+                    method: 'POST',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
         };
     }])
     .service('ConfigService', [function() {
