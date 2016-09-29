@@ -2523,3 +2523,10 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
 .showHoverPage{
     display: block;
 }
+.activePageNum{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    line-height: 30px;
+}

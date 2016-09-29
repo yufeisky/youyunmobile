@@ -14,7 +14,7 @@
         故事
     </ion-nav-title>
     <ion-content scroll="false" lazy-scroll class="storySlideBox ">
-        <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox" style="opacity:{{opacity}}">
+        <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox" on-slide-changed="slideHasChanged($index)" style="opacity:{{opacity}}">
             <ion-slide ng-repeat="page in pages" class="editSlide">
                 <div class="storyPage" ng-bind-html="page.content|trustHtml" page_id="{{page.id}}">
                     <!-- {{page.content}} -->
@@ -41,6 +41,7 @@
             </div>
         </div>
         <div class="virtualSaveBtn" style="position:absolute;z-index:1; left:-2000px;" ng-click="virtualSave()">保存</div>
+        <span class="activePageNum">{{activePageNum}}/{{pageLength}}</span>
     </ion-content>
     <div class="footer">
         <ul class="appEdit" ng-class="{'appEditHide': visible}">

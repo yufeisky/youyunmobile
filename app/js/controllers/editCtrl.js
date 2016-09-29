@@ -14,15 +14,17 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         showDelay: 0,
         duration: 10000
     });
-    
+
     //更新数据之后重置页面
     $scope.resetPage = function() {
+            $scope.activePageNum = 1;
             $timeout(function() {
                 $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
                 var storyCurrentIndex = JSON.parse(localStorageService.get('storyCurrentIndex'));
                 // alert(storyCurrentIndex)
-                if(storyCurrentIndex){
-                  $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex+1,0);
+                if (storyCurrentIndex) {
+                    $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex + 1, 500);
+                    $scope.activePageNum = storyCurrentIndex + 2;
                 }
                 var win_w = angular.element(window)[0].innerWidth;
                 Con.log(win_w);
@@ -31,7 +33,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 var storyBoxW = win_w * 0.9;
                 var storyBoxH = ionSlideH * 0.9;
                 var storyBoxLeft = (win_w - 320) / 2;
-                var storyBoxTop = (ionSlideH - 504) / 2;
+                var storyBoxTop = (ionSlideH - 504) / 2 - 10;
                 var storyBoxSectionScaleX = storyBoxW / 320;
                 var storyBoxSectionScaleY = storyBoxH / 504;
                 var scale = storyBoxSectionScaleX > storyBoxSectionScaleY ? storyBoxSectionScaleY : storyBoxSectionScaleX;
@@ -49,6 +51,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 $scope.setWordart();
                 SectionEvent.cli($scope);
                 SectionEvent.blurFn($scope);
+                $scope.pageLength = jQuery('.storySlideBox ion-slide').length;
                 // 当加载完之后要显示出来
                 $scope.opacity = 1;
                 $timeout(function() {
@@ -61,9 +64,9 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         // 有初始数据
     var editStoryPages = JSON.parse(localStorageService.get('editStoryPages'));
     console.log(editStoryPages);
-    if (editStoryPages&&(storyId==JSON.parse(localStorageService.get('editStoryId')))) {
+    if (editStoryPages && (storyId == JSON.parse(localStorageService.get('editStoryId')))) {
         console.log('有初始数据并且是上一次的故事');
-        $scope.pages=editStoryPages;
+        $scope.pages = editStoryPages;
         $ionicLoading.hide();
         $scope.resetPage();
     } else {
@@ -183,7 +186,12 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             }
         });
     };
-    // 遍历数据的方法
+    //滑动框切换时候触发的函数
+    $scope.slideHasChanged = function(index) {
+            console.log(index);
+            $scope.activePageNum = index + 1;
+        }
+        // 遍历数据的方法
     $scope.eachData = function() {
             $scope.pageData = [];
             jQuery('.editSlide .storyPage output').each(function(k, v) {
@@ -754,10 +762,12 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             console.log($scope.ionCurrentIndex)
             $scope.activePage = jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).prop('outerHTML');
             // console.log($scope.activePage)
-            jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).before($scope.activePage);
+            jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).after($scope.activePage);
             // $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
             $scope.resetPage();
-            jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).find('.storyPage').attr('page_id', '');
+            // $scope.pageLength +=1;
+            jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex + 1).find('.storyPage').attr('page_id', '');
+            $ionicSlideBoxDelegate.$getByHandle('sectionBox').next(5000);
         }
         // 跳转到排序页面
     $scope.goToSortPage = function() {
