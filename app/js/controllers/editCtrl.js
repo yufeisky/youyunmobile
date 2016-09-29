@@ -20,9 +20,9 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             $timeout(function() {
                 $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
                 var storyCurrentIndex = JSON.parse(localStorageService.get('storyCurrentIndex'));
+                // alert(storyCurrentIndex)
                 if(storyCurrentIndex){
                   $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex+1,0);
-                  localStorageService.set('storyCurrentIndex', null);
                 }
                 var win_w = angular.element(window)[0].innerWidth;
                 Con.log(win_w);
@@ -53,6 +53,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 $scope.opacity = 1;
                 $timeout(function() {
                     $ionicLoading.hide();
+                    localStorageService.set('storyCurrentIndex', null);
                 }, 500);
 
             }, 50);
