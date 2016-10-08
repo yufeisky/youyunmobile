@@ -11,6 +11,9 @@ appController.controller('addPageCtrl', ['$scope', '$rootScope', '$sce', '$state
     console.log($rootScope.storyCurrentIndex);
     // $scope.urlParams = JSON.parse($stateParams.pages);
     var User = JSON.parse(localStorageService.get('User'));
+    $scope.isPageCover = JSON.parse(localStorageService.get('isPageCover'));
+    console.log('isPageCover');
+    console.log($scope.isPageCover);
     if (User) {
         var postParams = {
             userToken: User.token,
@@ -92,6 +95,35 @@ appController.controller('addPageCtrl', ['$scope', '$rootScope', '$sce', '$state
                 $scope.templateList = data.templates;
             });
         }
+        $scope.addBlankPage = function() {
+            $scope.storyId = JSON.parse(localStorageService.get('editStoryId'));
+            var blankPageString = '<output id="5669" style=""><div style="background:url(//cdn.upalapp.com/upload/images/2016/03/1458268843144_89dcce6a-ef3e-4144-a442-b12865114015.jpg) no-repeat 50% 50%;background-size:100% 100%;width:100%;height:100%" class="bgbox"></div></output>';
+            var storyCurrentIndex = JSON.parse(localStorageService.get('storyCurrentIndex'));
+            var editStoryPages = JSON.parse(localStorageService.get('editStoryPages'));
+            $scope.newStoryPages = [];
+            for (var i = 0; i < editStoryPages.length + 1; i++) {
+                if (i < storyCurrentIndex + 1) {
+                    $scope.newStoryPages.push(editStoryPages[i])
+                } else if (i == storyCurrentIndex + 1) {
+                    var pageInfo = {
+                        "storyId": $scope.storyId,
+                        "id": '',
+                        "number": (i + 1).toString(),
+                        "content": blankPageString
+                    };
+                    $scope.newStoryPages.push(pageInfo)
+                } else {
+                    editStoryPages[i - 1].number = (parseInt(editStoryPages[i - 1].number) + 1).toString();
+                    $scope.newStoryPages.push(editStoryPages[i - 1])
+                }
+            };
+            $scope.pageDataString = JSON.stringify($scope.newStoryPages);
+            // 保存当前编辑的故事数据
+            localStorageService.set('editStoryPages', $scope.pageDataString);
+            // 跳转到编辑页面
+            $state.go('tab.edit', { storyId: $scope.storyId });
+
+        }
     } else {
         // 提示已下线
         $scope.showNoDataTip = true;
@@ -135,31 +167,49 @@ appController.controller('addPageCtrl', ['$scope', '$rootScope', '$sce', '$state
             //想到的是： 把故事数据循环一次，把新页面添加进去
 
             $scope.newStoryPages = [];
-            for (var i = 0; i < editStoryPages.length + 1; i++) {
-                if (i < storyCurrentIndex + 1) {
-                    $scope.newStoryPages.push(editStoryPages[i])
-                } else if (i == storyCurrentIndex + 1) {
-                    console.log(data.template);
-                    var pageInfo = {
-                        "storyId": $scope.storyId,
-                        "id": '',
-                        "number": (i + 1).toString(),
-                        "content": data.template
-                    };
-                    $scope.newStoryPages.push(pageInfo)
-                } else {
-                    editStoryPages[i - 1].number = (parseInt(editStoryPages[i - 1].number) + 1).toString();
-                    $scope.newStoryPages.push(editStoryPages[i - 1])
-                }
-            };
+            if (!$scope.isPageCover) {
+                for (var i = 0; i < editStoryPages.length + 1; i++) {
+                    if (i < storyCurrentIndex + 1) {
+                        $scope.newStoryPages.push(editStoryPages[i])
+                    } else if (i == storyCurrentIndex + 1) {
+                        console.log(data.template);
+                        var pageInfo = {
+                            "storyId": $scope.storyId,
+                            "id": '',
+                            "number": (i + 1).toString(),
+                            "content": data.template
+                        };
+                        $scope.newStoryPages.push(pageInfo)
+                    } else {
+                        editStoryPages[i - 1].number = (parseInt(editStoryPages[i - 1].number) + 1).toString();
+                        $scope.newStoryPages.push(editStoryPages[i - 1])
+                    }
+                };
+            } else {
+                for (var i = 0; i < editStoryPages.length; i++) {
+                    if (i == storyCurrentIndex) {
+                        console.log(data.template);
+                        var pageInfo = {
+                            "storyId": $scope.storyId,
+                            "id": '',
+                            "number": (i + 1).toString(),
+                            "content": data.template
+                        };
+                        $scope.newStoryPages.push(pageInfo)
+                    } else {
+                        $scope.newStoryPages.push(editStoryPages[i])
+                    }
+                };
+            }
             console.log($scope.newStoryPages)
             $scope.pageDataString = JSON.stringify($scope.newStoryPages);
             // 保存当前编辑的故事数据
             localStorageService.set('editStoryPages', $scope.pageDataString);
             // 跳转到编辑页面
             $state.go('tab.edit', { storyId: $scope.storyId });
-           
+
         });
 
     }
+
 }]);

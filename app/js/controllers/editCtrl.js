@@ -21,10 +21,13 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             $timeout(function() {
                 $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
                 var storyCurrentIndex = JSON.parse(localStorageService.get('storyCurrentIndex'));
-                // alert(storyCurrentIndex)
-                if (storyCurrentIndex) {
+                var isPageCover = JSON.parse(localStorageService.get('isPageCover'));
+                if (storyCurrentIndex!=null&&isPageCover==false) {
                     $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex + 1, 500);
                     $scope.activePageNum = storyCurrentIndex + 2;
+                }else if(storyCurrentIndex!=null&&isPageCover==true){
+                    $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex, 500);
+                    $scope.activePageNum = storyCurrentIndex + 1;
                 }
                 var win_w = angular.element(window)[0].innerWidth;
                 Con.log(win_w);
@@ -271,6 +274,10 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     // 文字框确定之后的方法
     $scope.changeText = function(text) {
         if ($scope.isInsertText) {
+            if(!text){
+                MsgBox.showTexts('插入文字不能为空');
+                return false;
+            }
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
             jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).find('output').append('<section id="faglwbkt" class="bf-com bf-basic" _libid="bf-basic" _comid="txt" _version="1.2" style="left: 50px; top: 234px; z-index: 111; width: 224.069px; height: 32px; min-height: inherit; line-height: 1.5; font-size: 16px; padding-top: 0px; padding-bottom: 0px; font-weight: bold; font-family: ExLight;" data-x="2" data-y="0" data-z="1" xf-animatenum="12" xf-animatexh="0" family="ExLight"><div class="bf-com-impl txt" contenteditable="false" ><div class="txt-con">' + text + '</div></div><div class="bf-com-cover" style="display: block;"></div><textarea class="bf-com-meta"></textarea></section>');
             SectionEvent.start();
@@ -744,6 +751,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             console.log('--------currentIndex-------');
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
             // console.log($scope.ionCurrentIndex)
+            $('.editBox').appendTo($('.storySlideBox')).hide();
             jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).remove();
             $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
@@ -781,7 +789,12 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     }
 
     // 根据模板添加页面
-    $scope.addPageByTemplate = function() {
+    $scope.addPageByTemplate = function(isCover) {
+        if(isCover){
+            localStorageService.set('isPageCover', true);
+        }else{
+            localStorageService.set('isPageCover', false);
+        }
         $rootScope.storyCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
         localStorageService.set('editStoryId', storyId);
         localStorageService.set('storyCurrentIndex', $rootScope.storyCurrentIndex);

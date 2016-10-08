@@ -57,7 +57,7 @@
             <!-- ng-click="cancelOperation()" -->
             <ion-tab title="撤销" icon="icon-pageedit-chexiao" nav-transition="ios">
             </ion-tab>
-            <ion-tab title="模板" icon="icon-pageedit-yemian" nav-transition="ios">
+            <ion-tab title="模板" icon="icon-pageedit-yemian" nav-transition="ios" ng-click="addPageByTemplate(true)">
             </ion-tab>
             <ion-tab title="页面" icon="icon-pageedit-guanli" nav-transition="ios" ng-click="pageEdit()">
             </ion-tab>
@@ -193,7 +193,7 @@
             </ion-tab>
             <ion-tab title="页面排序" icon="icon-pageedit-zihao" nav-transition="ios" ng-click="goToSortPage()">
             </ion-tab>
-            <ion-tab title="删除" icon="icon-pageedit-zise" nav-transition="ios" ng-click="delActivePage()">
+            <ion-tab title="删除页面" icon="icon-pageedit-zise" nav-transition="ios" ng-click="delActivePage()">
             </ion-tab>
         </ion-tabs>
     </div>
