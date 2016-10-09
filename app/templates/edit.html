@@ -45,7 +45,7 @@
     </ion-content>
     <div class="footer">
         <ul class="appEdit" ng-class="{'appEditHide': visible}">
-            <li><i class="icon icon-pageedit-yinyue"></i><span>更换背景音乐</span></li>
+            <li ng-click="changeBackgroundMusic()"><i class="icon icon-pageedit-yinyue"></i><span>更换背景音乐</span></li>
             <li ng-click="openBackEditModal()"><i class="icon icon-pageedit-beijing"></i><span>更换背景图片</span></li>
             <li ng-click="openModalAndInsertPicture()"><i class="icon icon-pageedit-tupan"></i>插入图片</li>
             <li ng-click="openTextEditModalAndInsterText()"><i class="icon icon-pageedit-wenzi"></i>插入文字</li>

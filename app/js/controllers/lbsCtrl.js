@@ -191,7 +191,11 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
                         $scope.markers.push(marker);
                     }
                 } else if (obj[i].type == 'story' && obj[i].groupID == '0') {
-                    var iconArr = $filter('filter')($scope.dropDownArr, { name: obj[i].category })[0];
+                    console.log('------------------story group-----------------');
+                    console.log(obj[i])
+                    // 要是规范了类别之后，而且要用不同的图标来表示的时候，要用下面注释了的这行
+                    // var iconArr = $filter('filter')($scope.dropDownArr, { name: obj[i].category })[0];
+                    var iconArr = $filter('filter')($scope.dropDownArr, { name: '全部' })[0];
                     console.log(iconArr);
                     if (iconArr) {
                         var IconUrl = iconArr.lbsIconUrl;

@@ -161,6 +161,16 @@ angular.module('IonicClub.router', [])
                 },
                 cache:false,
             })
+            .state('tab.changeStoryMusic', {
+                url: '/changeStoryMusic',
+                views: {
+                    'design': {
+                        templateUrl: 'templates/changeBackgroundMusic.html',
+                        controller: 'changeBackgroundMusicCtrl'
+                    }
+                },
+                cache:false,
+            })
             .state('tab.user', {
                 url: '/user',
                 views: {
