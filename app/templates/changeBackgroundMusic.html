@@ -16,7 +16,7 @@
                 <span class="lbsTitSpan">全部分类</span><img class="dropPic dropDown" ng-show="dropshow" src="img/dropDown.png" alt=""><img ng-show="!dropshow" class="dropPic dropUp" src="img/dropUp.png" alt="">
             </div>
         </div>
-        <ion-content class="addPageContent" lazy-scroll>
+        <ion-content class="musicListContent" lazy-scroll>
             <div class="dropDownContent row" ng-class="{'dropDownListHide': visible}">
                 <ion-scroll zooming="true" direction="y" class="col  musicCategoriesBox">
                     <ul class="musicCategoriesList">
@@ -27,13 +27,13 @@
                     </ul>
                 </ion-scroll>
             </div>
-            <ion-scroll zooming="true" direction="y" style="height:{{listHeight}}" class="list templateListCon">
-                <a ng-repeat="template in templateList" class="item item-thumbnail-top" ng-click="addPageByTemplateId(template.id)" href="javascript:;">
-                    <div class="imgList" style="height:{{img_w}}; background-image:url('{{template.logo}}')"> </div>
-                    <h2>{{template.title}}</h2>
-                    <p>使用次数{{template.usedCount}}次</p>
-                </a>
-            </ion-scroll>
+            <div class="noMusicBtn" ng-click="setStoryMusic(0,-1)">无</div>
+            <ul class="list">
+                <li class="item musicItem" ng-repeat="musicItem in musicList" ng-click="setStoryMusic(musicItem.music_url,$index)">
+                    <span class="musicName">{{musicItem.name}}</span>
+                    <!-- <div class="loadingIcon"><img src="img/loading.gif" alt=""></div> -->
+                </li>
+            </ul>
             <div class="hoverPage" ng-click="toggle()" ng-class="{'showHoverPage': visible}"></div>
             <div class="noDataTip" ng-class="{'showNoDataTip': showNoDataTip}">你已下线</div>
         </ion-content>

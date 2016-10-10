@@ -24,26 +24,43 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-collect-57:before {
+
+.icon-add:before {
   content: "\e900";
 }
-.icon-duodong:before {
+.icon-arrow-59:before {
   content: "\e901";
 }
-.icon-info-56:before {
+.icon-arrow-60:before {
   content: "\e902";
 }
-.icon-works-58:before {
+.icon-arrow-123:before {
   content: "\e903";
 }
-.icon-add:before {
+.icon-collect-57:before {
   content: "\e904";
 }
-.icon-arrow-59:before {
+.icon-duodong:before {
   content: "\e905";
 }
-.icon-arrow-60:before {
+.icon-info-56:before {
   content: "\e906";
 }
+.icon-works-58:before {
+  content: "\e907";
+}
+.icon-xuanzhe_h .path1:before {
+  content: "\e908";
+  color: rgb(232, 58, 55);
+}
+.icon-xuanzhe_h .path2:before {
+  content: "\e909";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-xuanzhe_n:before {
+  content: "\e90a";
+}
+
 
 

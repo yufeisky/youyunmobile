@@ -153,6 +153,50 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
+
+            postUnCollectStory: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/story/delUserFavoriteBatch';
+                $http({
+                    method: 'POST',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
+
+            //得到站内消息
+            postInnerMessage: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/user/getmessagelist';
+                $http({
+                    method: 'POST',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
+
             //分享
             postShareStory: function(data) {
                 var deferred = $q.defer();
@@ -886,9 +930,9 @@ angular.module('IonicClub.services', [])
                     var $ = jQuery;
                     // console.log(jQuery('.bf-basic'))z
                     // 音乐的层级太高，编辑的时候先把音乐隐藏，等保存的时候再把它显示出来
-                    if ($('.music.musicCloneCode').length > 0) {
-                        $('.music.musicCloneCode').hide();
-                    }
+                    // if ($('.music.musicCloneCode').length > 0) {
+                    //     $('.music.musicCloneCode').hide();
+                    // }
 
 
                     // 编辑元素失去焦点事件
@@ -1197,10 +1241,10 @@ angular.module('IonicClub.services', [])
     // 获取图片
     .service('Gallery', ['$ionicModal', 'IonicService', 'localStorageService', 'Con', function($ionicModal, IonicService, localStorageService, Con) {
         var initGalleryModal = function($scope) {
-            var modal = $ionicModal.fromTemplateUrl('templates/gallery.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function(modal) {
+                var modal = $ionicModal.fromTemplateUrl('templates/gallery.html', {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then(function(modal) {
                 $scope.gallerymodal = modal;
                 return modal
             });
@@ -1565,4 +1609,29 @@ angular.module('IonicClub.services', [])
         return {
             initGalleryModal: initGalleryModal
         }
+    }])
+    .service('LoginConfirm', ['$state', '$timeout', 'localStorageService',  'Con',
+        function($state, $timeout, localStorageService,  Con) {
+        Con.log('登录服务');
+        var service={
+            login:function(){
+                var User = JSON.parse(localStorageService.get('User'));
+                Con.log(User);
+                if (User) {
+                    // $scope.logined = true;
+                    Con.log('已登录');
+                    return User;
+                } else {
+                    // 检测没有登陆调回到登陆页
+                    Con.log('未登录');
+                    // $state.go('notlogin');
+                    // $scope.logined = false;
+                    // $scope.showConfirm();
+                    $timeout(function() {
+                        $state.go("tab.user");
+                    }, 100);
+                }
+            }
+        }
+        return service;
     }]);

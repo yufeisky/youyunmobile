@@ -64,7 +64,7 @@
          $scope.navs[myActiveSlide].pageNum = 1;
          postParams.pageNum = $scope.navs[myActiveSlide].pageNum;
          IonicService.getHomeStorys(postParams).then(function(data) {
-             // Con.log(data.storys)
+              Con.log(data.storys)
              if (angular.equals(data.storys, [])) {
                  $scope.more = false;
                  $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -94,7 +94,8 @@
              postParams.pageNum = $scope.navs[myActiveSlide].pageNum;
              Con.log(postParams.storyType);
              IonicService.getHomeStorys(postParams).then(function(data) {
-                 // Con.log(data.storys)
+                 console.log('------storys-----');
+                  Con.log(data.storys)
                  if (angular.equals(data.storys, [])) {
                      $scope.more = false;
                      $scope.$broadcast('scroll.infiniteScrollComplete');

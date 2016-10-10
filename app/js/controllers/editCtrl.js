@@ -22,10 +22,10 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
                 var storyCurrentIndex = JSON.parse(localStorageService.get('storyCurrentIndex'));
                 var isPageCover = JSON.parse(localStorageService.get('isPageCover'));
-                if (storyCurrentIndex!=null&&isPageCover==false) {
+                if (storyCurrentIndex != null && isPageCover == false) {
                     $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex + 1, 500);
                     $scope.activePageNum = storyCurrentIndex + 2;
-                }else if(storyCurrentIndex!=null&&isPageCover==true){
+                } else if (storyCurrentIndex != null && isPageCover == true) {
                     $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex, 500);
                     $scope.activePageNum = storyCurrentIndex + 1;
                 }
@@ -62,6 +62,25 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                     localStorageService.set('storyCurrentIndex', null);
                 }, 500);
 
+                // 判断有没有设置的音乐 有音乐加载
+                $scope.newMusicData = JSON.parse(localStorageService.get('newMusicData'));
+                console.log('------newMusicData--------');
+                console.log($scope.newMusicData)
+                if ($scope.newMusicData.storyMusicUrl && (storyId == $scope.newMusicData.editStoryId)) {
+                    console.log('--有音乐需要添加--');
+                    console.log(jQuery('.editSlide'))
+                    console.log(jQuery('.editSlide').eq(0).find('.musicCloneCode'))
+                    if (jQuery('.editSlide').eq(0).find('.musicCloneCode').length > 0) {
+                        // console.log('已经有音乐')
+                        jQuery('.editSlide').eq(0).find('.musicCloneCode').find('.bg_audio').attr('src', $scope.newMusicData.storyMusicUrl);
+                    } else {
+                        // <section _id="ilsnezja" class="bf-com bf-basic" _libid="bf-basic" _comid="music" _version="1.0" style="left: 64px; top: 168.667px; z-index: 103; width: 30px; height: 37px; display: none;"><div class="music-c-icon bf-com-impl music" style=""><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Ivan Torrent,..."><audio preload="preload" class="bg_audio" loop="loop" src="http://cdn.upalapp.com/upload/music/2016/03/1459146136091_f157c596-baad-407c-9aaa-f565c77423b9.mp3"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div><div class="bf-com-cover"></div><textarea class="bf-com-meta"></textarea></section>
+                        // 参见：跟PC对接的问题
+                        jQuery('.editSlide').eq(0).find('output').append('<div class="music-c-icon bf-com-impl music musicCloneCode" style="position: absolute; z-index: 999; left: 280px; top: 10px;"><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Eluvium - In ..."><audio preload="none" class="bg_audio" loop="loop" src="' + $scope.newMusicData.storyMusicUrl + '"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div>');
+                    }
+
+                    // <div class="music-c-icon bf-com-impl music musicCloneCode" style="position: absolute; z-index: 999; left: 280px; top: 10px;"><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Eluvium - In ..."><audio preload="none" class="bg_audio" loop="loop" src="http://cdn.upalapp.com/upload/music/2015/12/1451031414049_c7c8093d-671a-4f0f-8bf9-1ebf0f908299.mp3"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div>
+                }
             }, 50);
         }
         // 有初始数据
@@ -80,6 +99,8 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 $ionicLoading.hide();
             } else if (data.message == "Success") {
                 $scope.pages = data.pages;
+                console.log('pagesData');
+                console.log($scope.pages)
                 $scope.resetPage();
 
             }
@@ -196,6 +217,9 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 遍历数据的方法
     $scope.eachData = function() {
+            // if ($('.music.musicCloneCode').length > 0) {
+            //     $('.music.musicCloneCode').show();
+            // }
             $scope.pageData = [];
             jQuery('.editSlide .storyPage output').each(function(k, v) {
                 var idval = jQuery(v).parents('.storyPage').attr('page_id');
@@ -274,7 +298,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     // 文字框确定之后的方法
     $scope.changeText = function(text) {
         if ($scope.isInsertText) {
-            if(!text){
+            if (!text) {
                 MsgBox.showTexts('插入文字不能为空');
                 return false;
             }
@@ -790,9 +814,9 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
     // 根据模板添加页面
     $scope.addPageByTemplate = function(isCover) {
-        if(isCover){
+        if (isCover) {
             localStorageService.set('isPageCover', true);
-        }else{
+        } else {
             localStorageService.set('isPageCover', false);
         }
         $rootScope.storyCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
@@ -807,10 +831,10 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     }
 
     // 更换背景音乐
-    $scope.changeBackgroundMusic = function(){
-       // 跳转更换背景音乐页面
-        $state.go('tab.changeStoryMusic'); 
-
+    $scope.changeBackgroundMusic = function() {
+        // 跳转更换背景音乐页面
+        $state.go('tab.changeStoryMusic');
+        localStorageService.set('editStoryId', storyId);
         // <div class="music-c-icon bf-com-impl music musicCloneCode" style="position: absolute; z-index: 999; left: 280px; top: 10px;"><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Eluvium - In ..."><audio preload="none" class="bg_audio" loop="loop" src="http://cdn.upalapp.com/upload/music/2015/12/1451031414049_c7c8093d-671a-4f0f-8bf9-1ebf0f908299.mp3"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div>
     }
 }]);

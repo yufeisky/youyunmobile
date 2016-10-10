@@ -171,6 +171,26 @@ angular.module('IonicClub.router', [])
                 },
                 cache:false,
             })
+            .state('tab.works', {
+                url: '/works:storyStatus',
+                views: {
+                    'user': {
+                        templateUrl: 'templates/userList.html',
+                        controller: 'userListCtrl',
+
+                    }
+                },
+            })
+            .state('tab.message', {
+                url: '/message',
+                views: {
+                    'user': {
+                        templateUrl: 'templates/innerMessage.html',
+                        controller: 'innerMessageCtrl',
+
+                    }
+                },
+            })
             .state('tab.user', {
                 url: '/user',
                 views: {

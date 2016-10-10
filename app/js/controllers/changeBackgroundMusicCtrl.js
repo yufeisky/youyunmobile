@@ -3,7 +3,7 @@
  * create by yufei
  */
 // 模板使用页面
-appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicPopover', '$ionicPopup', '$timeout', '$state', '$ionicHistory', '$filter', 'localStorageService', 'ShareService', 'IonicService', 'MsgBox', 'WechatApi', 'Con', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicPopover, $ionicPopup, $timeout,
+appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicPopover', '$ionicPopup', '$timeout', '$interval', '$state', '$ionicHistory', '$filter', 'localStorageService', 'ShareService', 'IonicService', 'MsgBox', 'WechatApi', 'Con', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicPopover, $ionicPopup, $timeout, $interval,
     $state, $ionicHistory, $filter, localStorageService, ShareService, IonicService, MsgBox, WechatApi, Con) {
 
     Con.log('根据模板添加页面');
@@ -26,7 +26,7 @@ appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '
             console.log(data);
             $ionicLoading.hide();
             $scope.musicCategories = data.categories;
-            $scope.childrenCategories = data.childrenCategories;
+            $scope.musicList = data.musicList;
             $timeout(function() {
                 jQuery('.firstLevelList li').eq(0).trigger('click');
                 jQuery('.twoLevelList li').eq(0).trigger('click');
@@ -58,67 +58,7 @@ appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '
                 $scope.dropshow = !$scope.dropshow;
             }
         };
-        $scope.getTwoLevelFn = function(id, index) {
-            jQuery('.firstLevelList li').removeClass('active');
-            jQuery('.firstLevelList li').eq(index).addClass('active');
-            console.log(id)
-            $scope.childrenLists = $filter('filter')($scope.childrenCategories, { parentId: id });
-            console.log($scope.childrenList);
-        }
 
-        $scope.getTemplateList = function(categoryId, index) {
-            jQuery('.twoLevelList li').removeClass('active');
-            jQuery('.twoLevelList li').eq(index).addClass('active');
-            jQuery('.scroll-bar-indicator').css({ transform: 'translate3d(0px, 0px, 0px) scale(1)' });
-            jQuery('.templateListCon .scroll').css({ transform: 'translate3d(0px, 0px, 0px) scale(1)' });
-            $ionicLoading.show({
-                content: 'Loading',
-                animation: 'fade-in',
-                showBackdrop: false,
-                maxWidth: 200,
-                showDelay: 0,
-                duration: 10000
-            });
-            var getSingleTemplateCategoryListParams = {
-                userToken: User.token,
-                userId: User.id,
-                categoryId: categoryId
-            }
-            IonicService.getSingleTemplateCategoryList(getSingleTemplateCategoryListParams).then(function(data) {
-                console.log(data);
-                $ionicLoading.hide();
-                $scope.templateList = data.templates;
-            });
-        }
-        $scope.addBlankPage = function() {
-            $scope.storyId = JSON.parse(localStorageService.get('editStoryId'));
-            var blankPageString = '<output id="5669" style=""><div style="background:url(//cdn.upalapp.com/upload/images/2016/03/1458268843144_89dcce6a-ef3e-4144-a442-b12865114015.jpg) no-repeat 50% 50%;background-size:100% 100%;width:100%;height:100%" class="bgbox"></div></output>';
-            var storyCurrentIndex = JSON.parse(localStorageService.get('storyCurrentIndex'));
-            var editStoryPages = JSON.parse(localStorageService.get('editStoryPages'));
-            $scope.newStoryPages = [];
-            for (var i = 0; i < editStoryPages.length + 1; i++) {
-                if (i < storyCurrentIndex + 1) {
-                    $scope.newStoryPages.push(editStoryPages[i])
-                } else if (i == storyCurrentIndex + 1) {
-                    var pageInfo = {
-                        "storyId": $scope.storyId,
-                        "id": '',
-                        "number": (i + 1).toString(),
-                        "content": blankPageString
-                    };
-                    $scope.newStoryPages.push(pageInfo)
-                } else {
-                    editStoryPages[i - 1].number = (parseInt(editStoryPages[i - 1].number) + 1).toString();
-                    $scope.newStoryPages.push(editStoryPages[i - 1])
-                }
-            };
-            $scope.pageDataString = JSON.stringify($scope.newStoryPages);
-            // 保存当前编辑的故事数据
-            localStorageService.set('editStoryPages', $scope.pageDataString);
-            // 跳转到编辑页面
-            $state.go('tab.edit', { storyId: $scope.storyId });
-
-        }
     } else {
         // 提示已下线
         $scope.showNoDataTip = true;
@@ -126,6 +66,7 @@ appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '
     // 后退历史
     $scope.goBackView = function() {
         console.log($ionicHistory.viewHistory().backView)
+        document.body.removeChild(audio);
         if ($ionicHistory.viewHistory().backView) {
             // $ionicGoBack()
             $ionicHistory.goBack();
@@ -135,7 +76,46 @@ appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '
         // stateName
         // $ionicGoBack()
     }
+    var audio = null;
+    $scope.setStoryMusic = function(musicUrl, index) {
+        if (index == '-1') {
+            jQuery('.loadingIcon').remove();
+            jQuery('.noMusicBtn').append('<div class="loadingIcon"></div>');
+            if (document.getElementById('audioId')) {
+                document.body.removeChild(audio);
+                console.log(document.getElementById('audioId'))
+            }
+            return false;
+        }
+        jQuery('.loadingIcon').remove();
+        jQuery('.musicItem').eq(index).append('<div class="loadingIcon"><img class="loadingImg" src="img/loading.gif" alt=""></div>')
 
+        if (document.getElementById('audioId')) {
+            document.body.removeChild(audio);
+            console.log(document.getElementById('audioId'))
+        }
+
+        audio = document.createElement("audio");
+        audio.id = "audioId";
+        document.body.appendChild(audio);
+        console.log(document.getElementById('audioId'))
+        audio.src = musicUrl;
+        audio.play();
+        $scope.timer = $interval(function() {
+            // 检测开始播放
+            if (audio.currentTime > 0) {
+                $scope.newMusicData={};
+                $scope.storyId = JSON.parse(localStorageService.get('editStoryId'));
+                $scope.newMusicData.editStoryId=$scope.storyId;
+                $scope.newMusicData.storyMusicUrl=musicUrl;
+                $scope.newMusicDataString = JSON.stringify($scope.newMusicData);
+                localStorageService.set('newMusicData', $scope.newMusicDataString);
+                $interval.cancel($scope.timer);
+                jQuery('.loadingImg').remove();
+            }
+        }, 100)
+
+    }
     $scope.dropshow = true;
 
 }]);

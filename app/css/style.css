@@ -2559,7 +2559,53 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
     height: auto;
     top: -700px;
 }
+
 .changeBackgroundMusicPage .dropDownListHide {
     top: 0px;
     transition: top 0.3s;
+}
+
+.musicListContent {
+    padding-top: 44px;
+}
+
+.musicName {
+    width: 60%;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.noMusicBtn{
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    padding-left: 16px;
+}
+.musicItem{
+    position: relative;
+}
+.musicItem .loadingIcon{
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    width: 40px;
+    height: 40px;
+    background: url('../img/check.png');
+    background-size: cover;
+}
+.loadingIcon img{
+    width: 100%;
+}
+.noMusicBtn{
+    position: relative;
+}
+.noMusicBtn .loadingIcon{
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    width: 40px;
+    height: 40px;
+    background: url('../img/check.png');
+    background-size: cover;
 }
