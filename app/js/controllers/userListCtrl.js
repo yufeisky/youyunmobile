@@ -27,6 +27,7 @@ appController.controller('userListCtrl', ['$scope', '$rootScope', '$stateParams'
         $scope.offLineStorys = [];
         $scope.collectStorys = [];
         var User = JSON.parse(localStorageService.get('User'));
+
         Con.log(User);
         Con.log('已登录');
         postParams = {

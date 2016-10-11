@@ -47,11 +47,28 @@ var appController = angular.module('IonicClub.controllers', [])
                 //    $rootScope.changePage('tab.user');
                 //}, 100);
             }
+
+            $scope.changeUserPage=function(state,param){
+                var User = JSON.parse(localStorageService.get('User'));
+                if(!User){
+                    Con.log('未登录');
+                    $scope.isLogin = false;
+                    localStorageService.remove('User');
+                    $rootScope.openLoginModal();
+                    $rootScope.changeState = 'tab.user';
+                }else{
+                    console.log(state);
+                   // $rootScope.changePage(state,true);
+                    $state.go(state,param);
+                }
+            }
             $scope.loginOutFn = function(){
                 $scope.isLogin = false;
                 localStorageService.remove('User');
                 $timeout(function() {
                     $rootScope.changePage('tab.user',true);
+                   // $rootScope.openLoginModal();
+                  //  $rootScope.changeState = 'tab.user';
                 }, 100);
             }
             $scope.loginFn = function(){

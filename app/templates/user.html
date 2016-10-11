@@ -7,9 +7,9 @@
         </div>
         <div class="user-main-nav-box">
             <ul class="user-main-nav">
-                <li><a ui-sref="tab.works({ storyStatus:0})" ><i class="icon-works-58"></i><span>作品</span></a></li>
-                <li><a ui-sref="tab.works({ storyStatus:2})" ><i class="icon-collect-57"></i><span>收藏</span></a></li>
-                <li><a ui-sref="tab.message" ><i class="icon-info-56"></i><span>信息</span></a></li>
+                <li><a ng-click="changeUserPage('tab.works',{ storyStatus:0})" ><i class="icon-works-58"></i><span>作品</span></a></li>
+                <li><a ng-click="changeUserPage('tab.works',{ storyStatus:2})" ><i class="icon-collect-57"></i><span>收藏</span></a></li>
+                <li><a ng-click="changeUserPage('tab.message')" ><i class="icon-info-56"></i><span>信息</span></a></li>
             </ul>
         </div>
         <div class="user-second-nav-box user-assist-nav-box">
