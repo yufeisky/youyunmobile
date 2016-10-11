@@ -66,7 +66,9 @@ appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '
     // 后退历史
     $scope.goBackView = function() {
         console.log($ionicHistory.viewHistory().backView)
-        document.body.removeChild(audio);
+        if (audio) {
+            document.body.removeChild(audio);
+        }
         if ($ionicHistory.viewHistory().backView) {
             // $ionicGoBack()
             $ionicHistory.goBack();
@@ -104,10 +106,10 @@ appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '
         $scope.timer = $interval(function() {
             // 检测开始播放
             if (audio.currentTime > 0) {
-                $scope.newMusicData={};
+                $scope.newMusicData = {};
                 $scope.storyId = JSON.parse(localStorageService.get('editStoryId'));
-                $scope.newMusicData.editStoryId=$scope.storyId;
-                $scope.newMusicData.storyMusicUrl=musicUrl;
+                $scope.newMusicData.editStoryId = $scope.storyId;
+                $scope.newMusicData.storyMusicUrl = musicUrl;
                 $scope.newMusicDataString = JSON.stringify($scope.newMusicData);
                 localStorageService.set('newMusicData', $scope.newMusicDataString);
                 $interval.cancel($scope.timer);

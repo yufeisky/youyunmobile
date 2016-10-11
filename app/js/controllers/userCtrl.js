@@ -51,11 +51,12 @@ var appController = angular.module('IonicClub.controllers', [])
                 $scope.isLogin = false;
                 localStorageService.remove('User');
                 $timeout(function() {
-                    $rootScope.changePage('tab.user');
+                    $rootScope.changePage('tab.user',true);
                 }, 100);
             }
             $scope.loginFn = function(){
                 $rootScope.openLoginModal();
+                $rootScope.changeState = 'tab.user';
             }
         }
     ]);

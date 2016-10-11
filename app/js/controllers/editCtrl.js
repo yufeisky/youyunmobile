@@ -73,9 +73,15 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                     if (jQuery('.editSlide').eq(0).find('.musicCloneCode').length > 0) {
                         // console.log('已经有音乐')
                         jQuery('.editSlide').eq(0).find('.musicCloneCode').find('.bg_audio').attr('src', $scope.newMusicData.storyMusicUrl);
+                        jQuery('.editSlide').eq(sildeLength-1).find('.music-c-icon').find('.bg_audio').attr('src', $scope.newMusicData.storyMusicUrl);
                     } else {
                         // <section _id="ilsnezja" class="bf-com bf-basic" _libid="bf-basic" _comid="music" _version="1.0" style="left: 64px; top: 168.667px; z-index: 103; width: 30px; height: 37px; display: none;"><div class="music-c-icon bf-com-impl music" style=""><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Ivan Torrent,..."><audio preload="preload" class="bg_audio" loop="loop" src="http://cdn.upalapp.com/upload/music/2016/03/1459146136091_f157c596-baad-407c-9aaa-f565c77423b9.mp3"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div><div class="bf-com-cover"></div><textarea class="bf-com-meta"></textarea></section>
                         // 参见：跟PC对接的问题
+                        console.log('------slide length----------');
+                        var sildeLength=jQuery('.editSlide').length;
+                        console.log(sildeLength)
+                        jQuery('.editSlide').eq(sildeLength-1).find('output').append('<section _id="ilsnezja" class="bf-com bf-basic" _libid="bf-basic" _comid="music" _version="1.0" style="left: 64px; top: 168.667px; z-index: 103; width: 30px; height: 37px; display: none;"><div class="music-c-icon bf-com-impl music" style=""><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Ivan Torrent,..."><audio preload="preload" class="bg_audio" loop="loop" src="' + $scope.newMusicData.storyMusicUrl + '"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div><div class="bf-com-cover"></div><textarea class="bf-com-meta"></textarea></section>');
+
                         jQuery('.editSlide').eq(0).find('output').append('<div class="music-c-icon bf-com-impl music musicCloneCode" style="position: absolute; z-index: 999; left: 280px; top: 10px;"><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Eluvium - In ..."><audio preload="none" class="bg_audio" loop="loop" src="' + $scope.newMusicData.storyMusicUrl + '"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div>');
                     }
 

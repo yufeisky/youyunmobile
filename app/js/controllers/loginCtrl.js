@@ -77,6 +77,7 @@ appController.controller('loginCtrl', ['$scope', '$rootScope', '$ionicPopup', '$
                     localStorageService.set('User', JSON.stringify(User));
                     $rootScope.closeLoginModal();
                     // var currentId = $ionicHistory.viewHistory().currentView.stateId;
+                    console.log($rootScope.changeState);
                     $rootScope.changePage($rootScope.changeState, true);
 
                     // $state.go(currentId,{reload:true});

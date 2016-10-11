@@ -8,7 +8,7 @@ appController.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageServi
         // Con.log('-------statename----');
         // Con.log(statename);
         //tabs中存在的主页面不需要隐藏，hidetabs=false
-        if (statename === 'tab.homeDetail' || statename === 'tab.edit' || statename === 'tab.moreDesign' || statename === 'tab.designDetail' || statename === 'tab.previewStory' || statename === 'tab.setStoryInfo'|| statename === 'tab.setStoryCategories'|| statename === 'tab.sortPage'|| statename === 'tab.addPage'|| statename === 'tab.changeStoryMusic') {
+        if (statename === 'tab.homeDetail' || statename === 'tab.edit' || statename === 'tab.moreDesign' || statename === 'tab.designDetail' || statename === 'tab.previewStory' || statename === 'tab.setStoryInfo' || statename === 'tab.setStoryCategories' || statename === 'tab.sortPage' || statename === 'tab.addPage' || statename === 'tab.changeStoryMusic') {
             $rootScope.hideTabs = true;
         } else {
             $rootScope.hideTabs = false;
@@ -37,12 +37,15 @@ appController.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageServi
         $scope.loginmodal.hide();
     };
     $rootScope.changePage = function(state, reload) {
+        console.log('changePage');
+        console.log(state);
+        console.log(reload);
         $rootScope.changeState = state;
         $rootScope.UserInfo = JSON.parse(localStorageService.get('User'));
         // Con.log('------changestate------')
         // Con.log(state)
         // Con.log($rootScope.UserInfo)
-        if ($rootScope.changeState == 'tab.home'|| ($rootScope.changeState == 'tab.design')||($rootScope.changeState == 'tab.user')) {
+        if ($rootScope.changeState == 'tab.home' || ($rootScope.changeState == 'tab.design')) {
             $state.go(state);
             return false;
         }
@@ -58,6 +61,13 @@ appController.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageServi
                 $state.go(state);
             }
 
+        } else if (($rootScope.changeState == 'tab.user') && (!$rootScope.UserInfo) && reload) {
+            $state.go(state);
+            $timeout(function() {
+                location.reload(true);
+            }, 200);
+        } else if (($rootScope.changeState == 'tab.user') && (!$rootScope.UserInfo)) {
+            $state.go(state);
         } else {
             $rootScope.openLoginModal();
         }
