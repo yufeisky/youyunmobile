@@ -278,3 +278,7 @@ input.search-input::-webkit-input-placeholder  {
     height:auto;
     padding-bottom: 10px;
 }
+
+.user-page .user-main-nav-box .user-main-nav li a{
+   text-decoration: none;
+}

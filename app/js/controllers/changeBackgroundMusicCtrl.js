@@ -30,11 +30,45 @@ appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '
             $timeout(function() {
                 jQuery('.firstLevelList li').eq(0).trigger('click');
                 jQuery('.twoLevelList li').eq(0).trigger('click');
-                // 把loaded变为true,启用toggle功能;
+                $scope.func = function(e) {
+                        return e.id == data.categoryId
+                    }
+                    // 添加当前分类音乐列表
+                $scope.activeMusicCategory = $filter('filter')(data.categories, $scope.func)[0].name;
+                console.log($scope.activeMusicCategory)
+                    // 把loaded变为true,启用toggle功能;
                 $scope.loaded = true;
             })
         });
 
+        $scope.getMusicByCategory = function(categoryId) {
+            IonicService.getMusicByCategory({ 'categoryId': categoryId }).then(function(data) {
+                console.log(data);
+                $ionicLoading.hide();
+                if (data.status == '1' && data.message == 'success') {
+                    $scope.musicList = null;
+                    $scope.musicList = data.musicList;
+                    $scope.func = function(e) {
+                        return e.id == categoryId
+                    }
+                    $scope.activeMusicCategory = $filter('filter')($scope.musicCategories, $scope.func)[0].name;
+                    $scope.toggle();
+                }
+                // $scope.musicCategories = data.categories;
+                // $scope.musicList = data.musicList;
+                // $timeout(function() {
+                //     jQuery('.firstLevelList li').eq(0).trigger('click');
+                //     jQuery('.twoLevelList li').eq(0).trigger('click');
+                //     $scope.func = function(e) {
+                //             return e.id == data.categoryId }
+                //         // 添加当前分类音乐列表
+                //     $scope.activeMusicCategory = $filter('filter')(data.categories, $scope.func)[0].name;
+                //     console.log($scope.activeMusicCategory)
+                //         // 把loaded变为true,启用toggle功能;
+                //     $scope.loaded = true;
+                // })
+            });
+        }
 
 
 
@@ -53,6 +87,9 @@ appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '
             // if (json.category == "全部") {
             //     jQuery('.lbsTitSpan').text('发现');
             // }
+            // 把滚动条拉回到最初位置
+            jQuery('.scroll-bar-indicator').css({ transform: 'translate3d(0px, 0px, 0px) scale(1)' });
+            jQuery('.musicListContent .scroll').css({ transform: 'translate3d(0px, 0px, 0px) scale(1)' });
             if ($scope.loaded) {
                 $scope.visible = !$scope.visible;
                 $scope.dropshow = !$scope.dropshow;

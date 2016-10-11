@@ -13,14 +13,14 @@
         </ion-nav-bar>
         <div class="bar bar-subheader">
             <div class="lbsTit title" ng-click="toggle()">
-                <span class="lbsTitSpan">全部分类</span><img class="dropPic dropDown" ng-show="dropshow" src="img/dropDown.png" alt=""><img ng-show="!dropshow" class="dropPic dropUp" src="img/dropUp.png" alt="">
+                <span class="lbsTitSpan">{{activeMusicCategory}}</span><img class="dropPic dropDown" ng-show="dropshow" src="img/dropDown.png" alt=""><img ng-show="!dropshow" class="dropPic dropUp" src="img/dropUp.png" alt="">
             </div>
         </div>
         <ion-content class="musicListContent" lazy-scroll>
             <div class="dropDownContent row" ng-class="{'dropDownListHide': visible}">
                 <ion-scroll zooming="true" direction="y" class="col  musicCategoriesBox">
                     <ul class="musicCategoriesList">
-                        <li ng-repeat="musicCategory in musicCategories" ng-click="getTwoLevelFn(musicCategory.id,$index)"><span class="firstLevName">{{musicCategory.name}}</span></li>
+                        <li ng-repeat="musicCategory in musicCategories" ng-click="getMusicByCategory(musicCategory.id,$index)"><span class="firstLevName">{{musicCategory.name}}</span></li>
                         <!-- <li class="active"><span class="firstLevName">产品</span><i class="icon ion-chevron-right"></i></li>
                         <li><span class="firstLevName">类型</span><i class="icon ion-chevron-right"></i></li>
                         <li><span class="firstLevName">我的</span><i class="icon ion-chevron-right"></i></li> -->

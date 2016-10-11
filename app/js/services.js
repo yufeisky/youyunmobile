@@ -595,6 +595,25 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
+            // 根据分类id获取音乐列表
+            getMusicByCategory: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/music/getMusicByCategory';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    params: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    }).error(
+                    function(data, status, header, config) {
+                        console.log(data);
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
         };
     }])
     .service('ConfigService', [function() {
