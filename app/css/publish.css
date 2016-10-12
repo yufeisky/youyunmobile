@@ -55,8 +55,7 @@ body {
 textarea.bf-com-meta {
   display: none;
 }
-output,
-section {
+output/*,section*/ {
   display: block;
   width: 100%;
   height: 100%;

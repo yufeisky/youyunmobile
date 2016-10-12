@@ -17,17 +17,28 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
     //更新数据之后重置页面
     $scope.resetPage = function() {
-            $scope.activePageNum = 1;
             $timeout(function() {
                 $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
                 var storyCurrentIndex = JSON.parse(localStorageService.get('storyCurrentIndex'));
                 var isPageCover = JSON.parse(localStorageService.get('isPageCover'));
                 if (storyCurrentIndex != null && isPageCover == false) {
-                    $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex + 1, 500);
+                    // $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex + 1, 500);
+                    $scope.myActiveSlide = storyCurrentIndex + 1;
                     $scope.activePageNum = storyCurrentIndex + 2;
                 } else if (storyCurrentIndex != null && isPageCover == true) {
-                    $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex, 500);
+                    // $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex, 500);
+                    $scope.myActiveSlide = storyCurrentIndex;
                     $scope.activePageNum = storyCurrentIndex + 1;
+                } else {
+                    console.log('----------初始页码-------');
+                    console.log($scope.cancelActiveSlide);
+                    if ($scope.cancelActiveSlide) {
+                        $scope.activePageNum = $scope.cancelActiveSlide;
+                        $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide($scope.cancelActiveSlide - 1, 500);
+                    } else {
+                        $scope.activePageNum = 1;
+
+                    }
                 }
                 var win_w = angular.element(window)[0].innerWidth;
                 Con.log(win_w);
@@ -48,7 +59,19 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                     left: storyBoxLeft,
                     top: storyBoxTop
                 });
-                //不把contenteditable属性设置成false,点文字会弹出键盘
+                // 暂停css动画
+                // jQuery('.bf-com,.bf-com-impl').css({
+                //     'animationPlayState': 'paused',
+                //     'animation-fill-mode': 'inherit'
+                // })
+
+                // $timeout(function() {
+                //         jQuery('.bf-com,.bf-com-impl').css({
+                //             'animationPlayState': 'running',
+                //             'animation-fill-mode': 'forwards'
+                //         })
+                //     }, 1000)
+                    //不把contenteditable属性设置成false,点文字会弹出键盘
                 jQuery('.bf-com-impl.txt').attr('contenteditable', false);
                 // 初始化艺术字
                 $scope.setWordart();
@@ -73,14 +96,14 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                     if (jQuery('.editSlide').eq(0).find('.musicCloneCode').length > 0) {
                         // console.log('已经有音乐')
                         jQuery('.editSlide').eq(0).find('.musicCloneCode').find('.bg_audio').attr('src', $scope.newMusicData.storyMusicUrl);
-                        jQuery('.editSlide').eq(sildeLength-1).find('.music-c-icon').find('.bg_audio').attr('src', $scope.newMusicData.storyMusicUrl);
+                        jQuery('.editSlide').eq(sildeLength - 1).find('.music-c-icon').find('.bg_audio').attr('src', $scope.newMusicData.storyMusicUrl);
                     } else {
                         // <section _id="ilsnezja" class="bf-com bf-basic" _libid="bf-basic" _comid="music" _version="1.0" style="left: 64px; top: 168.667px; z-index: 103; width: 30px; height: 37px; display: none;"><div class="music-c-icon bf-com-impl music" style=""><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Ivan Torrent,..."><audio preload="preload" class="bg_audio" loop="loop" src="http://cdn.upalapp.com/upload/music/2016/03/1459146136091_f157c596-baad-407c-9aaa-f565c77423b9.mp3"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div><div class="bf-com-cover"></div><textarea class="bf-com-meta"></textarea></section>
                         // 参见：跟PC对接的问题
                         console.log('------slide length----------');
-                        var sildeLength=jQuery('.editSlide').length;
+                        var sildeLength = jQuery('.editSlide').length;
                         console.log(sildeLength)
-                        jQuery('.editSlide').eq(sildeLength-1).find('output').append('<section _id="ilsnezja" class="bf-com bf-basic" _libid="bf-basic" _comid="music" _version="1.0" style="left: 64px; top: 168.667px; z-index: 103; width: 30px; height: 37px; display: none;"><div class="music-c-icon bf-com-impl music" style=""><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Ivan Torrent,..."><audio preload="preload" class="bg_audio" loop="loop" src="' + $scope.newMusicData.storyMusicUrl + '"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div><div class="bf-com-cover"></div><textarea class="bf-com-meta"></textarea></section>');
+                        jQuery('.editSlide').eq(sildeLength - 1).find('output').append('<section _id="ilsnezja" class="bf-com bf-basic" _libid="bf-basic" _comid="music" _version="1.0" style="left: 64px; top: 168.667px; z-index: 103; width: 30px; height: 37px; display: none;"><div class="music-c-icon bf-com-impl music" style=""><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Ivan Torrent,..."><audio preload="preload" class="bg_audio" loop="loop" src="' + $scope.newMusicData.storyMusicUrl + '"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div><div class="bf-com-cover"></div><textarea class="bf-com-meta"></textarea></section>');
 
                         jQuery('.editSlide').eq(0).find('output').append('<div class="music-c-icon bf-com-impl music musicCloneCode" style="position: absolute; z-index: 999; left: 280px; top: 10px;"><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Eluvium - In ..."><audio preload="none" class="bg_audio" loop="loop" src="' + $scope.newMusicData.storyMusicUrl + '"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div>');
                     }
@@ -248,21 +271,26 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         //用来保存每一步操作的数据，以便撤销操作
     $scope.cancelData = [];
+    $scope.cancelPageNumberArr = [];
 
     // 虚拟保存
     $scope.virtualSave = function() {
             $scope.eachData();
             $scope.cancelData.push($scope.pageData);
+            var activeNumber = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex() + 1;
+            $scope.cancelPageNumberArr.push(activeNumber);
             console.log($scope.cancelData);
         }
         // 撤销操作
     $scope.cancelOperation = function() {
         var previousStepData = $scope.cancelData.pop();
+        $scope.cancelActiveSlide = $scope.cancelPageNumberArr.pop();
         console.log(previousStepData);
         // 假如存在上一步操作就返回上一步操作
         if (previousStepData) {
             $scope.pages = previousStepData;
             $scope.resetPage();
+            // $scope.myActiveSlide = $scope.cancelPageNumberArr.pop();
         }
 
     }
