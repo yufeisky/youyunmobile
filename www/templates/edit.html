@@ -14,7 +14,7 @@
         故事
     </ion-nav-title>
     <ion-content scroll="false" lazy-scroll class="storySlideBox ">
-        <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox" style="opacity:{{opacity}}">
+        <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="sectionBox" on-slide-changed="slideHasChanged($index)" style="opacity:{{opacity}}">
             <ion-slide ng-repeat="page in pages" class="editSlide">
                 <div class="storyPage" ng-bind-html="page.content|trustHtml" page_id="{{page.id}}">
                     <!-- {{page.content}} -->
@@ -41,24 +41,25 @@
             </div>
         </div>
         <div class="virtualSaveBtn" style="position:absolute;z-index:1; left:-2000px;" ng-click="virtualSave()">保存</div>
+        <span class="activePageNum">{{activePageNum}}/{{pageLength}}</span>
     </ion-content>
     <div class="footer">
         <ul class="appEdit" ng-class="{'appEditHide': visible}">
-            <li><i class="icon icon-pageedit-yinyue"></i><span>更换背景音乐</span></li>
+            <li ng-click="changeBackgroundMusic()"><i class="icon icon-pageedit-yinyue"></i><span>更换背景音乐</span></li>
             <li ng-click="openBackEditModal()"><i class="icon icon-pageedit-beijing"></i><span>更换背景图片</span></li>
             <li ng-click="openModalAndInsertPicture()"><i class="icon icon-pageedit-tupan"></i>插入图片</li>
             <li ng-click="openTextEditModalAndInsterText()"><i class="icon icon-pageedit-wenzi"></i>插入文字</li>
-            <li><i class="icon icon-pageedit-tuichu"></i>退出编辑</li>
+            <!-- <li><i class="icon icon-pageedit-tuichu"></i>退出编辑</li> -->
         </ul>
         <ion-tabs class="tabs-icon-top myEditTab">
             <ion-tab title="保存" icon="icon-pageedit-baochun" nav-transition="ios" ng-click="storySave()">
             </ion-tab>
             <!-- ng-click="cancelOperation()" -->
-            <ion-tab title="撤销" icon="icon-pageedit-chexiao" nav-transition="ios">
+            <ion-tab title="撤销" icon="icon-pageedit-chexiao" nav-transition="ios" ng-click="cancelOperation()">
             </ion-tab>
-            <ion-tab title="模板" icon="icon-pageedit-yemian" nav-transition="ios">
+            <ion-tab title="模板" icon="icon-pageedit-yemian" nav-transition="ios" ng-click="addPageByTemplate(true)">
             </ion-tab>
-            <ion-tab title="页面"  icon="icon-pageedit-guanli" nav-transition="ios" ng-click="pageEdit()">
+            <ion-tab title="页面" icon="icon-pageedit-guanli" nav-transition="ios" ng-click="pageEdit()">
             </ion-tab>
             <ion-tab title="更多" class="appEditIcon" icon="icon-pageedit-gengduo" nav-transition="ios" ng-click="toggle()">
             </ion-tab>
@@ -190,9 +191,9 @@
             <!-- ng-click="cancelOperation()" -->
             <ion-tab title="复制页面" icon="icon-pageedit-ziti" nav-transition="ios" ng-click="copyActivePage()">
             </ion-tab>
-            <ion-tab title="页面排序"  icon="icon-pageedit-zihao" nav-transition="ios" ng-click="goToSortPage()"> 
+            <ion-tab title="页面排序" icon="icon-pageedit-zihao" nav-transition="ios" ng-click="goToSortPage()">
             </ion-tab>
-            <ion-tab title="删除" icon="icon-pageedit-zise" nav-transition="ios" ng-click="delActivePage()">
+            <ion-tab title="删除页面" icon="icon-pageedit-zise" nav-transition="ios" ng-click="delActivePage()">
             </ion-tab>
         </ion-tabs>
     </div>

@@ -71,7 +71,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 //             'animation-fill-mode': 'forwards'
                 //         })
                 //     }, 1000)
-                    //不把contenteditable属性设置成false,点文字会弹出键盘
+                //不把contenteditable属性设置成false,点文字会弹出键盘
                 jQuery('.bf-com-impl.txt').attr('contenteditable', false);
                 // 初始化艺术字
                 $scope.setWordart();
@@ -648,7 +648,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 当字体设置select值改变的时候，更新字体大小
     jQuery('.fontFamilySel').on('change', function() {
-
+        // $scope.virtualSave();
         $timeout(function() {
             jQuery('.mobileEvent').css({
                 'fontFamily': $scope.fontFamilySelVal,
@@ -704,6 +704,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 当select值改变的时候，更新字体大小
     jQuery('.fontSizeSel').on('change', function() {
+        // $scope.virtualSave();
         $timeout(function() {
             jQuery('.mobileEvent').css({
                 'fontSize': $scope.fontSizeSelVal,
@@ -736,6 +737,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 改变颜色的方法
     $scope.changeTextColor = function(color) {
+            // $scope.virtualSave();
             $scope.textActiveColor = color;
             jQuery('.mobileEvent').css({
                 'color': color
@@ -745,6 +747,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
          *设置对齐方式
          **/
     $scope.textAlignEditShow = false;
+    // 显示对齐编辑栏
     $scope.textAlignEditShowFn = function() {
         SectionEvent.stop();
         $scope.textAlignEditShow = true;
@@ -772,11 +775,13 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 确认修改
     $scope.textAlignSureFn = function() {
+            // $scope.virtualSave();
             SectionEvent.start();
             $scope.textAlignEditShow = false;
         }
         //  设置对齐方式的方法
     $scope.setTextAlignFn = function(type) {
+        // $scope.virtualSave();
         jQuery('.mobileEvent').css({
             'textAlign': type,
         });
@@ -807,6 +812,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         // 删除当前页面
     $scope.delActivePage = function() {
             console.log('--------currentIndex-------');
+            $scope.virtualSave();
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
             // console.log($scope.ionCurrentIndex)
             $('.editBox').appendTo($('.storySlideBox')).hide();
@@ -823,6 +829,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         }
         // 复制当前页面
     $scope.copyActivePage = function() {
+            $scope.virtualSave();
             console.log('复制页面')
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
             console.log($scope.ionCurrentIndex)
@@ -848,6 +855,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
     // 根据模板添加页面
     $scope.addPageByTemplate = function(isCover) {
+        $scope.virtualSave();
         if (isCover) {
             localStorageService.set('isPageCover', true);
         } else {

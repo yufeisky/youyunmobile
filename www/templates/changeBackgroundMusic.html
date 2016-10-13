@@ -1,0 +1,41 @@
+<ion-view view-title="背景音乐" class="changeBackgroundMusicPage">
+    <div>
+        <ion-nav-bar>
+            <!-- 自定义的后退按钮 -->
+            <ion-nav-buttons side="left">
+                <button class="button-clear " ng-click="goBackView()">
+                    <i class="ion-chevron-left"></i> 后退
+                </button>
+            </ion-nav-buttons>
+            <ion-nav-title>
+                背景音乐
+            </ion-nav-title>
+        </ion-nav-bar>
+        <div class="bar bar-subheader">
+            <div class="lbsTit title" ng-click="toggle()">
+                <span class="lbsTitSpan">{{activeMusicCategory}}</span><img class="dropPic dropDown" ng-show="dropshow" src="img/dropDown.png" alt=""><img ng-show="!dropshow" class="dropPic dropUp" src="img/dropUp.png" alt="">
+            </div>
+        </div>
+        <ion-content class="musicListContent" lazy-scroll>
+            <div class="dropDownContent row" ng-class="{'dropDownListHide': visible}">
+                <ion-scroll zooming="true" direction="y" class="col  musicCategoriesBox">
+                    <ul class="musicCategoriesList">
+                        <li ng-repeat="musicCategory in musicCategories" ng-click="getMusicByCategory(musicCategory.id,$index)"><span class="firstLevName">{{musicCategory.name}}</span></li>
+                        <!-- <li class="active"><span class="firstLevName">产品</span><i class="icon ion-chevron-right"></i></li>
+                        <li><span class="firstLevName">类型</span><i class="icon ion-chevron-right"></i></li>
+                        <li><span class="firstLevName">我的</span><i class="icon ion-chevron-right"></i></li> -->
+                    </ul>
+                </ion-scroll>
+            </div>
+            <div class="noMusicBtn" ng-click="setStoryMusic(0,-1)">无</div>
+            <ul class="list">
+                <li class="item musicItem" ng-repeat="musicItem in musicList" ng-click="setStoryMusic(musicItem.music_url,$index)">
+                    <span class="musicName">{{musicItem.name}}</span>
+                    <!-- <div class="loadingIcon"><img src="img/loading.gif" alt=""></div> -->
+                </li>
+            </ul>
+            <div class="hoverPage" ng-click="toggle()" ng-class="{'showHoverPage': visible}"></div>
+            <div class="noDataTip" ng-class="{'showNoDataTip': showNoDataTip}">你已下线</div>
+        </ion-content>
+    </div>
+</ion-view>
