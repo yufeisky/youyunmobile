@@ -7,6 +7,14 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
         zoom: 10,
         center: [116.39, 23.9],
     });
+
+     AMap.event.addListener(map,'zoomend',function(){
+        // alert('-改变缩放级别--')
+        console.log('-改变缩放级别--')
+        // alert(map.getCenter().lng)
+        // alert(map.getCenter().lat)
+        $scope.ininMap(map.getCenter().lng, map.getCenter().lat, true);
+    });
     //获取坐标
     $scope.getLocation = function() {
             if (navigator.geolocation) {
@@ -38,7 +46,8 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
         }
         //用户不同或出错的时候执行该函数
     $scope.showError = function(error) {
-            $scope.ininMap(113.366693, 23.096714, true);
+            // $scope.ininMap(113.366693, 23.096714, true);
+            $scope.ininMap(113.898278, 23.081495, true);
         }
         /*
           longitude:经度
@@ -60,8 +69,9 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             //加载CloudDataSearch服务插件
             search = new AMap.CloudDataSearch('57b67df9afdf522d4e2ab76d', searchOptions); //构造云数据检索类
             //周边检索
-            search.searchNearBy(center, 100000000000, function(status, result) {
+            search.searchNearBy(center, 100000, function(status, result) {
                 // alert(status)
+                console.log('--------高德检索的数据------------')
                 console.log(result)
                 if (status == "complete" && result.info == "OK") {
                     console.log(result);
@@ -97,14 +107,17 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             infoWindow.open(map, e.target.getPosition());
         }
         map.setCenter([longitude, latitude]);
-        map.setZoom(18);
+        // map.setZoom(18);
     }
 
     var isPC = Tool.isPC();
     // var isPC=true;
     // 为了方便电脑伤调试
     if (isPC) {
-        $scope.ininMap(113.366693, 23.096714, true);
+        // 广州
+        // $scope.ininMap(113.366693, 23.096714, true);
+        // 东莞
+        $scope.ininMap(113.898278, 23.081495, true);
     }
 
 
@@ -194,8 +207,8 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
                     console.log('------------------story group-----------------');
                     console.log(obj[i])
                     // 要是规范了类别之后，而且要用不同的图标来表示的时候，要用下面注释了的这行
-                    // var iconArr = $filter('filter')($scope.dropDownArr, { name: obj[i].category })[0];
-                    var iconArr = $filter('filter')($scope.dropDownArr, { name: '全部' })[0];
+                    var iconArr = $filter('filter')($scope.dropDownArr, { name: obj[i].category })[0];
+                    // var iconArr = $filter('filter')($scope.dropDownArr, { name: '全部' })[0];
                     console.log(iconArr);
                     if (iconArr) {
                         var IconUrl = iconArr.lbsIconUrl;
@@ -212,7 +225,6 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
                         $scope.markers.push(marker);
                     }
                 }
-
             }
         }
         map.setFitView(); //加这句所有点会聚焦
@@ -284,6 +296,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             "collection_count": storyInfo.collectioncount,
             "pub_url": storyInfo.h5url,
             // "story_type": "3"
+            "category":storyInfo.category
         };
         storyInterface = JSON.stringify(storyInterface);
         // tab.homeDetail({ storyObject: '{{story}}'})
@@ -312,7 +325,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
 
     // 切换按钮
     $scope.activeTit = '全部';
-    $scope.dropDownArr = [{ name: '全部', icon: '', active: true, lbsIconUrl: 'img/point@2x.png' }, { name: '智能展示', icon: 'icon-upalapp-huodong-off', active: false, lbsIconUrl: 'img/point@2x.png' }, { name: '八卦贴士', icon: 'icon-upalapp-shijian-off', active: false, lbsIconUrl: 'img/point@2x.png' }, { name: '文艺青年', icon: 'icon-upalapp-zhekou-off', active: false, lbsIconUrl: 'img/point@2x.png' }, { name: '说走就走', icon: 'icon-upalapp-wenqing-off', active: false, lbsIconUrl: 'img/point@2x.png' }, { name: '都市传说', icon: 'icon-upalapp-zhuoyou-off', active: false, lbsIconUrl: 'img/point@2x.png' }, { name: '爱蒲天光', icon: 'icon-upalapp-zhuoyou-off', active: false, lbsIconUrl: 'img/point@2x' }, { name: '宠物世界', icon: 'icon-upalapp-zhuoyou-off', active: false, lbsIconUrl: 'img/point@2x' }, { name: '日常便民', icon: 'icon-upalapp-zhuoyou-off', active: false, lbsIconUrl: 'img/point@2x' }];
+    $scope.dropDownArr = [{ name: '全部', icon: '', active: true, lbsIconUrl: 'img/point@2x.png' }, { name: '智能展示', icon: 'icon-upalapp-huodong-off', active: false, lbsIconUrl: 'img/screen@2x.png' }, { name: '八卦贴士', icon: 'icon-upalapp-shijian-off', active: false, lbsIconUrl: 'img/point@2x.png' }, { name: '文艺青年', icon: 'icon-upalapp-zhekou-off', active: false, lbsIconUrl: 'img/point@2x.png' }, { name: '说走就走', icon: 'icon-upalapp-wenqing-off', active: false, lbsIconUrl: 'img/point@2x.png' }, { name: '都市传说', icon: 'icon-upalapp-zhuoyou-off', active: false, lbsIconUrl: 'img/point@2x.png' }, { name: '爱蒲天光', icon: 'icon-upalapp-zhuoyou-off', active: false, lbsIconUrl: 'img/point@2x' }, { name: '宠物世界', icon: 'icon-upalapp-zhuoyou-off', active: false, lbsIconUrl: 'img/point@2x' }, { name: '日常便民', icon: 'icon-upalapp-zhuoyou-off', active: false, lbsIconUrl: 'img/point@2x' }];
     $scope.visible = false;
     $scope.toggle = function(json) {
         console.log(json);

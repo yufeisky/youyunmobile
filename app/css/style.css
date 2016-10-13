@@ -2622,3 +2622,25 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
     animation-fill-mode: forwards;
     -webkit-animation-fill-mode: forwards;
 }
+.display_items{
+    text-align: center;
+}
+.displayHeadItem{
+    background: #6ba8c5;
+    color: #fff;
+}
+.displayevenItem{
+    background: #f2f2f2;
+    color: #515151;
+}
+.displayOldItem{
+    background: #ffffff;
+    color: #515151;
+}
+.displayDataContent{
+    background: url(../img/displayDataContentBackgroundImg.png);
+    background-size: cover;
+}
+.displayDataContent .row+.row{
+    /*margin-top:0;*/
+}

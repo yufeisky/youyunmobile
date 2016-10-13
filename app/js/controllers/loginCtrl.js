@@ -87,7 +87,38 @@ appController.controller('loginCtrl', ['$scope', '$rootScope', '$ionicPopup', '$
             Con.log(test);
         });
     };
+    //快速体验
+    $scope.test3Login = function() {
+         // Setup the loader
+        $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
+        IonicService.newTestUser().then(function(data) {
+            Con.log(data.status);
+            $ionicLoading.hide();
+            switch (data.status) {
+                case '0':
+                    MsgBox.showTexts('账号或密码错误');
+                    break;
+                case '1':
+                    User = data.userInfo;
+                    localStorageService.set('User', JSON.stringify(User));
+                    $rootScope.closeLoginModal();
+                    // var currentId = $ionicHistory.viewHistory().currentView.stateId;
+                    console.log($rootScope.changeState);
+                    $rootScope.changePage($rootScope.changeState, true);
 
+                    // $state.go(currentId,{reload:true});
+            }
+            // Con.log(data)
+            var test = localStorageService.get('User');
+            Con.log(test);
+        });
+    };
 
     $scope.loginTitile = '手机号登录';
     $scope.login = function(user) {

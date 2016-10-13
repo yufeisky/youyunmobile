@@ -1,5 +1,5 @@
 // 首页详情
-appController.controller('homeDetailCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicPopover', '$ionicPopup', 'localStorageService', 'ShareService', 'IonicService', 'MsgBox', 'WechatApi', 'Con', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicPopover, $ionicPopup, localStorageService, ShareService, IonicService, MsgBox, WechatApi, Con) {
+appController.controller('homeDetailCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicPopover', '$ionicPopup','$state', 'localStorageService', 'ShareService', 'IonicService', 'MsgBox', 'WechatApi', 'Con', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicPopover, $ionicPopup,$state, localStorageService, ShareService, IonicService, MsgBox, WechatApi, Con) {
     // $rootScope.menuShow = true;
     // $rootScope.backShow = true;
     // Con.log($stateParams);
@@ -113,10 +113,22 @@ appController.controller('homeDetailCtrl', ['$scope', '$rootScope', '$sce', '$st
     }).then(function(popover) {
         $scope.popover = popover;
     });
-
+    $scope.toDisplayDataFn = function(){
+        // alert('跳转到统计数据页面')
+        $scope.closePopover();
+        // 跳转到统计数据页面
+        $state.go('tab.displayData');
+    }
 
     $scope.openPopover = function($event) {
+        console.log('---------category-----------');
+        console.log($scope.urlParams.category);
+        if($scope.urlParams.category&&$scope.urlParams.category=="智能展示"){
+          console.log($scope.urlParams.category);
+          $scope.isIntelligenceDisplay = true;
+        }
         $scope.popover.show($event);
+
     };
     $scope.closePopover = function() {
         $scope.popover.hide();

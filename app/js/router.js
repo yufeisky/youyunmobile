@@ -49,6 +49,16 @@ angular.module('IonicClub.router', [])
                 },
                 cache:false,
             })
+            .state('tab.displayData', {
+                // url: '/homeDetail:pubUrl:imgSrc:storyId:storyTitle:secondTitle:shareCount:browseCount:collectCount',
+                url: '/displayData',
+                views: {
+                    'home': {
+                        templateUrl: 'templates/displayData.html',
+                        controller: 'displayDataCtrl'
+                    }
+                }
+            })
             .state('tab.lbs', {
                 url: '/lbs',
                 views: {
@@ -69,6 +79,7 @@ angular.module('IonicClub.router', [])
                     }
                 }
             })
+            
             .state('tab.design', {
                 url: '/design',
                 views: {
@@ -190,6 +201,16 @@ angular.module('IonicClub.router', [])
 
                     }
                 },
+            })
+            .state('tab.uplevel', {
+                url: '/uplevel',
+                views: {
+                    'user': {
+                        templateUrl: 'templates/upLevel.html',
+                        controller: 'userCtrl',
+
+                    }
+                }
             })
             .state('tab.user', {
                 url: '/user',
