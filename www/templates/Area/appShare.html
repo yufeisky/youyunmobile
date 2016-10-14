@@ -17,6 +17,8 @@
         </button>
     </div>
      <button class="button button-block button-light" ng-click="showPopup()">分享</button>
-      <button class="button button-block button-light" ng-click="collectFn()">收藏</button>
+      <button class="button button-block button-light" ng-click="collectFn()" ng-hide="isIntelligenceDisplay">收藏</button>
+      <button class="button button-block button-light" ng-show="isIntelligenceDisplay" ng-click="toDisplayDataFn()">查看数据</button>
+
       <div class="bottomColor"> </div>
 </div>

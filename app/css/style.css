@@ -2622,25 +2622,63 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
     animation-fill-mode: forwards;
     -webkit-animation-fill-mode: forwards;
 }
-.display_items{
+
+.display_items {
     text-align: center;
 }
-.displayHeadItem{
-    background: #6ba8c5;
+
+.displayHeadItem {
+    background: #d43c39;
     color: #fff;
 }
-.displayevenItem{
+
+.displayevenItem {
     background: #f2f2f2;
     color: #515151;
 }
-.displayOldItem{
+
+.displayOldItem {
     background: #ffffff;
     color: #515151;
 }
-.displayDataContent{
-    background: url(../img/displayDataContentBackgroundImg.png);
-    background-size: cover;
+
+.displayDataContent {
+    /* background: url(../img/displayDataContentBackgroundImg.png);
+    background-size: cover;*/
 }
-.displayDataContent .row+.row{
+
+.displayDataContent .row+.row {
     /*margin-top:0;*/
+}
+
+#myChart {
+    position: absolute;
+    left: 10%;
+    bottom: 30px;
+}
+
+.displayDataContent .scroll {
+    width: 100%;
+    height: 100%;
+}
+
+.charArea {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.numberTip {
+    position: absolute;
+    z-index: -1;
+}
+
+.timeTip {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: -1;
 }

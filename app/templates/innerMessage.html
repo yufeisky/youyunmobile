@@ -8,10 +8,11 @@
     <ion-content scroll="true" lazy-scroll >
         <ion-refresher pulling-text="下拉刷新"  on-refresh="doRefresh(myActiveSlide)"></ion-refresher>
         <div class="list message-list">
-            <div class="message-box"  ng-class="{true: 'active'}[isM]"  ng-repeat="message in messages">
+            <div class="message-box"   on-tap="messageOp($index)" ng-class="{true: 'active'}[message.isM]"  ng-repeat="message in messages">
                 <div class="message-content-box">
                     <h2>{{message.title}}</h2>
-                    <p>{{message.content}}</p>
+                   <!-- <p>{{message.content}}</p>-->
+                    <p ng-bind-html ="message.content"> </p>
                 </div>
             </div>
         </div>

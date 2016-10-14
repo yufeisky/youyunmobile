@@ -8,12 +8,29 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
         center: [116.39, 23.9],
     });
 
-     AMap.event.addListener(map,'zoomend',function(){
+    AMap.event.addListener(map, 'zoomend', function() {
         // alert('-改变缩放级别--')
         console.log('-改变缩放级别--')
-        // alert(map.getCenter().lng)
-        // alert(map.getCenter().lat)
-        $scope.ininMap(map.getCenter().lng, map.getCenter().lat, true);
+            // alert(map.getCenter().lng)
+            // alert(map.getCenter().lat)
+        // var lbsTitSpan = jQuery('.lbsTitSpan').text();
+        // if ($scope.isReset) {
+        //     $scope.ininMap(map.getCenter().lng, map.getCenter().lat, true);
+        // }
+        // var lbsTitSpan = jQuery('.lbsTitSpan').text();
+        // $timeout(function() {
+        //     map.remove($scope.markers);
+        //     // alert(lbsTitSpan)
+        //     if (lbsTitSpan == "全部"||lbsTitSpan == "发现") {
+        //         console.log($scope.datas)
+        //         $scope.filterDatas = $filter('filter')($scope.datas, {});
+        //         console.log($scope.filterDatas)
+        //     } else {
+        //         $scope.filterDatas = $filter('filter')($scope.datas, { category: lbsTitSpan });
+        //     }
+        //     $scope.createMap($scope.filterDatas);
+        // },200)
+
     });
     //获取坐标
     $scope.getLocation = function() {
@@ -46,7 +63,9 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
         }
         //用户不同或出错的时候执行该函数
     $scope.showError = function(error) {
+            // 广州
             // $scope.ininMap(113.366693, 23.096714, true);
+            // 东莞
             $scope.ininMap(113.898278, 23.081495, true);
         }
         /*
@@ -69,7 +88,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             //加载CloudDataSearch服务插件
             search = new AMap.CloudDataSearch('57b67df9afdf522d4e2ab76d', searchOptions); //构造云数据检索类
             //周边检索
-            search.searchNearBy(center, 100000, function(status, result) {
+            search.searchNearBy(center, 100000000, function(status, result) {
                 // alert(status)
                 console.log('--------高德检索的数据------------')
                 console.log(result)
@@ -108,7 +127,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
         }
         // 下行是把标注点聚焦，加上的话会聚焦，拖动改变数据的时候体验就不是很好
         // map.setFitView();
-        // map.setCenter([longitude, latitude]);
+        map.setCenter([longitude, latitude]);
         // map.setZoom(18);
     }
 
@@ -208,7 +227,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
                 } else if (obj[i].type == 'story' && obj[i].groupID == '0') {
                     console.log('------------------story group-----------------');
                     console.log(obj[i])
-                    // 要是规范了类别之后，而且要用不同的图标来表示的时候，要用下面注释了的这行
+                        // 要是规范了类别之后，而且要用不同的图标来表示的时候，要用下面注释了的这行
                     var iconArr = $filter('filter')($scope.dropDownArr, { name: obj[i].category })[0];
                     // var iconArr = $filter('filter')($scope.dropDownArr, { name: '全部' })[0];
                     console.log(iconArr);
@@ -298,7 +317,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             "collection_count": storyInfo.collectioncount,
             "pub_url": storyInfo.h5url,
             // "story_type": "3"
-            "category":storyInfo.category
+            "category": storyInfo.category
         };
         storyInterface = JSON.stringify(storyInterface);
         // tab.homeDetail({ storyObject: '{{story}}'})
@@ -308,6 +327,7 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
 
     // 过滤并重新渲染标记的方法：传入一个json对象{category:'线下活动'}
     $scope.myFilter = function(json, type) {
+        // $scope.isReset = false;
         $scope.toggle(json);
         // 清除之前的标记
         map.remove($scope.markers);

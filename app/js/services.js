@@ -731,10 +731,10 @@ angular.module('IonicClub.services', [])
     // 微信授权
     .service('WechatApi', ['$rootScope', '$http', function($rootScope, $http) {
         $rootScope.upal_share = {
-            title: '随身看的轻故事H5', // 分享标题
-            desc: ' 想浏览更多精彩故事？客官请点这里。', // 分享描述
-            share_link: 'http://www.upalapp.com/app/2016070401/index.html', // 分享链接
-            imgUrl: 'http://www.upalapp.com/app/2016070401/img/p01.png', // 分享图标
+            title: '轻故事', // 分享标题
+            desc: '您身边的营销助手', // 分享描述
+            share_link: 'http://www.upalapp.com/app/2016101401/index.html#/tab/home', // 分享链接
+            imgUrl: 'http://www.upalapp.com/app/2016101401/img/p01.png', // 分享图标
             currentUrl: location.href //当前页面的网址，签名的时候要用
         };
         var service = {

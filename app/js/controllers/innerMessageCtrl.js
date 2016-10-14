@@ -1,8 +1,11 @@
 /**
  * 控制器入口：内部信息控制器
  */
-appController.controller('innerMessageCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$ionicLoading', '$ionicPopup', '$ionicHistory', '$ionicModal', '$timeout', 'localStorageService', 'IonicService', 'TabService', 'Con','LoginConfirm',
-    function($scope, $rootScope, $stateParams, $state, $ionicLoading, $ionicPopup, $ionicHistory, $ionicModal, $timeout, localStorageService, IonicService, TabService, Con,LoginConfirm) {
+appController.controller('innerMessageCtrl', ['$scope', '$rootScope',
+    '$stateParams', '$state', '$ionicLoading', '$ionicPopup', '$ionicHistory',
+    '$ionicModal', '$timeout', 'localStorageService', 'IonicService', 'TabService', 'Con','LoginConfirm','$sce',
+    function($scope, $rootScope, $stateParams, $state, $ionicLoading, $ionicPopup, $ionicHistory,
+             $ionicModal, $timeout, localStorageService, IonicService, TabService, Con,LoginConfirm,$sce) {
         var User =LoginConfirm.login();
         var postParams = {
             userToken: User.token,
@@ -10,6 +13,14 @@ appController.controller('innerMessageCtrl', ['$scope', '$rootScope', '$statePar
         };
         $scope.more = true;
         console.log( postParams);
+        $scope.messageOp=function(index){
+            for(var i=0;i<$scope.messages.length;i++){
+                $scope.messages[i].isM=false;
+            }
+            $scope.messages[index].isM=true;
+           // console.log($scope.messages[index].isM);
+
+        }
         $scope.loadMore = function(myActiveSlide, del) {
             $scope.more = true;
             try {
@@ -29,7 +40,7 @@ appController.controller('innerMessageCtrl', ['$scope', '$rootScope', '$statePar
                             $scope.messages=data.data;
                         } else {
                             angular.forEach(data.data, function(item) {
-                                $scope.messages.push(item);
+                                $scope.messages.push($sce.trustAsHtml(item));
                             });
                         }
                         $scope.$broadcast('scroll.infiniteScrollComplete');

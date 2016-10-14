@@ -50,13 +50,14 @@
             <ion-slide  >
                 <ul class="list-two" ng-show="isActiveTab(2)">
                    <li ng-repeat="collectStory in collectStorys">
-                      <div class="thumb">
-                          <img  lazy-src="{{collectStory.logo}}">
-                          <div class="choose-box" ng-show="isEdit">
-                              <i class="icon-xuanzhe_n" ng-show="isSelect($index)" ng-click="onSelect($index)"></i>
-                              <i class="icon-xuanzhe_h"  ng-show="!isSelect($index)"  ng-click="unSelect($index)"><i class="path1"></i><i class="path2"></i></i>
-                          </div>
-                      </div>
+                       <!--*ui-sref="tab.homeDetail({ storyId: '{{collectStory.id}}'})"-->
+                       <a class="thumb">
+                              <img  lazy-src="{{collectStory.logo}}">
+                              <div class="choose-box" ng-show="isEdit">
+                                  <i class="icon-xuanzhe_n" ng-show="isSelect($index)" ng-click="onSelect($index)"></i>
+                                  <i class="icon-xuanzhe_h"  ng-show="!isSelect($index)"  ng-click="unSelect($index)"><i class="path1"></i><i class="path2"></i></i>
+                              </div>
+                      </a>
                        <h2>{{collectStory.title}}</h2>
                        <p>{{collectStory.description}}</p>
                     <!--   <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '{{collectStory.id}}'})" ng-repeat="collectStory in collectStorys">
@@ -64,6 +65,7 @@
                             <h2>{{collectStory.title}}</h2>
                             <p>{{collectStory.description}}</p>
                         </a>-->
+
                    </li>
                 </ul>
                 <h2></h2>

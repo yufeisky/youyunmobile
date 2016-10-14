@@ -274,18 +274,45 @@ input.search-input::-webkit-input-placeholder  {
     height:auto;
 }
 
-.message-box.active. .message-content-box{
+.message-box.active .message-content-box{
     height:auto;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 }
 
 .user-page  li a{
    text-decoration: none;
 }
 
+.user-page .user-third-nav-box .user-third-nav{
+    width: 100%;
+    margin-left:0;
+    margin-right:0;
+    text-align: center;
+}
+
+.user-page .user-third-nav-box .user-third-nav li{
+    width: 100%;
+    padding-left:0;
+    padding-right: 0;
+    margin-left:0;
+    margin-right:0;
+    text-align: center;
+}
+
 .user-page .user-third-nav-box .user-third-nav li a{
     text-decoration: none;
-    color: #ff3c38;
+    /* color: #ff3c38;*/
+    color:#333333;
+
+}
+
+.user-page .user-third-nav-box .user-third-nav li a{
+    text-decoration: none;
+   /* color: #ff3c38;*/
+    color:#333333;
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 
 .uplevel-page{
@@ -419,3 +446,4 @@ input.search-input::-webkit-input-placeholder  {
 .uplevel-page .card.vip4 p.call{
     background-color: #1377cd;
 }
+

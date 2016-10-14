@@ -24,14 +24,14 @@
                     <ion-nav-buttons side="left">
                         <!-- <button ng-click="$ionicGoBack()" class="button back-button buttons button-clear header-item"ng-show="backShow"><i class="icon ion-ios-arrow-thin-left"></i>
                             <span class="back-text" style="transform: translate3d(0px, 0px, 0px);" ></span></button>  -->
-                        <button class="button button-icon button-clear ion-navicon-round" menu-toggle="left">
+                        <button ng-show="false" class="button button-icon button-clear ion-navicon-round" menu-toggle="left">
                         </button>
                     </ion-nav-buttons>
                 </ion-nav-bar>
                 <ion-nav-view animation="slide-left-right">
                 </ion-nav-view>
             </ion-side-menu-content>
-            <ion-side-menu side="left">
+            <ion-side-menu side="left" ng-show="false">
                 <ion-header-bar class="bar-stable">
                     <h1 class="title">栏目</h1>
                 </ion-header-bar>

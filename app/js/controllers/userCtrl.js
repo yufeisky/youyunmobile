@@ -29,6 +29,9 @@ var appController = angular.module('IonicClub.controllers', [])
                     console.log('登录数据');
                     console.log(data);
                     $scope.userData = data.user;
+                    if( !$scope.userData.picture){
+                        $scope.userData.picture="./img/login.png"
+                    }
 
                 }).finally(function () {
                     Con.log('完成');
@@ -36,8 +39,10 @@ var appController = angular.module('IonicClub.controllers', [])
             }else {
                 $scope.userData={};
                 $scope.userData.name="未登录";
+                $scope.userData.picture="./img/unlogin.png"
                 console.log("未登录");
                 $scope.isLogin = false;
+
                 // 检测没有登陆调回到登陆页
                 //Con.log('未登录');
                 //$state.go('notlogin');
