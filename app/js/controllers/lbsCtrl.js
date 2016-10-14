@@ -106,7 +106,9 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
             infoWindow.setContent(e.target.content);
             infoWindow.open(map, e.target.getPosition());
         }
-        map.setCenter([longitude, latitude]);
+        // 下行是把标注点聚焦，加上的话会聚焦，拖动改变数据的时候体验就不是很好
+        // map.setFitView();
+        // map.setCenter([longitude, latitude]);
         // map.setZoom(18);
     }
 
