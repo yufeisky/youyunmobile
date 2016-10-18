@@ -656,6 +656,27 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
+            //第三方登录接口
+            thirdPartyLogin: function(data) {
+                var deferred = $q.defer();
+                var url = 'http://test.upalapp.com/mobileplatform/admin/ajaxThirdPartyLogin';
+                $http({
+                    method: 'POST',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    data: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
         };
     }])
     .service('ConfigService', [function() {
