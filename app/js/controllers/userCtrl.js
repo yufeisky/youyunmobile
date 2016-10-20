@@ -98,14 +98,13 @@ var appController = angular.module('IonicClub.controllers', [])
                             $scope.loginFn();
                         }
                         console.log('第三方登录接口回调数据');
-                        console.log(data);
-                        console.log(window.location)
                         User = data.userInfo;
                         localStorageService.set('User', JSON.stringify(User));
                         // $rootScope.changeState
                         // $rootScope.changePage($rootScope.changeState, true);
                         console.log(window.location.pathname+"#/tab/user");
                         window.location.href=window.location.pathname+"#/tab/user";
+                        // 强制刷新
                         location.reload(true);
                         // $rootScope.changePage($rootScope.changeState, true);
                         // $scope.userData={

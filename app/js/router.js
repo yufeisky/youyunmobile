@@ -78,8 +78,7 @@ angular.module('IonicClub.router', [])
                         controller: 'lbsGroupDetailCtrl'
                     }
                 }
-            })
-            
+            })        
             .state('tab.design', {
                 url: '/design',
                 views: {
