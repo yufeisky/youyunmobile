@@ -1,0 +1,38 @@
+<ion-view view-title="页面排序" class="sorePage">
+    <ion-nav-bar>
+        <!-- 自定义的后退按钮 -->
+        <ion-nav-buttons side="left">
+            <button class="button-clear " ng-click="goBackView()">
+                <i class="ion-chevron-left"></i> 后退
+            </button>
+        </ion-nav-buttons>
+        <ion-nav-title>
+            页面排序
+        </ion-nav-title>
+        <ion-nav-buttons side="right">
+            <button class="button-clear sortSureBtn" ng-click="saveSortData()">
+                确定
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="sortPageContent">
+        <ul class="list sortUl cf">
+            <li ng-repeat="page in pages" class="item sort-item" style="height:{{itemHeight}}">
+                <div class="storyPage" ng-bind-html="page.content|trustHtml" page_id="{{page.id}}" style=" -webkit-transform: scale({{pageWidthScale}});-moz-transform: scale({{pageWidthScale}});-ms-transform: scale({{pageWidthScale}});-o-transform: scale({{pageWidthScale}}); transform: scale({{pageWidthScale}});display:none;">
+                    <!-- {{page.content}} -->
+                </div>
+                <!--  <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)">
+                </ion-reorder-button> -->
+                <a class="sortPageBtn button" href="javascript:;" ng-click="moveItem(page, $index, $index-1,'up');">往上</a>
+                <a class="downSortPageBtn button" href="javascript:;" ng-click="moveItem(page, $index, $index+1,'down');">往下</a>
+            </li>
+        </ul>
+        <!--   <div class="list">
+            <a class="item " href="#">
+                <img src="cover.jpg">
+                <h2>Pretty Hate Machine</h2>
+                <p>Nine Inch Nails</p>
+            </a>
+        </div> -->
+    </ion-content>
+</ion-view>

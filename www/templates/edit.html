@@ -55,7 +55,7 @@
             <ion-tab title="保存" icon="icon-pageedit-baochun" nav-transition="ios" ng-click="storySave()">
             </ion-tab>
             <!-- ng-click="cancelOperation()" -->
-            <ion-tab title="撤销" icon="icon-pageedit-chexiao" nav-transition="ios" >
+            <ion-tab title="撤销" icon="icon-pageedit-chexiao" nav-transition="ios" ng-click="cancelOperation()">
             </ion-tab>
             <ion-tab title="模板" icon="icon-pageedit-yemian" nav-transition="ios" ng-click="addPageByTemplate(true)">
             </ion-tab>
@@ -186,14 +186,14 @@
         </div>
         <!-- 添加复制删除排序页面的编辑栏目（底下的编辑栏） -->
         <ion-tabs class="tabs-icon-top pageEditTab" ng-class="{'pageEditHide': pageEditHide}">
-            <ion-tab title="添加页面" icon="icon-pageedit-yangshi" nav-transition="ios" ng-click="addPageByTemplate()">
+            <ion-tab title="添加页面" icon="icon-page-menu-zjym_n" nav-transition="ios" ng-click="addPageByTemplate()">
             </ion-tab>
             <!-- ng-click="cancelOperation()" -->
-            <ion-tab title="复制页面" icon="icon-pageedit-ziti" nav-transition="ios" ng-click="copyActivePage()">
+            <ion-tab title="复制页面" icon="icon-page-menu-fzym_n" nav-transition="ios" ng-click="copyActivePage()">
             </ion-tab>
-            <ion-tab title="页面排序" icon="icon-pageedit-zihao" nav-transition="ios" ng-click="goToSortPage()">
+            <ion-tab title="页面排序" icon="icon-page-menu-ymsx_n" nav-transition="ios" ng-click="goToSortPage()">
             </ion-tab>
-            <ion-tab title="删除页面" icon="icon-pageedit-zise" nav-transition="ios" ng-click="delActivePage()">
+            <ion-tab title="删除页面" icon="icon-page-menu-sc_n" nav-transition="ios" ng-click="delActivePage()">
             </ion-tab>
         </ion-tabs>
     </div>

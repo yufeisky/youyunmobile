@@ -2682,3 +2682,33 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
     bottom: 10px;
     z-index: -1;
 }
+.thirdLoginTitle {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: url(../img/third-login.png) center center no-repeat;
+    color: #9E9E9E;
+}
+.thirdLoginContent{
+    width: 80%;
+    margin: 0 auto;
+}
+.login_pic{
+    text-align: center;
+    width: 58px;
+    height: 58px;
+    margin: 0 auto;
+    border-radius: 29px;
+    background: url(../img/third_login_pic.png);
+    background-size: 100%;
+    display: block;
+}
+.qqlogin{
+    background-position: 0px 0px;
+}
+.wxlogin{
+    background-position: 0px -58px;
+}
+.wblogin{
+    background-position: 0px -116px;
+}

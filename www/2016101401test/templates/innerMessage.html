@@ -1,0 +1,21 @@
+<ion-view hide-nav-bar="true" class="user-list" >
+    <ion-header-bar class="upa-header"  >
+        <a ui-sref="tab.user" class="icon-arrow-123 btn-back"></a>
+        <div class="collect-box" >
+            我的消息
+        </div>
+    </ion-header-bar>
+    <ion-content scroll="true" lazy-scroll >
+        <ion-refresher pulling-text="下拉刷新"  on-refresh="doRefresh(myActiveSlide)"></ion-refresher>
+        <div class="list message-list">
+            <div class="message-box"   on-tap="messageOp($index)" ng-class="{true: 'active'}[message.isM]"  ng-repeat="message in messages">
+                <div class="message-content-box">
+                    <h2>{{message.title}}</h2>
+                   <!-- <p>{{message.content}}</p>-->
+                    <p ng-bind-html ="message.content"> </p>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="more" on-infinite="loadMore(myActiveSlide)" distance="10%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

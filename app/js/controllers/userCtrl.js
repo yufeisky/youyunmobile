@@ -75,7 +75,7 @@ var appController = angular.module('IonicClub.controllers', [])
 
                 console.log($scope.weChatInfo)
                 if ($scope.weChatInfo.wcName != null) {
-
+                    console.log($scope.weChatInfo.wcName)
                     var loginParams = {
                         "thirdParty": 'wx',
                         "username": $scope.weChatInfo.wcName,
@@ -91,21 +91,24 @@ var appController = angular.module('IonicClub.controllers', [])
                         maxWidth: 200,
                         showDelay: 0
                     });
-                    IonicService.thirdPartyLogin().then(function(data) {
-                        $ionicLoading.hide();
+                    IonicService.thirdPartyLogin(loginParams).then(function(data) {
+                        
                         if (data.status != '1') {
                             MsgBox.showTexts('授权出现错误,请重新授权');
                             $scope.loginFn();
                         }
                         console.log('第三方登录接口回调数据');
+                        console.log(data);
                         User = data.userInfo;
                         localStorageService.set('User', JSON.stringify(User));
                         // $rootScope.changeState
                         // $rootScope.changePage($rootScope.changeState, true);
-                        console.log(window.location.pathname+"#/tab/user");
-                        window.location.href=window.location.pathname+"#/tab/user";
                         // 强制刷新
-                        location.reload(true);
+                        $timeout(function(){
+                            $ionicLoading.hide();
+                            window.location.href=window.location.pathname+"#/tab/user";
+                            location.reload(true);
+                        },300)
                         // $rootScope.changePage($rootScope.changeState, true);
                         // $scope.userData={
                         //     "name":data.userInfo.name,
@@ -114,7 +117,6 @@ var appController = angular.module('IonicClub.controllers', [])
                         // if (!$scope.userData.portraitUrl) {
                         //     $scope.userData.picture = "./img/login.png"
                         // }
-
                     }).finally(function() {
                         Con.log('完成');
                     });

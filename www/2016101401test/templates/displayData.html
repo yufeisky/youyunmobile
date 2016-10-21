@@ -1,0 +1,41 @@
+<!-- 智能展示统计页面 -->
+<ion-view view-title="统计数据" class="moreDesignPage">
+    <ion-nav-bar>
+        <!-- 自定义的后退按钮 -->
+        <ion-nav-buttons side="left">
+            <button class="button-clear " ng-click="goBackView()">
+                <i class="ion-chevron-left"></i> 后退
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content scroll="true" lazy-scroll class="displayDataContent" style="width:100%;height:100%;">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+        <div class="row">
+            <p style="display:inlink-block;height:20px;line-height:30px; margin-right:10px;">筛选</p>
+            <select class="timeSelect" ng-model="selectIndex" ng-change="selectChange(selectIndex)">
+                <option value="1">今日</option>
+                <option value="2">今周</option>
+                <option value="3">今月</option>
+            </select>
+        </div>
+        <ul class="list display_items">
+            <li class="item row displayHeadItem">
+                <div class="col col-33">名称</div>
+                <div class="col col-33">互动次数</div>
+                <div class="col col-33">平均互动时间</div>
+            </li>
+            <li class="item row" ng-repeat="display_item in display_items" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">
+                <div class="col col-33">{{display_item.name}}</div>
+                <div class="col col-33">{{display_item.interaction_count}}</div>
+                <div class="col col-33">{{display_item.interaction_average_seconds| number:0}}s</div>
+            </li>
+        </ul>
+       
+    </ion-content>
+     <div class="charArea">
+            <div></div>
+            <!-- <canvas id="myChart" width="{{win_w}}" height="{{win_w}}"></canvas> -->
+        </div>
+        <span class="numberTip" ng-show="isShow" style="left:10px;bottom:{{win_w-10}}px">次数</span>
+        <span class="timeTip" ng-show="isShow">时间</span>
+</ion-view>

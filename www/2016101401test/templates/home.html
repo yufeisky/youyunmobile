@@ -1,0 +1,68 @@
+<ion-view view-title="轻故事" class="userPage">
+    <!-- <ion-content>
+        <ul class="bar bar-subheader row">
+            <li class="col-25">推荐</li>
+            <li class="col-25">品牌故事</li>
+            <li class="col-25">热点资讯</li>
+            <li class="col-25">生活故事</li>
+        </ul>
+    </ion-content>-->
+    <div class="navbar">
+        <ul class="nav navbar-nav row homeNav">
+            <li class="col-25" ng-class="{active:isActiveTab(nav.order)}" ng-repeat="nav in navs"><a href="javascript:;" ng-click="loadMore(nav.order,'del')">{{nav.title}}</a></li>
+            <!--  <li class="col-25"><a href="javascript:;" ng-click="storyTab('0')">未上线</a></li>
+                <li class="col-25"><a href="#">我的收藏</a></li>
+                <li class="col-25"><a href="#">我的动态</a></li> -->
+        </ul>
+    </div>
+    <ion-content scroll="true" lazy-scroll class="userPageCon">
+        <!-- <h2>个人中心</h2> -->
+        <!-- <button ng-click="loginOut()">退出</button> -->
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh(myActiveSlide)"></ion-refresher>
+        <ion-slide-box show-pager="false" active-slide="myActiveSlide" delegate-handle="homeListBox" on-slide-changed="loadMore($index,'del')">
+            <ion-slide>
+                <div class="list list-index" ng-show="isActiveTab(0)">
+                    <a class="item item-index" ui-sref="tab.homeDetail({ storyObject: '{{story}}'})"  nav-transition="ios"  ng-repeat="story in storys[0]">
+                        <img class="img-index" style="height:{{img_w}}" lazy-src="{{story.img_src}}">
+                        <h2 class="text-index">{{story.story_title}}</h2>
+                        <p class="text-index">{{story.second_title}}</p>
+                    </a>
+                </div>
+                <!-- 下面的空元素是为了解决滑动时候为空的时候 滑动会出错 -->
+                <h2></h2>
+            </ion-slide>
+            <ion-slide>
+                <div class="list list-index" ng-show="isActiveTab(1)">
+                    <a class="item item-index" ui-sref="tab.homeDetail({ storyObject: '{{story}}'})" nav-transition="ios" ng-repeat="story in storys[1]">
+                        <img class="img-index" style="height:{{img_w}}" lazy-src="{{story.img_src}}">
+                        <h2 class="text-index">{{story.story_title}}</h2>
+                        <p class="text-index">{{story.second_title}}</p>
+                    </a>
+                </div>
+                <h2></h2>
+            </ion-slide>
+            <ion-slide>
+                <div class="list list-index" ng-show="isActiveTab(2)">
+                    <a class="item item-index" ui-sref="tab.homeDetail({ storyObject: '{{story}}'})" nav-transition="ios" ng-repeat="story in storys[2]">
+                        <img class="img-index" style="height:{{img_w}}" lazy-src="{{story.img_src}}">
+                        <h2 class="text-index">{{story.story_title}}</h2>
+                        <p class="text-index">{{story.second_title}}</p>
+                    </a>
+                </div>
+                <h2></h2>
+            </ion-slide>
+            <ion-slide>
+               <div class="list list-index" ng-show="isActiveTab(3)">
+                    <a class="item item-index" ui-sref="tab.homeDetail({ storyObject: '{{story}}'})" nav-transition="ios" ng-repeat="story in storys[3]">
+                        <img class="img-index" style="height:{{img_w}}" lazy-src="{{story.img_src}}">
+                        <h2 class="text-index">{{story.story_title}}</h2>
+                        <p class="text-index">{{story.second_title}}</p>
+                    </a>
+                </div>
+                <h2></h2>
+            </ion-slide>
+        </ion-slide-box>
+        <!-- <div ng-if="!more">无更多数据</div> -->
+        <ion-infinite-scroll ng-if="more" on-infinite="loadMore(myActiveSlide)" distance="10%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

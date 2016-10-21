@@ -1,0 +1,77 @@
+<ion-view hide-nav-bar="true" class="user-list" ng-class="{'collect-page': isActiveTab(2)}">
+    <ion-header-bar class="upa-header"  >
+        <a ui-sref="tab.user" class="icon-arrow-123 btn-back"></a>
+        <ul class="option-box" ng-show="!isActiveTab(2)">
+            <li class="option" ng-class="{true: 'active'}[isActiveTab(0)]"  on-tap="chooseActiveTab(0)">已上线</li>
+            <li class="option" ng-class="{true: 'active'}[isActiveTab(1)]" on-tap="chooseActiveTab(1)">未上线</li>
+        </ul>
+        <div class="collect-box" ng-show="isActiveTab(2)">
+            我的收藏
+        </div>
+        <div class="manager-box" ng-show="isActiveTab(2)&&!isEdit"  >
+            <div class="button" ng-click="gotoEdit()" >管理</div>
+
+        </div>
+        <div class="manager-box edit" ng-show="isActiveTab(2)&&isEdit"  >
+            <div class="button" ng-click="gotoShow()"  >取消</div>
+            <div class="button btn-delete" ng-click="deleteCollect()"  >删除</div>
+        </div>
+        <div  ng-show="isActiveTab(2)">
+            <form class="search-box"  ng-submit="search()">
+                <input  class="search-input" type="text" ng-model="searchText" placeholder="Search">
+            </form>
+        </div>
+    </ion-header-bar>
+    <ion-content scroll="true" lazy-scroll >
+
+        <ion-refresher pulling-text="下拉刷新"  on-refresh="doRefresh(myActiveSlide)"></ion-refresher>
+        <ion-slide-box show-pager="false"  active-slide="myActiveSlide" on-slide-changed="loadMore($index,'del')">
+            <ion-slide  >
+                <div class="list" ng-show="isActiveTab(0)">
+                    <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '{{story.id}}'})"  ng-repeat="story in storys">
+                        <img lazy-src="{{story.logo}}">
+                        <h2>{{story.title}}</h2>
+                        <p>{{story.description}}</p>
+                    </a>
+                </div>
+                <!-- 下面的空元素是为了解决滑动时候为空的时候 滑动会出错 -->
+                <h2></h2>
+            </ion-slide>
+            <ion-slide  >
+                <div class="list" ng-show="isActiveTab(1)">
+                    <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '{{offLineStory.id}}'})" ng-repeat="offLineStory in offLineStorys">
+                        <img lazy-src="{{offLineStory.logo}}">
+                        <h2>{{offLineStory.title}}</h2>
+                        <p>{{offLineStory.description}}</p>
+                    </a>
+                </div>
+                <h2></h2>
+            </ion-slide>
+            <ion-slide  >
+                <ul class="list-two" ng-show="isActiveTab(2)">
+                   <li ng-repeat="collectStory in collectStorys">
+                       <!--*ui-sref="tab.homeDetail({ storyId: '{{collectStory.id}}'})"-->
+                       <a class="thumb">
+                              <img  lazy-src="{{collectStory.logo}}">
+                              <div class="choose-box" ng-show="isEdit">
+                                  <i class="icon-xuanzhe_n" ng-show="isSelect($index)" ng-click="onSelect($index)"></i>
+                                  <i class="icon-xuanzhe_h"  ng-show="!isSelect($index)"  ng-click="unSelect($index)"><i class="path1"></i><i class="path2"></i></i>
+                              </div>
+                      </a>
+                       <h2>{{collectStory.title}}</h2>
+                       <p>{{collectStory.description}}</p>
+                    <!--   <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '{{collectStory.id}}'})" ng-repeat="collectStory in collectStorys">
+                            <img lazy-src="{{collectStory.logo}}">
+                            <h2>{{collectStory.title}}</h2>
+                            <p>{{collectStory.description}}</p>
+                        </a>-->
+
+                   </li>
+                </ul>
+                <h2></h2>
+            </ion-slide>
+        </ion-slide-box>
+        <ion-infinite-scroll ng-if="more" on-infinite="loadMore(myActiveSlide)" distance="10%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>
+

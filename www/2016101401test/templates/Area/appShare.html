@@ -1,0 +1,24 @@
+<!--分享弹出框-->
+<div class="shareBox">
+    <div class="item item-avatar" href="#">
+        <img src="{{urlParams.img_src}}">
+        <h2 class="story_title">{{urlParams.story_title}}</h2>
+        <p class="second_title">{{urlParams.second_title}}</p>
+    </div>
+    <div class="button-bar">
+        <button class="button icon-left icon-upalapp-show showNum">
+            <p class="numArea ">{{urlParams.browse_count}}</p>
+        </button>
+        <button class="button icon-left icon-upalapp-share shareNum">
+            <p class="numArea ">{{urlParams.share_count}}</p>
+        </button>
+        <button class="button icon-left icon-upalapp-collect collectNum">
+            <p class="numArea ">{{urlParams.collection_count}}</p>
+        </button>
+    </div>
+     <button class="button button-block button-light" ng-click="showPopup()">分享</button>
+      <button class="button button-block button-light" ng-click="collectFn()" ng-hide="isIntelligenceDisplay">收藏</button>
+      <button class="button button-block button-light" ng-show="isIntelligenceDisplay" ng-click="toDisplayDataFn()">查看数据</button>
+
+      <div class="bottomColor"> </div>
+</div>

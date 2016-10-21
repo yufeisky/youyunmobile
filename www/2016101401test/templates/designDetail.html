@@ -1,0 +1,10 @@
+<ion-view view-title="{{storyTit}}" hide-nav-bar="true" class="homeDetail">
+    <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
+        <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
+    <ion-content scroll="true" overflow-scroll="true">
+        <iframe class="pubIframe" ng-src="{{pubUrl}}"></iframe>
+        <!-- <div class="designBtn" ui-sref="tab.edit({ storyId: '{{story.id}}'})">使用</div> -->
+        <!-- ui-sref="tab.edit({ storyId: storyId})" -->
+        <div class="designBtn" ng-click="createStoryByTemplateId(templateId)">使用</div>
+    </ion-content>
+</ion-view>

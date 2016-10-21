@@ -1,0 +1,45 @@
+<ion-view view-title="设置" class="editPage" hide-back-button=false>
+    <!-- <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
+    <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
+ -->
+    <ion-nav-bar>
+        <!-- 自定义的后退按钮 -->
+        <ion-nav-buttons side="left">
+            <button class="button-clear " ng-click="goBackView()">
+                <i class="ion-chevron-left"></i> 后退
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <!--     <ion-nav-title>
+        设置
+    </ion-nav-title> -->
+    <ion-content scroll="false" class="setStoryInfoContent">
+        <ul class="list setStoryList">
+            <li class="item row" ng-click="openSetCoverImgModal()">
+                <div class="col col-20 itemTit">封面</div>
+                <div class="col col-67 content"><img class="storyLogo" src="{{logo}}" alt=""></div>
+                <div class="col col-15 coverNext"><img src="img/iconRight.png" alt=""></div>
+            </li>
+            <li class="item row" ng-click="openTextEditModal('title')">
+                <div class="col col-20">标题</div>
+                <div class="col col-67 content storyTitleContent">{{storyTit}}</div>
+                <div class="col col-15 next"><img src="img/iconRight.png" alt=""></div>
+            </li>
+            <li class="item row" ng-click="openTextEditModal('description')">
+                <div class="col col-20">描述</div>
+                <div class="col col-67 content storyDescriptionContent">{{storyDescription}}</div>
+                <div class="col col-15 next"><img src="img/iconRight.png" alt=""></div>
+            </li>
+            <li class="item row" ng-click="setStoryCategories()">
+                <div class="col col-20">作品类型</div>
+                <div class="col col-67 content storyCategoryContent">
+                <span id="{{category.id}}" ng-repeat="category in storycategory">{{category.name}}</span>
+                </div>
+                <div class="col col-15 next"><img src="img/iconRight.png" alt=""></div>
+            </li>
+        </ul>
+        <div class="button button-block saveStoryInfoBtn" ng-click="saveStoryInfo()">
+            <span >完成</span>
+        </div>
+    </ion-content>
+</ion-view>

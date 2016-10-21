@@ -1,0 +1,31 @@
+<!--
+Create tabs with an icon and label, using the tabs-positive style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-color-active-positive" ng-controller="TabsCtrl" ng-class="{'tabs-item-hide': hideTabs}">
+    <ion-tab title="首页" icon-on="icon-upalapp-shouye-on" icon-off="icon-upalapp-shouye-off" ng-click="changePage('tab.home')" nav-transition="ios">
+        <ion-nav-view name="home">
+            <ion-nav-back-button >
+            </ion-nav-back-button>
+        </ion-nav-view>
+    </ion-tab>
+    <ion-tab title="发现" icon-off="icon-upalapp-faxian-off" icon-on="icon-upalapp-faxian-on" href="#/tab/lbs" nav-transition="ios">
+        <ion-nav-view name="lbs">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+        </ion-nav-view>
+    </ion-tab>
+    <ion-tab title="创作" icon-off="icon-upalapp-zhizuo-off" icon-on="icon-upalapp-zhizuo-on" ng-click="changePage('tab.design')" nav-transition="ios">
+        <ion-nav-view name="design">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+        </ion-nav-view>
+    </ion-tab>
+    <ion-tab title="我的" icon-off="icon-upalapp-wode-off" icon-on="icon-upalapp-wode-on" ng-click="changePage('tab.user')" nav-transition="ios">
+        <ion-nav-view name="user">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+        </ion-nav-view>
+    </ion-tab>
+</ion-tabs>

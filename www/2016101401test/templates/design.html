@@ -1,0 +1,81 @@
+<ion-view view-title="创作">
+    <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
+        <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button>
+    <ion-content scroll="true" lazy-scroll class="storySlideBox">
+        <!--  <a class="item item-thumbnail-left" href="#" ui-sref="tab.edit({ storyId: '21789'})" >
+                        修改
+        </a> -->
+        <!-- <div ng-if="!more">无更多数据</div> -->
+        <!-- </div> -->
+        <!-- <div ng-if="!logined">
+            <button ng-click="openLoginModal()">登录</button>
+        </div> -->
+        <ul class="mainType clear" >
+            <li ui-sref="tab.moreDesign({designType:'旅游',main:true})"><i class="icon icon-template-lvyou"><span class="path1"></span><span class="path2"></span></i>
+                <p>旅游</p>
+            </li>
+            <li ui-sref="tab.moreDesign({designType:'结婚',main:true})"><i class="icon icon-template-jiehun"><span class="path1"></span><span class="path2"></span></i>
+                <p>结婚</p>
+            </li>
+            <li ui-sref="tab.moreDesign({designType:'教育',main:true})"><i class="icon icon-template-jiaoyu"><span class="path1"></span><span class="path2"></span></i>
+                <p>教育</p>
+            </li>
+            <li ui-sref="tab.moreDesign({designType:'邀请函',main:true})"><i class="icon icon-template-yaoqing"><span class="path1"></span><span class="path2"></span></i>
+                <p>邀请函</p>
+            </li>
+            <li ui-sref="tab.moreDesign({designType:'招聘',main:true})"><i class="icon icon-template-zhaopin"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                <p>招聘</p>
+            </li>
+            <li ui-sref="tab.moreDesign({designType:'简历',main:true})"><i class="icon icon-template-xueli"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
+                <p>简历</p>
+            </li>
+        </ul>
+        <div class="personalTemplateArea" ng-show="loadValue">
+            <div class="personalTemplateAreaHead">
+                <h3>个人模板</h3>
+                <p ui-sref="tab.moreDesign({designType:personalTemplateArr.id})">更多</p>
+            </div>
+            <div class="personalTemplateAreaContent">
+                <div class="list">
+                    <a class="item item-thumbnail-top" href="javascript:;" ui-sref="tab.designDetail({ itemPars: '{{personItem}}'})" ng-repeat="personItem in personalTemplateArr.template">
+                        <!-- <img style="height:{{img_w}}" src="{{personItem.logo}}"> -->
+                        <div class="imgList" style="height:{{img_w}}; background-image:url({{personItem.logo}})"> </div>
+                        <h2>{{personItem.title}}</h2>
+                        <p>{{personItem.description}}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+         <div class="personalTemplateArea" ng-show="loadValue">
+            <div class="personalTemplateAreaHead">
+                <h3>行业模板</h3>
+                <p ui-sref="tab.moreDesign({designType:industryTemplateArr.id})">更多</p>
+            </div>
+            <div class="personalTemplateAreaContent">
+                <div class="list">
+                    <a class="item item-thumbnail-top" href="javascript:;" ui-sref="tab.designDetail({ itemPars: '{{industryItem}}'})" ng-repeat="industryItem in industryTemplateArr.template">
+                        <div class="imgList" style="height:{{img_w}}; background-image:url({{industryItem.logo}})"> </div>
+                        <h2>{{industryItem.title}}</h2>
+                        <p>{{industryItem.description}}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="personalTemplateArea" ng-show="loadValue">
+            <div class="personalTemplateAreaHead">
+                <h3>场景模板</h3>
+                <p ui-sref="tab.moreDesign({designType:sceneTemplateArr.id})">更多</p>
+            </div>
+            <div class="personalTemplateAreaContent">
+                <div class="list">
+                    <a class="item item-thumbnail-top" href="javascript:;" ui-sref="tab.designDetail({ itemPars: '{{sceneItem}}'})" ng-repeat="sceneItem in sceneTemplateArr.template">
+                        <div class="imgList" style="height:{{img_w}}; background-image:url({{sceneItem.logo}})"> </div>
+                        <h2>{{sceneItem.title}}</h2>
+                        <p>{{sceneItem.description}}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="designLoadDiv" ng-hide="loadValue"></div>
+    </ion-content>
+</ion-view>

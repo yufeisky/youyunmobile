@@ -1,0 +1,52 @@
+<ion-view view-title="{{pageTitle}}" class="moreDesignPage">
+    <ion-nav-bar>
+        <!-- 自定义的后退按钮 -->
+        <ion-nav-buttons side="left">
+            <button class="button-clear " ui-sref="tab.design">
+                <i class="ion-chevron-left"></i> 后退
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <div class="row typeBox" ng-class="{'typeBoxIsHide': typeBoxIsHide}">
+        <div class="col col-33" style="padding:0;">
+            <div class="row">
+                <div class="col latestandhottest active" ng-click="hottest()">最热</div>
+                <div class="col latestandhottest" ng-click="newest()">最新</div>
+            </div>
+        </div>
+        <div class="col col-67">
+            <!-- 只显示前面的四个 -->
+            <div class="row" style="padding:0;">
+                <ion-scroll zooming="true" direction="x" class="col-90 mainTypeWrap" >
+                    <ul class="mainTypeList">
+                        <li class="searchAll active" liItemId='0' ng-click="searchItemByCategoryId(0,0,0,1)">全部</li>
+                        <li ng-repeat="liItem in categories" ng-click="searchItemByCategoryId(liItem.id,0,$index+1,1)" liItemId="{{liItem.id}}">{{liItem.name}}</li>
+                        <!-- <li>作品集</li>
+                <li>名片</li>
+                <li>结婚</li> -->
+                    </ul>
+                </ion-scroll>
+                <div class="col-20" ng-click="toggle()"><img class="dropPic dropDown" ng-show="dropshow" src="img/dropDown.png" alt=""><img ng-show="!dropshow" class="dropPic dropUp" src="img/dropUp.png" alt=""></div>
+            </div>
+        </div>
+    </div>
+    <!-- 显示全部 -->
+    <ul class="restList cf" ng-class="{'restListHide': visible}">
+        <li class="active" liItemId='0' ng-click="searchItemByCategoryId(0,1,0,1)">全部</li>
+        <li ng-repeat="liItem in categories" ng-click="searchItemByCategoryId(liItem.id,1,$index+1,1)" liItemId="{{liItem.id}}">{{liItem.name}}</li>
+    </ul>
+    <div class="overDiv" ng-class="{'overDivHide': !visible}" ng-click="toggle()"></div>
+    <ion-content scroll="true" lazy-scroll class="moreDesignPageContent">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+        <div class="personalTemplateAreaContent " ng-class="{'isHaveMargin': typeBoxIsHide}">
+            <div class="list">
+                <a class="item item-thumbnail-top" href="javascript:;" ui-sref="tab.designDetail({ itemPars: '{{storyItem}}'})" ng-repeat="storyItem in storyList">
+                    <div class="imgList" style="height:{{img_w}}; background-image:url('{{storyItem.logo}}')"> </div>
+                    <h2>{{storyItem.title}}</h2>
+                    <p>{{storyItem.description}}</p>
+                </a>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="more"  on-infinite="loadStoryMore()" distance="10%"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

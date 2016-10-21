@@ -22,15 +22,18 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 var storyCurrentIndex = JSON.parse(localStorageService.get('storyCurrentIndex'));
                 var isPageCover = JSON.parse(localStorageService.get('isPageCover'));
                 if (storyCurrentIndex != null && isPageCover == false) {
+                    // 根据模板添加页面
                     // $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex + 1, 500);
                     $scope.myActiveSlide = storyCurrentIndex + 1;
                     $scope.activePageNum = storyCurrentIndex + 2;
                 } else if (storyCurrentIndex != null && isPageCover == true) {
+                    // 根据模板覆盖页面
                     // $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide(storyCurrentIndex, 500);
                     $scope.myActiveSlide = storyCurrentIndex;
                     $scope.activePageNum = storyCurrentIndex + 1;
                 } else {
                     console.log('----------初始页码-------');
+                    console.log(jQuery('.storySlideBox ion-slide'))
                     console.log($scope.cancelActiveSlide);
                     if ($scope.cancelActiveSlide) {
                         $scope.activePageNum = $scope.cancelActiveSlide;
@@ -77,7 +80,10 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 $scope.setWordart();
                 SectionEvent.cli($scope);
                 SectionEvent.blurFn($scope);
-                $scope.pageLength = jQuery('.storySlideBox ion-slide').length;
+                $timeout(function() {
+                    // 不加延时会多一倍的页数
+                    $scope.pageLength = jQuery('.storySlideBox ion-slide').length;
+                }, 500)
                 // 当加载完之后要显示出来
                 $scope.opacity = 1;
                 $timeout(function() {
@@ -816,13 +822,17 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
             // console.log($scope.ionCurrentIndex)
             $('.editBox').appendTo($('.storySlideBox')).hide();
+            if(jQuery('.storySlideBox ion-slide').length==1){
+                MsgBox.showTexts('故事最起码需要有一页');
+                return false;
+            }
             jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).remove();
             $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
             // console.log($scope.ionCurrentIndex)
-            $scope.ionSlideLength = jQuery('ion-slide').length;
+            $scope.pageLength = jQuery('.storySlideBox ion-slide').length;
             // console.log($scope.ionSlideLength);
-            if ($scope.ionCurrentIndex == $scope.ionSlideLength) {
+            if ($scope.ionCurrentIndex == $scope.pageLength) {
                 console.log('是最后一个ion');
                 $ionicSlideBoxDelegate.$getByHandle('sectionBox').previous();
             }

@@ -1,0 +1,17 @@
+<!-- <ion-nav-bar>11111111111</ion-nav-bar> -->
+<ion-view hide-nav-bar='false'>
+    <ion-nav-title class="lbsTit" ng-click="toggle({category:activeTit})">
+        <span class="lbsTitSpan">发现</span><img class="dropPic dropDown" ng-show="dropshow" src="img/dropDown.png" alt=""><img ng-show="!dropshow" class="dropPic dropUp" src="img/dropUp.png" alt="">
+    </ion-nav-title>
+    <ion-content scroll="false">
+        <ul class="dropDownList" ng-class="{'dropDownListHide': visible}">
+            <!-- <li  ng-click="myFilter()">全部</li> -->
+            <li ng-repeat="dropDownlist in dropDownArr" ng-class="{true: 'liActive', false: ''}[dropDownlist.active]" ng-click="myFilter({category:dropDownlist.name})"><!-- <i class="icon" ng-class="dropDownlist.icon"></i> --><a href="javascript:;">{{dropDownlist.name}}</a></li>
+            <!-- <li><i class="icon ion-star"></i><a href="javascript:;" ng-click="myFilter({category:'神秘事件'})">神秘事件</a></li>
+            <li><i class="icon ion-star"></i><a href="javascript:;" ng-click="myFilter({category:'折扣优惠'})">折扣优惠</a></li>
+            <li><i class="icon ion-star"></i><a href="javascript:;" ng-click="myFilter({category:'文青聚点'})">文青聚点</a></li>
+            <li><i class="icon ion-star"></i><a href="javascript:;" ng-click="myFilter({category:'桌游聚点'})">桌游聚点</a></li> -->
+        </ul>
+        <div id="container"></div>
+    </ion-content>
+</ion-view>

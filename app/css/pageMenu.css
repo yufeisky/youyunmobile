@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'pageMenu';
+  src:  url('../fonts/pageMenu.eot?empzsj');
+  src:  url('../fonts/pageMenu.eot?empzsj#iefix') format('embedded-opentype'),
+    url('../fonts/pageMenu.ttf?empzsj') format('truetype'),
+    url('../fonts/pageMenu.woff?empzsj') format('woff'),
+    url('../fonts/pageMenu.svg?empzsj#pageMenu') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-page-menu-"], [class*=" icon-page-menu-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'pageMenu' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-page-menu-fzym_n:before {
+  content: "\e900";
+}
+.icon-page-menu-sc_n:before {
+  content: "\e901";
+}
+.icon-page-menu-ymsx_n:before {
+  content: "\e902";
+}
+.icon-page-menu-zjym_n:before {
+  content: "\e903";
+}
+
