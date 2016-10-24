@@ -1,5 +1,5 @@
 // 设计器
-appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$ionicSlideBoxDelegate', '$timeout', 'localStorageService', 'ShareService', 'IonicService', 'Con', 'SectionEvent', 'MsgBox', 'Gallery', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $ionicSlideBoxDelegate, $timeout, localStorageService, ShareService, IonicService, Con, SectionEvent, MsgBox, Gallery) {
+appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicModal', '$ionicHistory', '$ionicSlideBoxDelegate', '$timeout', '$ionicPopup', 'localStorageService', 'ShareService', 'IonicService', 'Con', 'SectionEvent', 'MsgBox', 'Gallery', function($scope, $rootScope, $state, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicModal, $ionicHistory, $ionicSlideBoxDelegate, $timeout, $ionicPopup, localStorageService, ShareService, IonicService, Con, SectionEvent, MsgBox, Gallery) {
     // Con.log($stateParams.storyId);
     var storyId = $stateParams.storyId;
     $scope.gallery = Gallery.initGalleryModal($scope);
@@ -81,10 +81,10 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                 SectionEvent.cli($scope);
                 SectionEvent.blurFn($scope);
                 $timeout(function() {
-                    // 不加延时会多一倍的页数
-                    $scope.pageLength = jQuery('.storySlideBox ion-slide').length;
-                }, 500)
-                // 当加载完之后要显示出来
+                        // 不加延时会多一倍的页数
+                        $scope.pageLength = jQuery('.storySlideBox ion-slide').length;
+                    }, 500)
+                    // 当加载完之后要显示出来
                 $scope.opacity = 1;
                 $timeout(function() {
                     $ionicLoading.hide();
@@ -812,30 +812,46 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     $scope.pageEditHide = false;
 
     $scope.pageEdit = function() {
-            $scope.visible = false;
-            $scope.pageEditHide = true;
-        }
-        // 删除当前页面
+        $scope.visible = false;
+        $scope.pageEditHide = true;
+    }
+
+    // 删除当前页面
     $scope.delActivePage = function() {
-            console.log('--------currentIndex-------');
-            $scope.virtualSave();
-            $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
-            // console.log($scope.ionCurrentIndex)
-            $('.editBox').appendTo($('.storySlideBox')).hide();
-            if(jQuery('.storySlideBox ion-slide').length==1){
-                MsgBox.showTexts('故事最起码需要有一页');
-                return false;
-            }
-            jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).remove();
-            $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
-            $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
-            // console.log($scope.ionCurrentIndex)
-            $scope.pageLength = jQuery('.storySlideBox ion-slide').length;
-            // console.log($scope.ionSlideLength);
-            if ($scope.ionCurrentIndex == $scope.pageLength) {
-                console.log('是最后一个ion');
-                $ionicSlideBoxDelegate.$getByHandle('sectionBox').previous();
-            }
+            var confirmPopup = $ionicPopup.confirm({
+                title: '删除页面',
+                template: '确定删除当前页面?',
+                cancelText: '取消',
+                okText: '确定',
+            });
+            confirmPopup.then(function(res) {
+                if (res) {
+                    console.log('确认删除');
+                    console.log('--------currentIndex-------');
+                    $scope.virtualSave();
+                    $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
+                    // console.log($scope.ionCurrentIndex)
+                    $('.editBox').appendTo($('.storySlideBox')).hide();
+                    if (jQuery('.storySlideBox ion-slide').length == 1) {
+                        MsgBox.showTexts('故事最起码需要有一页');
+                        return false;
+                    }
+                    jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).remove();
+                    $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
+                    $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
+                    // console.log($scope.ionCurrentIndex)
+                    $scope.pageLength = jQuery('.storySlideBox ion-slide').length;
+                    // console.log($scope.ionSlideLength);
+                    if ($scope.ionCurrentIndex == $scope.pageLength) {
+                        console.log('是最后一个ion');
+                        $ionicSlideBoxDelegate.$getByHandle('sectionBox').previous();
+                    }
+                } else {
+                    console.log('取消删除');
+                    return false;
+                }
+            });
+
         }
         // 复制当前页面
     $scope.copyActivePage = function() {
@@ -865,21 +881,35 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
     // 根据模板添加页面
     $scope.addPageByTemplate = function(isCover) {
-        $scope.virtualSave();
-        if (isCover) {
-            localStorageService.set('isPageCover', true);
-        } else {
-            localStorageService.set('isPageCover', false);
-        }
-        $rootScope.storyCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
-        localStorageService.set('editStoryId', storyId);
-        localStorageService.set('storyCurrentIndex', $rootScope.storyCurrentIndex);
-        $scope.eachData();
-        $scope.pageDataString = JSON.stringify($scope.pageData);
-        // 保存当前编辑的故事数据
-        localStorageService.set('editStoryPages', $scope.pageDataString);
-        // 跳转添加页面
-        $state.go('tab.addPage');
+        var confirmPopup = $ionicPopup.confirm({
+            title: '操作提示',
+            template: '模板会覆盖当前页面,确定继续?',
+            cancelText: '取消',
+            okText: '确定',
+        });
+        confirmPopup.then(function(res) {
+            if (res) {
+                $scope.virtualSave();
+                if (isCover) {
+                    localStorageService.set('isPageCover', true);
+                } else {
+                    localStorageService.set('isPageCover', false);
+                }
+                $rootScope.storyCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
+                localStorageService.set('editStoryId', storyId);
+                localStorageService.set('storyCurrentIndex', $rootScope.storyCurrentIndex);
+                $scope.eachData();
+                $scope.pageDataString = JSON.stringify($scope.pageData);
+                // 保存当前编辑的故事数据
+                localStorageService.set('editStoryPages', $scope.pageDataString);
+                // 跳转添加页面
+                $state.go('tab.addPage');
+            } else {
+                console.log('取消');
+                return false;
+            }
+        });
+
     }
 
     // 更换背景音乐

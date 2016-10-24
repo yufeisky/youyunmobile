@@ -31,7 +31,7 @@ appController.controller('TabsCtrl', ['$scope', '$rootScope', 'localStorageServi
         }
     };
     $rootScope.closeLoginModal = function(type) {
-        if (type && (($rootScope.changeState == 'tab.lbs') || ($rootScope.changeState == 'tab.user'))) {
+        if (type && ($rootScope.changeState == 'tab.lbs')) {
             $state.go('tab.home');
         }
         $scope.loginmodal.hide();
