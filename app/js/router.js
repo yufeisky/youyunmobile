@@ -90,7 +90,7 @@ angular.module('IonicClub.router', [])
                 // cache:false,
             })
             .state('tab.moreDesign', {
-                url: '/moreDesign:designType:main',
+                url: '/moreDesign:designType:main:moreDesinTitle',
                 views: {
                     'design': {
                         templateUrl: 'templates/moredesign.html',

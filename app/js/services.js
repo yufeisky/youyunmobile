@@ -1378,6 +1378,7 @@ angular.module('IonicClub.services', [])
                 //默认显示我的图库
                 $scope.isSelf = true;
                 $scope.isLine = false;
+                $scope.dropshow=true;
                 //默认不显示种类选择
                 $scope.cateShow = false;
                 //默认第一页
@@ -1667,7 +1668,7 @@ angular.module('IonicClub.services', [])
             //图库注册事件
             $scope.cateOp = function() {
                 $scope.cateShow = !$scope.cateShow;
-
+                $scope.dropshow =!$scope.dropshow;
             }
 
             $scope.imageOp = function(order) {

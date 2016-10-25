@@ -6,16 +6,16 @@
         </div>
     </div>
     <div class="cate-box">
-        <span class="cate-op" on-tap="cateOp()">{{cates[cateIndex].name}}</span>
+        <span class="cate-op" on-tap="cateOp()">{{cates[cateIndex].name}}<i class="dropPic dropDown icon ion-chevron-down" ng-show="dropshow"></i> <i class="dropPic dropUp icon ion-chevron-up" ng-show="!dropshow"></i></span>
         <ul class="cates-self scroll" ng-show="cateShow &&  isSelf">
             <li on-tap="cateChoose($index)" ng-repeat="cate in cates" ><span>{{cate.name}}</span></li>
         </ul>
         <div class="cate-online-box" ng-show="cateShow && isLine ">
             <ul class="cates-online" ng-show="cateShow && isLine " >
-                <li on-tap ="cateSChoose($index)" ng-repeat="cate in mainCates"  ng-class="{active:isActiveCate($index)}" >{{cate.name}}</li>
+                <li class="cate_li" on-tap ="cateSChoose($index)" ng-repeat="cate in mainCates"  ng-class="{active:isActiveCate($index)}" >{{cate.name}}<i class="icon ion-chevron-right"></i></li>
             </ul>
             <ul class="cates-second"   ng-show="cateShow && isLine" >
-                <li on-tap="cateChoose($index)" ng-repeat="cate in cates" ng-class="{'active': $index == cateIndex}" >{{cate.name}}</li>
+                <li on-tap="cateChoose($index)" ng-repeat="cate in cates" ng-class="{'active': $index == cateIndex}" >{{cate.name}} </li>
             </ul>
         </div>
     </div>

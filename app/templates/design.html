@@ -33,7 +33,7 @@
         <div class="personalTemplateArea" ng-show="loadValue">
             <div class="personalTemplateAreaHead">
                 <h3>个人模板</h3>
-                <p ui-sref="tab.moreDesign({designType:personalTemplateArr.id})">更多</p>
+                <p ui-sref="tab.moreDesign({designType:personalTemplateArr.id,main:false,moreDesinTitle:'个人模板'})">更多</p>
             </div>
             <div class="personalTemplateAreaContent">
                 <div class="list">
@@ -49,7 +49,7 @@
          <div class="personalTemplateArea" ng-show="loadValue">
             <div class="personalTemplateAreaHead">
                 <h3>行业模板</h3>
-                <p ui-sref="tab.moreDesign({designType:industryTemplateArr.id})">更多</p>
+                <p ui-sref="tab.moreDesign({designType:industryTemplateArr.id,main:false,moreDesinTitle:'行业模板'})">更多</p>
             </div>
             <div class="personalTemplateAreaContent">
                 <div class="list">
@@ -64,7 +64,7 @@
         <div class="personalTemplateArea" ng-show="loadValue">
             <div class="personalTemplateAreaHead">
                 <h3>场景模板</h3>
-                <p ui-sref="tab.moreDesign({designType:sceneTemplateArr.id})">更多</p>
+                <p ui-sref="tab.moreDesign({designType:sceneTemplateArr.id,main:false,moreDesinTitle:'场景模板'})">更多</p>
             </div>
             <div class="personalTemplateAreaContent">
                 <div class="list">

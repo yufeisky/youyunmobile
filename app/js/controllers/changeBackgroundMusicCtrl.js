@@ -119,7 +119,7 @@ appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '
     $scope.setStoryMusic = function(musicUrl, index) {
         if (index == '-1') {
             jQuery('.loadingIcon').remove();
-            jQuery('.noMusicBtn').append('<div class="loadingIcon"></div>');
+            jQuery('.noMusicBtn').append('<div class="loadingIcon loadedIcon"></div>');
             if (document.getElementById('audioId')) {
                 document.body.removeChild(audio);
                 console.log(document.getElementById('audioId'))
@@ -151,6 +151,7 @@ appController.controller('changeBackgroundMusicCtrl', ['$scope', '$rootScope', '
                 localStorageService.set('newMusicData', $scope.newMusicDataString);
                 $interval.cancel($scope.timer);
                 jQuery('.loadingImg').remove();
+                jQuery('.loadingIcon').addClass('loadedIcon');
             }
         }, 100)
 

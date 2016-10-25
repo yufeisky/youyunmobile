@@ -40,7 +40,6 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                         $ionicSlideBoxDelegate.$getByHandle('sectionBox').slide($scope.cancelActiveSlide - 1, 500);
                     } else {
                         $scope.activePageNum = 1;
-
                     }
                 }
                 var win_w = angular.element(window)[0].innerWidth;
@@ -858,15 +857,15 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             $scope.virtualSave();
             console.log('复制页面')
             $scope.ionCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
-            console.log($scope.ionCurrentIndex)
             $scope.activePage = jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).prop('outerHTML');
             // console.log($scope.activePage)
             jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex).after($scope.activePage);
-            // $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
-            $scope.resetPage();
-            // $scope.pageLength +=1;
+            $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
+            // $scope.resetPage();
+            $scope.pageLength +=1;
             jQuery('.storySlideBox ion-slide').eq($scope.ionCurrentIndex + 1).find('.storyPage').attr('page_id', '');
             $ionicSlideBoxDelegate.$getByHandle('sectionBox').next(5000);
+            console.log($scope.ionCurrentIndex)
         }
         // 跳转到排序页面
     $scope.goToSortPage = function() {
@@ -881,38 +880,60 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
     // 根据模板添加页面
     $scope.addPageByTemplate = function(isCover) {
-        var confirmPopup = $ionicPopup.confirm({
-            title: '操作提示',
-            template: '模板会覆盖当前页面,确定继续?',
-            cancelText: '取消',
-            okText: '确定',
-        });
-        confirmPopup.then(function(res) {
-            if (res) {
-                $scope.virtualSave();
-                if (isCover) {
-                    localStorageService.set('isPageCover', true);
+        if (isCover) {
+            localStorageService.set('isPageCover', true);
+            var confirmPopup = $ionicPopup.confirm({
+                title: '操作提示',
+                template: '模板会覆盖当前页面,确定继续?',
+                cancelText: '取消',
+                okText: '确定',
+            });
+            confirmPopup.then(function(res) {
+                if (res) {
+                    $scope.setStateAndToAddPage();
+                    // $scope.virtualSave();
+                    // $rootScope.storyCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
+                    // localStorageService.set('editStoryId', storyId);
+                    // localStorageService.set('storyCurrentIndex', $rootScope.storyCurrentIndex);
+                    // $scope.eachData();
+                    // $scope.pageDataString = JSON.stringify($scope.pageData);
+                    // // 保存当前编辑的故事数据
+                    // localStorageService.set('editStoryPages', $scope.pageDataString);
+                    // // 跳转添加页面
+                    // $state.go('tab.addPage');
                 } else {
-                    localStorageService.set('isPageCover', false);
+                    console.log('取消');
+                    return false;
                 }
-                $rootScope.storyCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
-                localStorageService.set('editStoryId', storyId);
-                localStorageService.set('storyCurrentIndex', $rootScope.storyCurrentIndex);
-                $scope.eachData();
-                $scope.pageDataString = JSON.stringify($scope.pageData);
-                // 保存当前编辑的故事数据
-                localStorageService.set('editStoryPages', $scope.pageDataString);
-                // 跳转添加页面
-                $state.go('tab.addPage');
-            } else {
-                console.log('取消');
-                return false;
-            }
-        });
-
+            });
+        } else {
+            localStorageService.set('isPageCover', false);
+            $scope.setStateAndToAddPage();
+            // $scope.virtualSave();
+            // $rootScope.storyCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
+            // localStorageService.set('editStoryId', storyId);
+            // localStorageService.set('storyCurrentIndex', $rootScope.storyCurrentIndex);
+            // $scope.eachData();
+            // $scope.pageDataString = JSON.stringify($scope.pageData);
+            // // 保存当前编辑的故事数据
+            // localStorageService.set('editStoryPages', $scope.pageDataString);
+            // // 跳转添加页面
+            // $state.go('tab.addPage');
+        }
     }
-
-    // 更换背景音乐
+    $scope.setStateAndToAddPage = function() {
+            $scope.virtualSave();
+            $rootScope.storyCurrentIndex = $ionicSlideBoxDelegate.$getByHandle('sectionBox').currentIndex();
+            localStorageService.set('editStoryId', storyId);
+            localStorageService.set('storyCurrentIndex', $rootScope.storyCurrentIndex);
+            $scope.eachData();
+            $scope.pageDataString = JSON.stringify($scope.pageData);
+            // 保存当前编辑的故事数据
+            localStorageService.set('editStoryPages', $scope.pageDataString);
+            // 跳转添加页面
+            $state.go('tab.addPage');
+        }
+        // 更换背景音乐
     $scope.changeBackgroundMusic = function() {
         // 跳转更换背景音乐页面
         $state.go('tab.changeStoryMusic');

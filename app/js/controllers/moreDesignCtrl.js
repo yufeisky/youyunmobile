@@ -7,6 +7,8 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
     $scope.img_w = win_w * 0.45 * 229 / 158 + 'px';
     console.log($stateParams.designType)
     console.log($stateParams.main)
+    console.log('title');
+    console.log($stateParams.moreDesinTitle);
     $scope.dropshow = true;
     $scope.visible = false;
     $ionicLoading.show({
@@ -48,11 +50,11 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
     }
 
     /* 根据分类id检索故事列表:searchItemByCategoryId
-    	categoryId:分类id
-    	type：区分是点的哪里的li：0为没展开的 1为展开的 2为不是通过li加载
-		index:li的索引 为了同步li选中状态
-		pageNo:页码
-		isLoad:通过点击li加载的不传值，通过上拉加载方式的要设为true;
+        categoryId:分类id
+        type：区分是点的哪里的li：0为没展开的 1为展开的 2为不是通过li加载
+        index:li的索引 为了同步li选中状态
+        pageNo:页码
+        isLoad:通过点击li加载的不传值，通过上拉加载方式的要设为true;
     */
     $scope.displayOrder = 0;
     $scope.searchItemByCategoryId = function(categoryId, type, index, pageNo, isLoad) {
@@ -150,8 +152,9 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
             var pageNo = $scope.mainNo++
                 $scope.more = true;
             try {
-                if ($stateParams.main) {
-                    // 假如是运营列出的几个重点分类：旅游 结婚 教育，需要走这部分逻辑
+                if ($stateParams.main == 'true') {
+                    console.log('是推荐的几个分类')
+                        // 假如是运营列出的几个重点分类：旅游 结婚 教育，需要走这部分逻辑
                     $scope.pageTitle = $stateParams.designType;
                     var sendData = {
                             categoryName: $stateParams.designType,
@@ -184,6 +187,7 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
                 } else {
                     console.log('不是推荐的几个分类')
                         //不是推荐的几个分类的时候，需要把对应的子分类列表显示出来
+                    $scope.pageTitle = $stateParams.moreDesinTitle;
                     $scope.typeBoxIsHide = false;
                     if (!$scope.getListInfo) {
                         //第一次加载才load分类列表，第二次就不重新加载
@@ -193,7 +197,7 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
                         var ul_width = 0;
                         IonicService.getChildCategoryByParentId(parentInfo).then(function(data) {
                             // if (angular.equals(data.tempates, 'undefined')) {
-                            // 	alert('ok')
+                            //  alert('ok')
                             //     $scope.more = false;
                             //     $scope.$broadcast('scroll.infiniteScrollComplete');
                             // }

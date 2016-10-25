@@ -915,10 +915,11 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 }
 
 .textStyleEdit {
+    /*color: #808080;*/
     height: 88px;
     width: 100%;
     position: absolute;
-    background: #9c9999;
+    background: #ffffff;
     bottom: -250px;
     z-index: 7;
 }
@@ -1249,7 +1250,8 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 .dropPic {
     width: 30px;
     position: absolute;
-    bottom: 5px;
+    bottom: -1px;
+    color: #e55264;
 }
 
 .lbsTit {
@@ -1464,7 +1466,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 
 .gallery .cate-box .cates-online li {
     width: 100%;
-    text-align: center;
+    text-align: right;
     padding-top: 0;
     padding-bottom: 20px;
 }
@@ -1697,7 +1699,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
 }
 
 .gallery #picker .webuploader-pick .icon-add {
-    line-height: 122px;
+    line-height: 100px;
 }
 
 
@@ -2594,10 +2596,18 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
     top: 6px;
     width: 40px;
     height: 40px;
+    /*background: url('../img/check.png');*/
+    background-size: cover;
+}
+.musicItem .loadedIcon {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    width: 40px;
+    height: 40px;
     background: url('../img/check.png');
     background-size: cover;
 }
-
 .loadingIcon img {
     width: 100%;
 }
@@ -2711,4 +2721,13 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
 }
 .wblogin{
     background-position: 0px -116px;
+}
+.cate-op .dropPic {
+    width: 30px;
+    position: absolute;
+    top: 4px;
+}
+.cate_li i{
+    margin-left: 30px;
+    margin-right: 10px;
 }
