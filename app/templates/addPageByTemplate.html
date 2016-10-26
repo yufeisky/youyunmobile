@@ -23,7 +23,7 @@
         </div>
         <ion-content class="addPageContent" lazy-scroll>
             <div class="dropDownContent row" ng-class="{'dropDownListHide': visible}">
-                <ion-scroll zooming="true" direction="y" class="col col-25 firstLevel">
+                <ion-scroll zooming="true" direction="y" scrollbar-x="false" scrollbar-y="false" class="col col-25 firstLevel">
                     <ul class="firstLevelList">
                         <li ng-repeat="parentList in parentCategories" ng-click="getTwoLevelFn(parentList.id,$index)"><span class="firstLevName">{{parentList.name}}</span><i class="icon ion-chevron-right"></i></li>
                         <!-- <li class="active"><span class="firstLevName">产品</span><i class="icon ion-chevron-right"></i></li>

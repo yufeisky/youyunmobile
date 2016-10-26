@@ -153,7 +153,7 @@
                         <div class="activeColor" style="background:{{textActiveColor}}"></div>
                     </div>
                 </div>
-                <ion-scroll class="colorWrap cf"  direction="x">
+                <ion-scroll class="colorWrap cf"  direction="x" scrollbar-x="false">
                     <ul class="colorUl cf" style="width:{{colorUlWidth}}px;">
                         <li ng-repeat="listColor in colorArr" style="background:{{listColor}}" ng-click="changeTextColor(listColor)"></li>
                     </ul>

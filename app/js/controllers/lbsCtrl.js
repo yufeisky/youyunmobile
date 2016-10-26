@@ -139,7 +139,8 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
         if (!type) {
             marker = new AMap.Marker({
                 position: [longitude, latitude],
-                map: map
+                map: map,
+                offset: new AMap.Pixel(-12, 0)
             });
             marker.content = '你的位置';
             marker.on('click', markerClick);
@@ -236,14 +237,14 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
                     var iconArr = $filter('filter')($scope.dropDownArr, {
                         name: '全部'
                     })[0];
-                    console.log(iconArr);
+                    // console.log(iconArr);
                     if (iconArr) {
                         var IconUrl = iconArr.lbsIconUrl;
-
                         marker = new AMap.Marker({
                             position: [obj[i]._location.lng, obj[i]._location.lat],
                             icon: IconUrl,
-                            map: map
+                            map: map,
+                            offset: new AMap.Pixel(-12, 0)
                         });
                         marker.content = '<div class="markerDiv groupDiv" groupid="' + obj[i].groupID + '" grouptit="' + obj[i].h5title + '"><a href="javascript:;" class="markerDiva"><div class="imgarea"><img class="h5Img" src="' + obj[i].h5logo + '" /></div><div class="wordArea"><h2>' + obj[i].h5title + '</h2><p>' + obj[i].description + '</p></div><div class="linkIcon"><img  src="img/iconRight.png" /></div></a></div>';
                         //给Marker绑定单击事件
@@ -268,7 +269,8 @@ appController.controller('lbsCtrl', ['$scope', '$rootScope', '$state', '$statePa
                         marker = new AMap.Marker({
                             position: [obj[i]._location.lng, obj[i]._location.lat],
                             icon: IconUrl,
-                            map: map
+                            map: map,
+                            offset: new AMap.Pixel(-12, 0)
                         });
                         marker.content = '<div class="markerDiv storyDiv" storyId="' + obj[i].storyId + '"><a href="javascript:;" ><div class="imgarea"><img class="h5Img" src="' + obj[i].h5logo + '" /></div><div class="wordArea"><h2>' + obj[i].h5title + '</h2><p>' + obj[i].description + '</p></div></a></div>';
                         //给Marker绑定单击事件

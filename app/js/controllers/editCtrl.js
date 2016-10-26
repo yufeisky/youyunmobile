@@ -115,7 +115,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
 
                     // <div class="music-c-icon bf-com-impl music musicCloneCode" style="position: absolute; z-index: 999; left: 280px; top: 10px;"><img style="width:30px;height:30px;" src="/assets=/com/upal/web/designer/base/editor/music/images/btn-icon.png" data-loc="1" data-name="Eluvium - In ..."><audio preload="none" class="bg_audio" loop="loop" src="http://cdn.upalapp.com/upload/music/2015/12/1451031414049_c7c8093d-671a-4f0f-8bf9-1ebf0f908299.mp3"><source type="audio/mpeg"> 您的浏览器不支持HTML5音频格式</audio></div>
                 }
-            }, 50);
+            }, 300);
         }
         // 有初始数据
     var editStoryPages = JSON.parse(localStorageService.get('editStoryPages'));

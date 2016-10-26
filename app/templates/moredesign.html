@@ -17,7 +17,7 @@
         <div class="col col-67">
             <!-- 只显示前面的四个 -->
             <div class="row" style="padding:0;">
-                <ion-scroll zooming="true" direction="x" class="col-90 mainTypeWrap" >
+                <ion-scroll zooming="true" direction="x" scrollbar-x="false" class="col-90 mainTypeWrap" >
                     <ul class="mainTypeList">
                         <li class="searchAll active" liItemId='0' ng-click="searchItemByCategoryId(0,0,0,1)">全部</li>
                         <li ng-repeat="liItem in categories" ng-click="searchItemByCategoryId(liItem.id,0,$index+1,1)" liItemId="{{liItem.id}}">{{liItem.name}}</li>
