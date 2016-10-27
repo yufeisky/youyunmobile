@@ -74,7 +74,7 @@ var appController = angular.module('IonicClub.controllers', [])
                 }
 
                 console.log($scope.weChatInfo)
-                alert($scope.weChatInfo.wcName)
+                // alert($scope.weChatInfo.wcName)
                 if ($scope.weChatInfo.wcName != null) {
                     console.log($scope.weChatInfo.wcName)
                     var loginParams = {
@@ -109,7 +109,7 @@ var appController = angular.module('IonicClub.controllers', [])
                             $ionicLoading.hide();
                             window.location.href=window.location.pathname+"#/tab/user";
                             location.reload(true);
-                        },3000)
+                        },300)
                         // $rootScope.changePage($rootScope.changeState, true);
                         // $scope.userData={
                         //     "name":data.userInfo.name,
