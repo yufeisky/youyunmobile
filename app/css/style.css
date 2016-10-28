@@ -1264,7 +1264,12 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     bottom: -1px;
     color: #e55264;
 }
-
+.lbsTit .dropPic {
+    width: 30px;
+    position: absolute;
+    bottom: 4px;
+    color: #e55264;
+}
 .lbsTit {
     line-height: 44px;
     color: #3e73c3;
