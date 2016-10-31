@@ -263,7 +263,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
             //     $('.music.musicCloneCode').show();
             // }
             var User = JSON.parse(localStorageService.get('User'));
-            console.log(User);
+            // console.log(User);
             if (User) {
                 $scope.pageData = [];
                 jQuery('.editSlide .storyPage output').each(function(k, v) {
