@@ -7,12 +7,12 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
     $scope.opacity = 0;
     $ionicSlideBoxDelegate.$getByHandle('sectionBox').enableSlide(false);
     $ionicLoading.show({
-        content: 'Loading',
+        template: '正在加载...',
         animation: 'fade-in',
-        showBackdrop: false,
+        showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 10000
+        // duration: 10000
     });
 
     //更新数据之后重置页面
@@ -86,7 +86,32 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                     // 当加载完之后要显示出来
                 $scope.opacity = 1;
                 $timeout(function() {
-                    $ionicLoading.hide();
+                    // 先要请求后台,判断是否有需要替换的图片，有的话蒙版先不隐藏
+                    // 替换图片
+                    var isChangePic = true;
+                    var needRepArr=['http://cdn.upalapp.com/upload/images/2016/08/level1/1472542280675_3ae55380-f950-47a8-a5e7-ff3d4380ab89.jpeg','http://cdn.upalapp.com/upload/images/2016/08/level1/1471515552264_973556bd-31ef-4e9e-85e2-a77782218893.jpg','http://cdn.upalapp.com/upload/images/2016/03/1457083927463_ba758a3d-6a6b-4578-999f-b38486d0e1bc.png','http://cdn.upalapp.com/upload/images/2016/03/1457083927463_ba758a3d-6a6b-4578-999f-b38486d0e1bc.png']
+                    var needReplaceNum=needRepArr.length;
+                    if(isChangePic){
+                        $ionicLoading.hide();
+                        var ReplacePicSum=0;
+                        jQuery.each(needRepArr,function(k,v){
+                            // console.log(jQuery('.replacePicture').eq(k))
+                            jQuery('.replacePicture').eq(k).find('img').attr('src',v);
+                        })
+                        jQuery('.storySlideBox ion-slide').each(function(k,v){
+                            console.log(jQuery(v).find('.replacePicture'))
+                            ReplacePicSum +=jQuery(v).find('.replacePicture').length;
+                            if(ReplacePicSum>=needReplaceNum){
+                                jQuery('.storySlideBox ion-slide').eq(k+1).remove();
+                                $ionicSlideBoxDelegate.$getByHandle('sectionBox').update();
+                                $scope.pageLength = jQuery('.storySlideBox ion-slide').length;
+                                // return false;
+                            }
+                        })
+                        
+                    }else{
+                       $ionicLoading.hide(); 
+                    }
                     localStorageService.set('storyCurrentIndex', null);
                 }, 500);
 
@@ -126,6 +151,7 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         $ionicLoading.hide();
         $scope.resetPage();
     } else {
+
         IonicService.postStoryData({ "storyId": storyId }).then(function(data) {
             console.log(data);
             if (data.status == '0') {

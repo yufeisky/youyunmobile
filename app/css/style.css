@@ -992,7 +992,7 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     background: #ffffff;
     bottom: -70px;
     z-index: 7;
-    color:#808080;
+    color: #808080;
     text-align: center;
     border-top: 1px solid #b2b2b2;
 }
@@ -1042,9 +1042,12 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     font-size: 20px;
     line-height: 20px;
 }
-.fontSizeSel,.fontFamilySel{
+
+.fontSizeSel,
+.fontFamilySel {
     color: #808080;
 }
+
 .fontSizeEdit select {
     height: 30px;
     line-height: 30px;
@@ -1264,12 +1267,14 @@ ion-tabs.myEditTab .tab-item.tab-item-active {
     bottom: -1px;
     color: #e55264;
 }
+
 .lbsTit .dropPic {
     width: 30px;
     position: absolute;
     bottom: 4px;
     color: #e55264;
 }
+
 .lbsTit {
     line-height: 44px;
     color: #3e73c3;
@@ -2615,6 +2620,7 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
     /*background: url('../img/check.png');*/
     background-size: cover;
 }
+
 .musicItem .loadedIcon {
     position: absolute;
     right: 10px;
@@ -2624,6 +2630,7 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
     background: url('../img/check.png');
     background-size: cover;
 }
+
 .loadingIcon img {
     width: 100%;
 }
@@ -2678,8 +2685,8 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
 }
 
 #myChart {
-    position: absolute;
-    left: 10%;
+    /*position: absolute;*/
+    margin-left: 10%;
     bottom: 30px;
 }
 
@@ -2689,25 +2696,64 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
 }
 
 .charArea {
-    position: absolute;
+    /*position: absolute;*/
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+    /*height: 100%;*/
+    /*top: 0;*/
+    /*left: 0;*/
     z-index: -1;
+    padding-bottom: 20px;
+    padding-top: 55px;
+}
+
+.pieCharArea {
+    margin-left: 5%;
+}
+
+.smallColorBox {
+    width: 16px;
+    height: 16px;
+    background: red;
+    margin: 0 auto;
+}
+
+.nameList {
+    padding-top: 40px;
 }
 
 .numberTip {
     position: absolute;
-    z-index: -1;
+    width: 120px;
+    text-align: center;
+    left: 14px;
+    top: 40px;
+    font-size: 12px;
+}
+
+.todayTitle {
+    position: absolute;
+    width: 120px;
+    text-align: center;
+    left: 14px;
+    top: 10px;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+.pickUpData {
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: bolder;
 }
 
 .timeTip {
     position: absolute;
-    right: 10px;
-    bottom: 10px;
+    right: 20px;
     z-index: -1;
+    top: 365px;
 }
+
 .thirdLoginTitle {
     height: 50px;
     line-height: 50px;
@@ -2715,11 +2761,13 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
     background: url(../img/third-login.png) center center no-repeat;
     color: #9E9E9E;
 }
-.thirdLoginContent{
+
+.thirdLoginContent {
     width: 80%;
     margin: 0 auto;
 }
-.login_pic{
+
+.login_pic {
     text-align: center;
     width: 58px;
     height: 58px;
@@ -2729,21 +2777,76 @@ ion-tabs.tabs-color-active-positive .textEditTab .tab-item.tab-item-active {
     background-size: 100%;
     display: block;
 }
-.qqlogin{
+
+.qqlogin {
     background-position: 0px 0px;
 }
-.wxlogin{
+
+.wxlogin {
     background-position: 0px -58px;
 }
-.wblogin{
+
+.wblogin {
     background-position: 0px -116px;
 }
+
 .cate-op .dropPic {
     width: 30px;
     position: absolute;
     top: 4px;
 }
-.cate_li i{
+
+.cate_li i {
     margin-left: 30px;
     margin-right: 10px;
+}
+
+.moreDesignPage .option-box {
+    width: 152px;
+    margin: 5px auto;
+    padding: 0;
+    border-radius: 2px;
+    border: solid #ea5856 1px;
+    background-color: #fbfbfb;
+    height: 32px;
+    box-sizing: border-box;
+    font-size: 0;
+}
+
+.moreDesignPage .option-box .option {
+    width: 75px;
+    line-height: 30px;
+    height: 30px;
+    color: #f29293;
+    float: left;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.moreDesignPage .option-box .option.active {
+    color: #ffffff;
+    background-color: #ea5856;
+}
+
+.productSelect {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.productinfo {
+    float: left;
+}
+
+.tapNameBox {
+    float: left;
+    width: 50%;
+    display: flex;
+}
+
+.tapContent {
+    padding-top: 10px;
+}
+.tapPieCharArea{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

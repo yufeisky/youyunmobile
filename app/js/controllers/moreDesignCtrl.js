@@ -168,7 +168,7 @@ appController.controller('moreDesignCtrl', ['$scope', '$rootScope', '$state', '$
                     IonicService.getTemplateByName(sendData).then(function(data) {
                         console.log(data.tempates);
                         $ionicLoading.hide();
-                        if (angular.equals(data.tempates, undefined)) {
+                        if (angular.equals(data.tempates, [])) {
                             $scope.more = false;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }

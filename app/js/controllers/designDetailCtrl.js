@@ -20,6 +20,8 @@ appController.controller('designDetailCtrl', ['$scope', '$rootScope', '$sce', '$
     console.log($scope.urlParams)
 
     $scope.createStoryByTemplateId = function(templateId) {
+        // 注意有跨域问题
+       // console.log(jQuery(document.getElementById('iframeId').contentWindow.document))
     var User = JSON.parse(localStorageService.get('User'));
         if (User) {
             User = JSON.parse(localStorageService.get('User'));

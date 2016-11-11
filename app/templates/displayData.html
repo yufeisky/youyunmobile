@@ -1,5 +1,5 @@
 <!-- 智能展示统计页面 -->
-<ion-view view-title="统计数据" class="moreDesignPage">
+<ion-view view-title="" class="moreDesignPage">
     <ion-nav-bar>
         <!-- 自定义的后退按钮 -->
         <ion-nav-buttons side="left">
@@ -7,35 +7,156 @@
                 <i class="ion-chevron-left"></i> 后退
             </button>
         </ion-nav-buttons>
+        <ion-nav-title>
+            <ul class="option-box">
+                <li class="option" ng-class="{true:'active',false:''}[isActive]" ng-click="chooseActiveTab(true)">Overall</li>
+                <li class="option" ng-class="{true:'active',false:''}[!isActive]" ng-click="chooseActiveTab(false)">SKUs</li>
+            </ul>
+        </ion-nav-title>
     </ion-nav-bar>
-    <ion-content scroll="true" lazy-scroll class="displayDataContent" style="width:100%;height:100%;">
-        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
-        <div class="row">
-            <p style="display:inlink-block;height:20px;line-height:30px; margin-right:10px;">筛选</p>
-            <select class="timeSelect" ng-model="selectIndex" ng-change="selectChange(selectIndex)">
-                <option value="1">今日</option>
-                <option value="2">今周</option>
-                <option value="3">今月</option>
-            </select>
-        </div>
-        <ul class="list display_items">
-            <li class="item row displayHeadItem">
-                <div class="col col-33">名称</div>
-                <div class="col col-33">互动次数</div>
-                <div class="col col-33">平均互动时间</div>
-            </li>
-            <li class="item row" ng-repeat="display_item in display_items" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">
-                <div class="col col-33">{{display_item.name}}</div>
-                <div class="col col-33">{{display_item.interaction_count}}</div>
-                <div class="col col-33">{{display_item.interaction_average_seconds| number:0}}s</div>
-            </li>
-        </ul>
-       
+    <ion-content scroll="true" lazy-scroll class="displayDataContent">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh(selectIndex,myActiveSlide,productSelectIndex,tapSelectIndex,colorSelectIndex)"></ion-refresher>
+        <ion-slide-box show-pager="false" active-slide="myActiveSlide" on-slide-changed="slideHasChanged($index)">
+            <ion-slide>
+                <div class="charArea">
+                    <div></div>
+                    <!-- <canvas id="myChart" width="{{win_w}}" height="{{win_w}}"></canvas> -->
+                </div>
+                <span class="todayTitle">Today's Trend</span>
+                <span class="numberTip" ng-show="isShow">Pick up count</span>
+                <span class="timeTip" ng-show="isShow" style="top:{{win_w+60}}px">shopping hours</span>
+                <div class="row" style="margin-left:10px;">
+                    <span class="pickUpData">Pick up Data</span>
+                </div>
+                <div class="row" style="margin-left:10px;">
+                    <!--  <p style="display:inlink-block;height:20px;line-height:30px; margin-right:10px;">筛选</p> -->
+                    <select class="timeSelect" ng-model="selectIndex" ng-change="selectChange(selectIndex)">
+                        <option value="1" ng-selected=true>Today</option>
+                        <option value="2">This week</option>
+                        <option value="3">This month</option>
+                    </select>
+                </div>
+                <ul class="list display_items">
+                    <li class="item row displayHeadItem">
+                        <div class="col col-33"></div>
+                        <div class="col col-33">Count</div>
+                        <div class="col col-33">Avg. Duration</div>
+                    </li>
+                    <li class="item row" ng-repeat="display_item in display_items" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">
+                        <div class="col col-33">{{display_item.name}}</div>
+                        <div class="col col-33">{{display_item.interaction_count}}</div>
+                        <div class="col col-33">{{display_item.interaction_average_seconds| number:0}}s</div>
+                    </li>
+                </ul>
+                <div class="row">
+                    <div class="pieCharArea col col-50"></div>
+                    <div class="nameList col col-50" style="padding-top:{{win_w*0.12}}px;">
+                        <div class="row" ng-repeat="item in PieData">
+                            <div class="col col-20 col-offset-20">
+                                <div class="smallColorBox" style="background:{{item.color}}"></div>
+                            </div>
+                            <div class="col col-30"><span>{{item.name}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </ion-slide>
+            <!-- 第二页 -->
+            <ion-slide on-slide-changed="slideHasChanged($index)">
+                <div class="row" style="margin-left:0px; padding-left:0px;margin-top:5px;">
+                    <!--  <p style="display:inlink-block;height:20px;line-height:30px; margin-right:10px;">筛选</p> -->
+                    <select class="productSelect" ng-model="productSelectIndex" ng-change="productSelectChange(productSelectIndex,tapSelectIndex)">
+                        <!-- <option value="-1" selected="true">请选择</option> -->
+                        <option value="{{$index}}" ng-repeat="product in productList">{{product.name}}</option>
+                    </select>
+                </div>
+                <div class="row" style="margin-left:10px;">
+                    <span class="pickUpData">Tap count</span>
+                </div>
+                <div class="row" style="margin-left:10px;">
+                    <!--  <p style="display:inlink-block;height:20px;line-height:30px; margin-right:10px;">筛选</p> -->
+                    <select class="tapTimeSelect" ng-model="tapSelectIndex" ng-change="productSelectChange(productSelectIndex,tapSelectIndex)">
+                        <option value="1">Today</option>
+                        <option value="2">This week</option>
+                        <option value="3">This month</option>
+                    </select>
+                </div>
+                <div class="row tapContent" style="padding-top:10px;padding-left: 10px;">
+                    <div class="col col-20" style="padding-right: 0;border-right: none;text-align:center;">
+                        <div class="item">　</div>
+                        <div class="item" ng-repeat="productName in productNameList" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">{{productName}}</div>
+                    </div>
+                    <div class="col col-25" style="padding-left:0;border-left:none; text-align:center;">
+                        <div class="item">Count</div>
+                        <div class="item" ng-repeat="productData in productDataList" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">{{productData}}</div>
+                    </div>
+                    <div class=" col col-55">
+                        <div class="row tapPieCharArea"></div>
+                        <div class="row tapNameBox" ng-repeat=" item in tapPieData">
+                            <!-- <div class="tapNameBox col col-50" ng-repeat=" item in tapPieData"> -->
+                            <div class="col col-50">
+                                <div class="smallColorBox" style="background:{{strokePieColor[$index]}}"></div>
+                            </div>
+                            <div class="col col-50"><span>{{item}}</span></div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+                <!--  <ul class="list display_items">
+                    <li class="item row displayHeadItem">
+                        <div class="col col-50"></div>
+                        <div class="col col-50">Count</div>
+                    </li>
+                    <li class="item row" ng-repeat="productName in productNameList" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">
+                        <div class="col col-50">{{productName}}</div>
+                        <div class="col col-50">测试</div>
+                    </li>
+                </ul> -->
+                <!-- style-picker -->
+                <div class="row" style="margin-left:10px;">
+                    <span class="pickUpData">Style-picker count</span>
+                </div>
+                <div class="row" style="margin-left:10px;">
+                    <!--  <p style="display:inlink-block;height:20px;line-height:30px; margin-right:10px;">筛选</p> -->
+                    <select class="colorTimeSelect" ng-model="colorSelectIndex" ng-change="styleSelectChange(productSelectIndex,colorSelectIndex)">
+                        <option value="1" ng-selected="true">Today</option>
+                        <option value="2">This week</option>
+                        <option value="3">This month</option>
+                    </select>
+                </div>
+                <!--   <div class="row" style="margin-left:10px;">
+                    <span class="pickUpData">Tap count</span>
+                </div>
+                <div class="row" style="margin-left:10px;"> -->
+                <!--  <p style="display:inlink-block;height:20px;line-height:30px; margin-right:10px;">筛选</p> -->
+                <!-- <select class="tapTimeSelect" ng-model="tapSelectIndex" ng-change="productSelectChange(productSelectIndex,tapSelectIndex)">
+                    <option value="1">Today</option>
+                    <option value="2">This week</option>
+                    <option value="3">This month</option>
+                </select>
+                </div>
+                 -->
+                <div class="row tapContent" style="padding-top:10px;padding-left: 10px;">
+                    <div class="col col-20" style="padding-right: 0;border-right: none;text-align:center;">
+                        <div class="item">　</div>
+                        <div class="item" ng-repeat="productName in productStyleNameList" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">{{productName}}</div>
+                    </div>
+                    <div class="col col-25" style="padding-left:0;border-left:none; text-align:center;">
+                        <div class="item">Count</div>
+                        <div class="item" ng-repeat="productData in productStyleDataList" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">{{productData}}</div>
+                    </div>
+                    <div class=" col col-55">
+                        <div class="row tapStyleCharArea"></div>
+                        <div class="row tapNameBox" ng-repeat=" item in stylePieData">
+                            <!-- <div class="tapNameBox col col-50" ng-repeat=" item in tapPieData"> -->
+                            <div class="col col-50">
+                                <div class="smallColorBox" style="background:{{strokePieColor[$index]}}"></div>
+                            </div>
+                            <div class="col col-50"><span>{{item}}</span></div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
     </ion-content>
-     <div class="charArea">
-            <div></div>
-            <!-- <canvas id="myChart" width="{{win_w}}" height="{{win_w}}"></canvas> -->
-        </div>
-        <span class="numberTip" ng-show="isShow" style="left:10px;bottom:{{win_w-10}}px">次数</span>
-        <span class="timeTip" ng-show="isShow">时间</span>
 </ion-view>

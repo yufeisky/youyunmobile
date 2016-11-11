@@ -9,7 +9,7 @@ angular.module('IonicClub.services', [])
             //登录
             postLogin: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/admin/ajaxUserLogin';
+                var url = ConfigService.getHost() + '/mobileplatform/admin/ajaxUserLogin';
                 $http({
                     method: 'POST',
                     url: url,
@@ -30,7 +30,7 @@ angular.module('IonicClub.services', [])
             //获取手机验证码:
             postPhoneCode: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/admin/ajaxSendValidate';
+                var url = ConfigService.getHost() + '/mobileplatform/admin/ajaxSendValidate';
                 $http({
                     method: 'POST',
                     url: url,
@@ -51,7 +51,7 @@ angular.module('IonicClub.services', [])
             //手机快速登录:
             postQuickLogin: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/admin/ajaxPhoneLogin';
+                var url = ConfigService.getHost() + '/mobileplatform/admin/ajaxPhoneLogin';
                 $http({
                     method: 'POST',
                     url: url,
@@ -72,7 +72,7 @@ angular.module('IonicClub.services', [])
             //获取上线跟未上线的故事数据
             getStorys: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/moblie/story/ajaxGetStotyList';
+                var url = ConfigService.getHost() + '/mobileplatform/moblie/story/ajaxGetStotyList';
                 $http({
                     method: 'GET',
                     url: url,
@@ -93,7 +93,7 @@ angular.module('IonicClub.services', [])
             //获取首页故事数据
             getHomeStorys: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/moblie/story/ajaxGetHomePageStorysList';
+                var url = ConfigService.getHost() + '/mobileplatform/moblie/story/ajaxGetHomePageStorysList';
                 $http({
                     method: 'GET',
                     url: url,
@@ -114,7 +114,7 @@ angular.module('IonicClub.services', [])
             //获取收藏故事数据
             getCollectStorys: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/moblie/story/ajaxGetFavoriteStorysList';
+                var url = ConfigService.getHost() + '/mobileplatform/moblie/story/ajaxGetFavoriteStorysList';
                 $http({
                     method: 'GET',
                     url: url,
@@ -135,7 +135,7 @@ angular.module('IonicClub.services', [])
             //收藏
             postCollectStory: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/moblie/story/addUserFavorite';
+                var url = ConfigService.getHost() + '/mobileplatform/moblie/story/addUserFavorite';
                 $http({
                     method: 'POST',
                     url: url,
@@ -156,7 +156,7 @@ angular.module('IonicClub.services', [])
 
             postUnCollectStory: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/story/delUserFavoriteBatch';
+                var url = ConfigService.getHost() + '/mobileplatform/story/delUserFavoriteBatch';
                 $http({
                     method: 'POST',
                     url: url,
@@ -178,7 +178,7 @@ angular.module('IonicClub.services', [])
             //得到站内消息
             postInnerMessage: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/user/getmessagelist';
+                var url = ConfigService.getHost() + '/mobileplatform/user/getmessagelist';
                 $http({
                     method: 'POST',
                     url: url,
@@ -200,7 +200,7 @@ angular.module('IonicClub.services', [])
             //分享
             postShareStory: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/moblie/story/addUserShare';
+                var url = ConfigService.getHost() + '/mobileplatform/moblie/story/addUserShare';
                 $http({
                     method: 'POST',
                     url: url,
@@ -221,7 +221,7 @@ angular.module('IonicClub.services', [])
             //要修改的故事数据接口
             postStoryData: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/page/test2';
+                var url = ConfigService.getHost() + '/mobileplatform/page/test2';
                 $http({
                     method: 'POST',
                     url: url,
@@ -242,7 +242,7 @@ angular.module('IonicClub.services', [])
             //修改的故事保存接口
             saveStoryData: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/page/h5save';
+                var url = ConfigService.getHost() + '/mobileplatform/page/h5save';
                 // var url = 'http://192.168.4.195:8090/mobileplatform/page/h5save';
                 $http({
                     method: 'POST',
@@ -264,7 +264,7 @@ angular.module('IonicClub.services', [])
             //获取我的图片分类接口
             getMyCates: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/imagecategory/getmycategory';
+                var url = ConfigService.getHost() + '/mobileplatform/imagecategory/getmycategory';
                 $http({
                     method: 'GET',
                     url: url,
@@ -287,7 +287,7 @@ angular.module('IonicClub.services', [])
             //获取我的图片分类接口
             getOnlineMainCates: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/imagecategory/getparentcategory';
+                var url = ConfigService.getHost() + '/mobileplatform/imagecategory/getparentcategory';
                 $http({
                     method: 'GET',
                     url: url,
@@ -309,7 +309,7 @@ angular.module('IonicClub.services', [])
 
             getOnlineCates: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/imagecategory/getcategory';
+                var url = ConfigService.getHost() + '/mobileplatform/imagecategory/getcategory';
                 $http({
                     method: 'GET',
                     url: url,
@@ -330,7 +330,7 @@ angular.module('IonicClub.services', [])
             //获取图片接口
             getImages: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/image/getimage';
+                var url = ConfigService.getHost() + '/mobileplatform/image/getimage';
                 $http({
                     method: 'GET',
                     url: url,
@@ -353,7 +353,7 @@ angular.module('IonicClub.services', [])
 
             saveImage: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/image/saveimage';
+                var url = ConfigService.getHost() + '/mobileplatform/image/saveimage';
                 $http({
                     method: 'POST',
                     url: url,
@@ -379,7 +379,7 @@ angular.module('IonicClub.services', [])
             //获取模板展示页的三大类别的最热故事
             getTemplateIndex: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/template/gettemplateindex';
+                var url = ConfigService.getHost() + '/mobileplatform/template/gettemplateindex';
                 $http({
                     method: 'GET',
                     url: url,
@@ -398,7 +398,7 @@ angular.module('IonicClub.services', [])
             //根据分类名获取模板展示页的故事
             getTemplateByName: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/template/gettemplate';
+                var url = ConfigService.getHost() + '/mobileplatform/template/gettemplate';
                 $http({
                     method: 'GET',
                     url: url,
@@ -417,7 +417,7 @@ angular.module('IonicClub.services', [])
             //获取模板分类子分类
             getChildCategoryByParentId: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/template/getchildcategory';
+                var url = ConfigService.getHost() + '/mobileplatform/template/getchildcategory';
                 $http({
                     method: 'GET',
                     url: url,
@@ -436,7 +436,7 @@ angular.module('IonicClub.services', [])
             //根据分类id检索故事列表
             getStoryListByCategoryId: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/template/gettemplate';
+                var url = ConfigService.getHost() + '/mobileplatform/template/gettemplate';
                 $http({
                     method: 'GET',
                     url: url,
@@ -455,7 +455,7 @@ angular.module('IonicClub.services', [])
             //根据模板id新建轻故事
             createStoryByTemplateId: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/template/createstory';
+                var url = ConfigService.getHost() + '/mobileplatform/template/createstory';
                 $http({
                     method: 'GET',
                     url: url,
@@ -474,7 +474,7 @@ angular.module('IonicClub.services', [])
             //得到用户信息:
             getUserInfo: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/user/getuserinfo';
+                var url = ConfigService.getHost() + '/mobileplatform/user/getuserinfo';
                 $http({
                     method: 'POST',
                     url: url,
@@ -495,7 +495,7 @@ angular.module('IonicClub.services', [])
             //设置故事信息:封面 标题 描述
             setStoryInfo: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/page/finishcreate';
+                var url = ConfigService.getHost() + '/mobileplatform/page/finishcreate';
                 $http({
                     method: 'POST',
                     url: url,
@@ -516,7 +516,7 @@ angular.module('IonicClub.services', [])
             //获取单页模板分类接口
             getSingleTemplateCategory: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/template/getSingleTemplateCategory';
+                var url = ConfigService.getHost() + '/mobileplatform/template/getSingleTemplateCategory';
                 $http({
                     method: 'POST',
                     url: url,
@@ -537,7 +537,7 @@ angular.module('IonicClub.services', [])
             //获取单页模板接口
             getSingleTemplate: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/template/getSingleTemplate';
+                var url = ConfigService.getHost() + '/mobileplatform/template/getSingleTemplate';
                 $http({
                     method: 'POST',
                     url: url,
@@ -558,7 +558,7 @@ angular.module('IonicClub.services', [])
             //根据分类id获取对应的模板列表接口
             getSingleTemplateCategoryList: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/template/getSingleTemplateCategoryList';
+                var url = ConfigService.getHost() + '/mobileplatform/template/getSingleTemplateCategoryList';
                 $http({
                     method: 'POST',
                     url: url,
@@ -579,7 +579,7 @@ angular.module('IonicClub.services', [])
             //获取音乐首页接口
             getMusicIndex: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/music/getMusicIndex';
+                var url = ConfigService.getHost() + '/mobileplatform/music/getMusicIndex';
                 $http({
                     method: 'GET',
                     url: url,
@@ -598,7 +598,7 @@ angular.module('IonicClub.services', [])
             // 根据分类id获取音乐列表
             getMusicByCategory: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/music/getMusicByCategory';
+                var url = ConfigService.getHost() + '/mobileplatform/music/getMusicByCategory';
                 $http({
                     method: 'GET',
                     url: url,
@@ -617,7 +617,28 @@ angular.module('IonicClub.services', [])
             //获取智能展示设备统计数据接口
             getDataStatistics: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/displayAnalytics/getDataStatistics';
+                var url = ConfigService.getHost() + '/mobileplatform/displayAnalytics/getDataStatistics';
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    transformRequest: function(obj) {
+                        var str = [];
+                        for (var p in obj)
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        return str.join("&");
+                    },
+                    params: data
+                }).success(
+                    function(data, status, header, config) {
+                        deferred.resolve(data);
+                    });
+                return deferred.promise;
+            },
+            //获取智能展示设备统计数据接口2
+            getMobilePageTabDataStatistics: function(data) {
+                var deferred = $q.defer();
+                var url = ConfigService.getHost() + '/mobileplatform/displayAnalytics/getMobilePageTabDataStatistics';
                 $http({
                     method: 'GET',
                     url: url,
@@ -638,7 +659,7 @@ angular.module('IonicClub.services', [])
              //快速体验接口
             newTestUser: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/user/newTestUser';
+                var url = ConfigService.getHost() + '/mobileplatform/user/newTestUser';
                 $http({
                     method: 'GET',
                     url: url,
@@ -659,7 +680,7 @@ angular.module('IonicClub.services', [])
             //第三方登录接口
             thirdPartyLogin: function(data) {
                 var deferred = $q.defer();
-                var url = 'http://test.upalapp.com/mobileplatform/admin/ajaxThirdPartyLogin';
+                var url = ConfigService.getHost() + '/mobileplatform/admin/ajaxThirdPartyLogin';
                 $http({
                     method: 'POST',
                     url: url,
@@ -677,10 +698,14 @@ angular.module('IonicClub.services', [])
                     });
                 return deferred.promise;
             },
+
         };
     }])
     .service('ConfigService', [function() {
-        var hostURL = "http://test.upalapp.com/";
+        // 测试服务器
+        var hostURL = "http://test.upalapp.com";
+        // 正式服务器
+        // var hostURL = "http://www.upalapp.com";
 
         var service = {
             getHost: function() {
@@ -1408,7 +1433,7 @@ angular.module('IonicClub.services', [])
                     pick: {
                         id: '#picker',
                         innerHTML: "<i class='icon-add'></i>",
-                        multiple: false //是否开起同时选择多个文件能力
+                        // multiple: true //是否开起同时选择多个文件能力
                     },
                     accept: {
                         title: 'Images',
@@ -1419,7 +1444,7 @@ angular.module('IonicClub.services', [])
                     resize: false,
                     compress: false,
                     sendAsBinary: false, //二进制的流的方式发送文件
-                    fileNumLimit: 1,
+                    fileNumLimit: 2,
                     duplicate: true
                 });
                 //console.log( $scope.img_w);
