@@ -211,6 +211,36 @@ angular.module('IonicClub.router', [])
                     }
                 }
             })
+            .state('tab.businessCooperation', {
+                url: '/businessCooperation:businessUrl',
+                views: {
+                    'user': {
+                        templateUrl: 'templates/businessCooperation.html',
+                        controller: 'businessCooperationCtrl',
+
+                    }
+                }
+            })
+            .state('tab.feedback', {
+                url: '/feedback',
+                views: {
+                    'user': {
+                        templateUrl: 'templates/feedback.html',
+                        controller: 'feedbackCtrl',
+
+                    }
+                }
+            })
+            .state('tab.aboutStory', {
+                url: '/aboutStory',
+                views: {
+                    'user': {
+                        templateUrl: 'templates/aboutStory.html',
+                        controller: 'aboutStoryCtrl',
+
+                    }
+                }
+            })
             .state('tab.user', {
                 url: '/user',
                 views: {

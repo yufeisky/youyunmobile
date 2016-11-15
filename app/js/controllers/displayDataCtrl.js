@@ -14,9 +14,9 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
 
     $scope.createChart = function() {
 
-        console.log('chatdata');
-        console.log($scope.display_items)
-        console.log(ctx)
+        // console.log('chatdata');
+        // console.log($scope.display_items)
+        // console.log(ctx)
             // if (!ctx) {
         jQuery('.charArea').html('');
         jQuery('.charArea').append('<canvas id="myChart" width="' + $scope.win_w + '" height="' + $scope.win_w + '"></canvas>');
@@ -47,7 +47,7 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
         $scope.strokeColor = ["#F44336", "#3F51B5", "#009688", "#FF9800", "#9E9E9E", "#E91E63", "#9C27B0", "#673AB7", "#2196F3"];
         $scope.data.labels = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
         jQuery.each($scope.display_items, function(k, v) {
-            console.log(v.today_interaction_per_hour)
+            // console.log(v.today_interaction_per_hour)
             var dataset = {
                 fillColor: "rgba(255,255,255,0)",
                 strokeColor: $scope.strokeColor[k],
@@ -74,7 +74,7 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
 
     // 建立饼图
     $scope.createPieChart = function() {
-            console.log($scope.display_items);
+            // console.log($scope.display_items);
             jQuery('.pieCharArea').html('');
             jQuery('.pieCharArea').append('<canvas id="myPieChart" width="' + $scope.win_w * 0.6 + '" height="' + $scope.win_w * 0.6 + '"></canvas>');
             var ctx2 = document.getElementById("myPieChart").getContext("2d");
@@ -89,7 +89,7 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
                 }
                 data.push(item);
             })
-            console.log(data);
+            // console.log(data);
             $scope.PieData = data;
             new Chart(ctx2).Pie(data);
         }
@@ -97,7 +97,7 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
     $scope.isActive = true;
     $scope.myActiveSlide = 0;
     $scope.chooseActiveTab = function(isTrue) {
-        console.log(isTrue)
+        // console.log(isTrue)
         if (isTrue) {
             $scope.isActive = true;
             $scope.myActiveSlide = 0;
@@ -109,7 +109,7 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
     };
     // 滑动的时候触发的函数
     $scope.slideHasChanged = function(index) {
-            console.log(index);
+            // console.log(index);
             if (index == 0) {
                 $scope.chooseActiveTab(true);
             } else if (index == 1) {
@@ -140,18 +140,18 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
             //     }
             //     $scope.$broadcast('scroll.refreshComplete');
             // });
-            console.log('---------doRefresh-------')
-            console.log(selectIndex)
-            console.log(myActiveSlide);
-            console.log(productSelectIndex)
-            console.log(tapSelectIndex)
-            console.log(colorSelectIndex)
+            // console.log('---------doRefresh-------')
+            // console.log(selectIndex)
+            // console.log(myActiveSlide);
+            // console.log(productSelectIndex)
+            // console.log(tapSelectIndex)
+            // console.log(colorSelectIndex)
             if (myActiveSlide == '0') {
                 $scope.selectChange(selectIndex.toString());
             } else if (myActiveSlide == '1') {
                 console.log('刷新第二页数据');
-                console.log(selectIndex);
-                console.log(myActiveSlide)
+                // console.log(selectIndex);
+                // console.log(myActiveSlide)
                     // $scope.tapSelectIndex=1;
                 $scope.loadTwoPageData();
             }
@@ -160,15 +160,15 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
     $scope.selectIndex = 1;
     $scope.getDisplayData = function(getType) {
         // 根据传入的类型来查询数据
-        // var params={
-        //     type:getType
-        // }
-        // 假数据
-        var params = {
-            type: 'fake'
+        var params={
+            type:getType
         }
+        // 假数据
+        // var params = {
+        //     type: 'fake'
+        // }
         IonicService.getDataStatistics(params).then(function(data) {
-            console.log(data);
+            // console.log(data);
             $ionicLoading.hide();
             if (data.status == "1" && data.message == "Success") {
                 $scope.display_items = data.display_items;
@@ -185,7 +185,7 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
     }
     $scope.getDisplayData('today');
     $scope.selectChange = function(selectIndex) {
-        console.log(selectIndex)
+        // console.log(selectIndex)
         $ionicLoading.show({
             content: 'Loading',
             animation: 'fade-in',
@@ -214,10 +214,10 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
     $scope.productSelectIndex = 0;
     // 建立tap饼图
     $scope.createTapPieChart = function() {
-            console.log($scope.productDataList);
-            console.log('-----option--------')
-            console.log(jQuery('.productSelect').find('option'))
-            console.log(jQuery('.productSelect').find('option'))
+            // console.log($scope.productDataList);
+            // console.log('-----option--------')
+            // console.log(jQuery('.productSelect').find('option'))
+            // console.log(jQuery('.productSelect').find('option'))
             // jQuery('.productSelect').find('option').eq(parseInt($scope.productSelectIndex)).attr('selected', true);
             jQuery('.tapPieCharArea').html('');
             jQuery('.tapPieCharArea').append('<canvas id="myTapPieChart" width="' + $scope.win_w * 0.6 + '" height="' + $scope.win_w * 0.6 + '"></canvas>');
@@ -232,13 +232,13 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
                 }
                 data.push(item);
             })
-            console.log(data);
+            // console.log(data);
             $scope.tapPieData = $scope.productNameList;
             new Chart(ctx2).Pie(data);
         }
         // 建立style饼图
     $scope.createStylePieChart = function() {
-            console.log($scope.productDataList);
+            // console.log($scope.productDataList);
             jQuery('.tapStyleCharArea').html('');
             jQuery('.tapStyleCharArea').append('<canvas id="myStylePieChart" width="' + $scope.win_w * 0.6 + '" height="' + $scope.win_w * 0.6 + '"></canvas>');
             var ctx3 = document.getElementById("myStylePieChart").getContext("2d");
@@ -252,7 +252,7 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
                 }
                 data.push(item);
             })
-            console.log(data);
+            // console.log(data);
             $scope.stylePieData = $scope.productStyleNameList;
             new Chart(ctx3).Pie(data);
         }
@@ -268,19 +268,20 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
 
         var timeTypeArr = ['today', 'thisWeek', 'thisMonth'];
         $scope.productInformation = $scope.productList[productSelectIndex];
-        console.log($scope.productInformation)
+        // console.log($scope.productInformation)
         $scope.productTapInformation = $scope.productInformation['tap'];
         $scope.productNameList = $scope.productInformation['tap']['tabNameList'];
         $scope.productDataList = $scope.productInformation['tap'][timeTypeArr[timeType - 1]];
-
+        console.log('----------productDataList----------')
+        console.log($scope.productDataList)
         $scope.createTapPieChart();
         // console.log($scope.productTapInformation)
     }
 
     // style产品切换调用函数
     $scope.styleSelectChange = function(productSelectIndex, timeType) {
-        console.log(productSelectIndex);
-        console.log(timeType)
+        // console.log(productSelectIndex);
+        // console.log(timeType)
         jQuery('.colorTimeSelect').find('option').eq(timeType).attr('selected', true);
         $timeout(function() {
             $scope.colorSelectIndex = timeType;
@@ -289,12 +290,12 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
 
         var timeTypeArr = ['today', 'thisWeek', 'thisMonth'];
         $scope.productInformation = $scope.productList[productSelectIndex];
-        console.log($scope.productInformation)
+        // console.log($scope.productInformation)
         $scope.productStyleInformation = $scope.productInformation['stylePick'];
         $scope.productStyleNameList = $scope.productInformation['stylePick']['tabNameList'];
         $scope.productStyleDataList = $scope.productStyleInformation[timeTypeArr[timeType - 1]];
-        console.log('---productStyleDataList----')
-        console.log($scope.productStyleDataList)
+        // console.log('---productStyleDataList----')
+        // console.log($scope.productStyleDataList)
         $scope.createStylePieChart();
         // console.log($scope.productTapInformation)
     }
@@ -306,14 +307,16 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
                 type: 'fake'
             }
             IonicService.getMobilePageTabDataStatistics(params).then(function(data) {
+                console.log('--------第二页数据---')
                 console.log(data);
                 $ionicLoading.hide();
                 if (data.status == "1" && data.message == "Success") {
                     $scope.productList = data.productList;
+                    console.log('--------第二页List数据---')
                     console.log($scope.productList)
                     $scope.productSelectChange($scope.productSelectIndex, $scope.tapSelectIndex);
-                    console.log('---------productSelectIndex--------')
-                    console.log($scope.productSelectIndex)
+                    // console.log('---------productSelectIndex--------')
+                    // console.log($scope.productSelectIndex)
                     $scope.styleSelectChange($scope.productSelectIndex, $scope.colorSelectIndex)
 
                     // $timeout(function(){

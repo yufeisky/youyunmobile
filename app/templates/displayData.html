@@ -87,7 +87,7 @@
                     </div>
                     <div class="col col-25" style="padding-left:0;border-left:none; text-align:center;">
                         <div class="item">Count</div>
-                        <div class="item" ng-repeat="productData in productDataList" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">{{productData}}</div>
+                        <div class="item" ng-repeat="productData in productDataList track by $index" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">{{productData}}</div>
                     </div>
                     <div class=" col col-55">
                         <div class="row tapPieCharArea"></div>
@@ -142,7 +142,7 @@
                     </div>
                     <div class="col col-25" style="padding-left:0;border-left:none; text-align:center;">
                         <div class="item">Count</div>
-                        <div class="item" ng-repeat="productData in productStyleDataList" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">{{productData}}</div>
+                        <div class="item" ng-repeat="productData in productStyleDataList track by $index" ng-class="{true: 'displayevenItem', false: 'displayOldItem'}[$even]">{{productData}}</div>
                     </div>
                     <div class=" col col-55">
                         <div class="row tapStyleCharArea"></div>
