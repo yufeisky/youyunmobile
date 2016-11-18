@@ -7,20 +7,23 @@ appController.controller('feedbackCtrl', ['$scope', '$rootScope', '$sce', '$stat
     $scope.pubUrl = '意见反馈';
     $scope.suggestion = { content: '' };
     $scope.addFeedBack = function() {
-    	$ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
+
         var User = JSON.parse(localStorageService.get('User'));
-        var postData = {
-                userId: User.id,
-                userToken: User.token,
-                content: $scope.suggestion.content
-            }
-            // console.log(User);
+        console.log($scope.suggestion.content)
+        if ($scope.suggestion.content) {
+            $ionicLoading.show({
+                content: 'Loading',
+                animation: 'fade-in',
+                showBackdrop: true,
+                maxWidth: 200,
+                showDelay: 0
+            });
+            var postData = {
+                    userId: User.id,
+                    userToken: User.token,
+                    content: $scope.suggestion.content
+                }
+                // console.log(User);
             console.log(postData);
             IonicService.addFeedBack(postData).then(function(data) {
                 console.log(data)
@@ -31,5 +34,8 @@ appController.controller('feedbackCtrl', ['$scope', '$rootScope', '$sce', '$stat
                     MsgBox.showTexts('提交失败,请稍后再试');
                 }
             });
+        } else {
+            MsgBox.showTexts('请输入你的意见或建议!');
+        }
     }
 }]);
