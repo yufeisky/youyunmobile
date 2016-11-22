@@ -254,7 +254,11 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
                         description: data.description,
                         logo: data.logo,
                         storycategory: data.storycategory,
-                        storycategories: storycategories
+                        storycategories: storycategories,
+                        address:data.address,
+                        latitude:data.latitude,
+                        lbsId:data.lbsId,
+                        longitude:data.longitude
                     }
                     // $scope.storyInfo = {
                     //     puburl: 'http://test.upalapp.com/p/template/qUjaA3.html',

@@ -10,6 +10,10 @@ appController.controller('setStoryInfoCtrl', ['$scope', '$rootScope', '$state', 
     $scope.storyId = $scope.urlParams.storyId;
     $scope.storycategory = '';
     $scope.storycategory = $scope.urlParams.storycategory;
+    $scope.address=$scope.urlParams.address;
+    if(!$scope.urlParams.address){
+        $scope.address = '不显示';
+    }
     var User = JSON.parse(localStorageService.get('User'));
     console.log(User);
     if (User) {
@@ -136,6 +140,20 @@ appController.controller('setStoryInfoCtrl', ['$scope', '$rootScope', '$state', 
             // console.log(storyInfo);
             // 跳转到分类选择页面
             $state.go('tab.setStoryCategories', { storyInfo: $scope.newUrlParams });
+        }
+        // 把故事显示在地图上
+         $scope.showStoryOnTheMap = function() {
+
+            // var storyCategories ={
+            //         activeCategory:storyCategory,
+            //         allCategories:$scope.urlParams.storycategories
+            //     }
+            //     console.log(storyCategories)
+                $scope.newUrlParams = JSON.stringify($scope.urlParams);
+            console.log($scope.newUrlParams);
+            console.log('跳转到把故事添加到地图页面')
+            // 跳转到分类选择页面
+            $state.go('tab.showStoryOnTheMap', { storyInfo: $scope.newUrlParams });
         }
     } else {
         $timeout(function() {

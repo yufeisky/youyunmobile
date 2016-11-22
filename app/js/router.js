@@ -141,6 +141,16 @@ angular.module('IonicClub.router', [])
                 },
                 cache:false,
             })
+            .state('tab.showStoryOnTheMap', {
+                url: '/showStoryOnTheMap:storyInfo',
+                views: {
+                    'design': {
+                        templateUrl: 'templates/showStoryOnTheMap.html',
+                        controller: 'showStoryOnTheMapCtrl'
+                    }
+                },
+                cache:false,
+            })
             .state('tab.edit', {
                 url: '/edit:storyId',
                 views: {
