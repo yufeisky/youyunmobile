@@ -11,6 +11,9 @@ appController.controller('setStoryInfoCtrl', ['$scope', '$rootScope', '$state', 
     $scope.storycategory = '';
     $scope.storycategory = $scope.urlParams.storycategory;
     $scope.address=$scope.urlParams.address;
+    $scope.longitude = $scope.urlParams.longitude;
+    $scope.latitude = $scope.urlParams.latitude;
+    $scope.lbsId = $scope.urlParams.lbsId;
     if(!$scope.urlParams.address){
         $scope.address = '不显示';
     }
@@ -102,7 +105,11 @@ appController.controller('setStoryInfoCtrl', ['$scope', '$rootScope', '$state', 
                 storyId: $scope.storyId,
                 userToken: User.token,
                 userId: User.id,
-                categoryIds:categoryIdsString
+                categoryIds:categoryIdsString,
+                longitude:$scope.longitude,
+                latitude:$scope.latitude,
+                address:$scope.address,
+                lbsId:$scope.lbsId 
             }
             if(!storyInfo.title){
                 MsgBox.showTexts('标题不能为空');

@@ -723,9 +723,9 @@ angular.module('IonicClub.services', [])
     }])
     .service('ConfigService', [function() {
         // 测试服务器
-        var hostURL = "http://test.upalapp.com";
+        // var hostURL = "http://test.upalapp.com";
         // 正式服务器
-        // var hostURL = "http://www.upalapp.com";
+        var hostURL = "http://www.upalapp.com";
 
         var service = {
             getHost: function() {

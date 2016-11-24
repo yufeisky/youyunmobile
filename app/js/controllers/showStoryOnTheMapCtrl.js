@@ -22,6 +22,7 @@ appController.controller('showStoryOnTheMapCtrl', ['$scope', '$rootScope', '$sta
         }
         //用户同意获取地理位置执行该函数
     $scope.showPosition = function(position) {
+            console.log(position);
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
             // if($scope.latitude){
@@ -40,13 +41,15 @@ appController.controller('showStoryOnTheMapCtrl', ['$scope', '$rootScope', '$sta
                 // 之前有设置的位置
                 var marker2 = new AMap.Marker({
                     map: map,
+                    icon:'img/point@2x.png',
                     // position: [113.898278, 23.081495],//这里填之前设定过的位置
                     position: [$scope.longitude, $scope.latitude], //这里填之前设定过的位置
                     bubble: true
                 });
-            }else{
+            } else {
                 var marker2 = new AMap.Marker({
                     map: map,
+                    icon:'img/point@2x.png',
                     // position: [113.898278, 23.081495],//这里填之前设定过的位置
                     position: [longitude, latitude], //这里填之前设定过的位置
                     bubble: true
@@ -93,10 +96,14 @@ appController.controller('showStoryOnTheMapCtrl', ['$scope', '$rootScope', '$sta
                     fillOpacity: 0.35 //填充透明度
                 });
                 circle.on('click', function(e) {
+                    console.log(e.lnglat);
                     marker2.setPosition(e.lnglat);
                     geocoder.getAddress(e.lnglat, function(status, result) {
                         if (status == 'complete') {
-                            alert(result.regeocode.formattedAddress);
+                            console.log(result.regeocode.formattedAddress);
+                            $scope.newLongitude = e.lnglat.lng;
+                            $scope.newLatitude = e.lnglat.lat;
+                            $scope.newAddress = result.regeocode.formattedAddress;
                         }
                     })
                 });
@@ -106,10 +113,11 @@ appController.controller('showStoryOnTheMapCtrl', ['$scope', '$rootScope', '$sta
         }
         //用户不同意或出错的时候执行该函数
     $scope.showError = function(error) {
-            // 广州
-            // $scope.ininMap(113.366693, 23.096714, true);
-            // 东莞
-            // $scope.ininMap(113.898278, 23.081495, true);
+            $scope.showPosition({ coords: { latitude: 23.096714, longitude: 113.366693 } })
+                // // 广州
+                // // $scope.ininMap(113.366693, 23.096714, true);
+                // // 东莞
+                // // $scope.ininMap(113.898278, 23.081495, true);
         }
         // 后退历史
     $scope.goBackView = function() {
@@ -118,9 +126,24 @@ appController.controller('showStoryOnTheMapCtrl', ['$scope', '$rootScope', '$sta
         $state.go('tab.setStoryInfo', { storyInfo: storyInfo });
     }
 
-
-    // $scope.storycategories = JSON.parse($scope.urlParams.storycategories);
-    // console.log($scope.storycategories)
+    $scope.sureAdress = function() {
+            $scope.urlParams.longitude = $scope.newLongitude;
+            $scope.urlParams.latitude = $scope.newLatitude;
+            $scope.urlParams.address = $scope.newAddress;
+            var storyInfo = JSON.stringify($scope.urlParams);
+            // 跳转到设置页面
+            $state.go('tab.setStoryInfo', { storyInfo: storyInfo });
+        }
+        // $scope.storycategories = JSON.parse($scope.urlParams.storycategories);
+        // console.log($scope.storycategories)
+    $scope.notShowOnMap = function() {
+        $scope.urlParams.longitude = '';
+        $scope.urlParams.latitude = '';
+        $scope.urlParams.address = '';
+        var storyInfo = JSON.stringify($scope.urlParams);
+        // 跳转到设置页面
+        $state.go('tab.setStoryInfo', { storyInfo: storyInfo });
+    }
     $scope.setCategory = function() {
             var categories = jQuery('.categoriesWrap li.active');
             // console.log(categories);

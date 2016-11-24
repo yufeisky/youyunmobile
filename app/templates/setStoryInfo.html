@@ -13,34 +13,34 @@
     <!--     <ion-nav-title>
         设置
     </ion-nav-title> -->
-    <ion-content scroll="false" class="setStoryInfoContent">
+    <ion-content scroll="true" class="setStoryInfoContent">
         <ul class="list setStoryList">
             <li class="item row" ng-click="openSetCoverImgModal()">
-                <div class="col col-20 itemTit">封面</div>
-                <div class="col col-67 content"><img class="storyLogo" src="{{logo}}" alt=""></div>
-                <div class="col col-15 coverNext"><img src="img/iconRight.png" alt=""></div>
+                <div class="col col-35 itemTit">封面</div>
+                <div class="col col-50 content"><img class="storyLogo" src="{{logo}}" alt=""></div>
+                <div class="col col-10 coverNext"><img src="img/iconRight.png" alt=""></div>
             </li>
             <li class="item row" ng-click="openTextEditModal('title')">
-                <div class="col col-20">标题</div>
-                <div class="col col-67 content storyTitleContent">{{storyTit}}</div>
-                <div class="col col-15 next"><img src="img/iconRight.png" alt=""></div>
+                <div class="col col-35">标题</div>
+                <div class="col col-50 content storyTitleContent">{{storyTit}}</div>
+                <div class="col col-10 next"><img src="img/iconRight.png" alt=""></div>
             </li>
             <li class="item row" ng-click="openTextEditModal('description')">
-                <div class="col col-20">描述</div>
-                <div class="col col-67 content storyDescriptionContent">{{storyDescription}}</div>
-                <div class="col col-15 next"><img src="img/iconRight.png" alt=""></div>
+                <div class="col col-35">描述</div>
+                <div class="col col-50 content storyDescriptionContent">{{storyDescription}}</div>
+                <div class="col col-10 next"><img src="img/iconRight.png" alt=""></div>
             </li>
             <li class="item row" ng-click="setStoryCategories()">
-                <div class="col col-20">作品类型</div>
-                <div class="col col-67 content storyCategoryContent">
+                <div class="col col-35">作品类型</div>
+                <div class="col col-50 content storyCategoryContent">
                 <span id="{{category.id}}" ng-repeat="category in storycategory">{{category.name}}</span>
                 </div>
-                <div class="col col-15 next"><img src="img/iconRight.png" alt=""></div>
+                <div class="col col-10 next"><img src="img/iconRight.png" alt=""></div>
             </li>
             <li class="item row" ng-click="showStoryOnTheMap()">
-                <div class="col col-20">在地图上显示</div>
-                <div class="col col-67 content storyTitleContent">{{address}}</div>
-                <div class="col col-15 next"><img src="img/iconRight.png" alt=""></div>
+                <div class="col col-35">在地图上显示</div>
+                <div class="col col-50 content storyTitleContent">{{address}}</div>
+                <div class="col col-10 next"><img src="img/iconRight.png" alt=""></div>
             </li>
         </ul>
         <div class="button button-block saveStoryInfoBtn" ng-click="saveStoryInfo()">

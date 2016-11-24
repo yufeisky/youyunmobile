@@ -240,7 +240,9 @@ appController.controller('editCtrl', ['$scope', '$rootScope', '$state', '$stateP
         console.log($scope.stringData);
         IonicService.saveStoryData($scope.stringData).then(function(data) {
             $ionicLoading.hide();
+            console.log('----------保存后返回的数据-------------');
             console.log(data);
+
             // 把本地数据中的故事数据清空
             localStorageService.set('editStoryPages', null);
             if (data.status == '1') {
