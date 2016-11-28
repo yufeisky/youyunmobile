@@ -1,0 +1,22 @@
+<ion-view view-title="请选择位置" class="showStoryOnTheMap">
+    <ion-nav-bar>
+        <!-- 自定义的后退按钮 -->
+        <ion-nav-buttons side="left">
+            <button class="button-clear " ng-click="goBackView()">
+                <i class="ion-chevron-left"></i> 后退
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content scroll="false">
+        <p class="showStoryTip">单击地图将您的作品放置在附近</p>
+        <div id="container2"></div>
+        <div class="settingArea">
+            <button class="button button-light sureAdressBtn" ng-click="sureAdress()">
+                确定位置
+            </button>
+            <button class="button button-light notShowOnMapBtn" ng-click="notShowOnMap()">
+                不显示在地图上
+            </button>
+        </div>
+    </ion-content>
+</ion-view>
