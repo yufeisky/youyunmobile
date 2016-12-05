@@ -141,7 +141,6 @@ appController.controller('showStoryOnTheMapCtrl', ['$scope', '$rootScope', '$sta
                 // 跳转到设置页面
                 $state.go('tab.setStoryInfo', { storyInfo: storyInfo });
             }
-
         }
         // $scope.storycategories = JSON.parse($scope.urlParams.storycategories);
         // console.log($scope.storycategories)
@@ -153,6 +152,6 @@ appController.controller('showStoryOnTheMapCtrl', ['$scope', '$rootScope', '$sta
             // 跳转到设置页面
             $state.go('tab.setStoryInfo', { storyInfo: storyInfo });
         }
-        // 调用获取位置信息
+        //调用获取位置信息
     $scope.getLocation();
 }]);
