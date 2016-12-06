@@ -18,11 +18,24 @@ appController.controller('designDetailCtrl', ['$scope', '$rootScope', '$sce', '$
     $scope.storyTit = $scope.urlParams.title;
     $scope.templateId = $scope.urlParams.id;
     console.log($scope.urlParams)
+    console.log('--------缩放-------')
+    var win_w = angular.element(window)[0].innerWidth;
+    var scaleValue = win_w / 320;
+    console.log(scaleValue);
+    jQuery('<meta id="mt-viewport" name="viewport" content="width=320, initial-scale=' + scaleValue + ', minimum-scale=' + scaleValue + ', maximum-scale=' + scaleValue + ', user-scalable=no" servergenerated="true">').appendTo('head');
+
 
     $scope.createStoryByTemplateId = function(templateId) {
         // 注意有跨域问题
-       // console.log(jQuery(document.getElementById('iframeId').contentWindow.document))
-    var User = JSON.parse(localStorageService.get('User'));
+        // console.log(jQuery(document.getElementById('iframeId').contentWindow.document))
+        // 修正预览平台app时候修改的外层viewport, 在离开当前预览页面的时候，把修改的viewport清除;
+        if (jQuery('#mt-viewport').length > 0) {
+            console.log('-----------移除viewport----------');
+            $rootScope.viewportRemoved = true;
+            jQuery('#mt-viewport').remove();
+             jQuery('<meta name="viewport" content="width=320, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" servergenerated="true">').appendTo('head');
+        }
+        var User = JSON.parse(localStorageService.get('User'));
         if (User) {
             User = JSON.parse(localStorageService.get('User'));
             var createStoryInfo = {

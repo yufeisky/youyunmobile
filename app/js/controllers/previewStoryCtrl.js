@@ -18,9 +18,18 @@ appController.controller('previewStoryCtrl', ['$scope', '$rootScope', '$sce', '$
     $scope.storyTit = $scope.urlParams.title;
     // $scope.templateId = $scope.urlParams.id;
     console.log($scope.urlParams.puburl)
-
+     console.log('--------缩放-------')
+    var win_w = angular.element(window)[0].innerWidth;
+    var scaleValue = win_w / 320;
+    console.log(scaleValue);
+    jQuery('<meta id="mt-viewport" name="viewport" content="width=320, initial-scale=' + scaleValue + ', minimum-scale=' + scaleValue + ', maximum-scale=' + scaleValue + ', user-scalable=no" servergenerated="true">').appendTo('head');
     $scope.changeStoryInfo = function(storyInfo) {
-        
+        if (jQuery('#mt-viewport').length > 0) {
+            console.log('-----------移除viewport----------');
+            $rootScope.viewportRemoved = true;
+            jQuery('#mt-viewport').remove();
+             jQuery('<meta name="viewport" content="width=320, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" servergenerated="true">').appendTo('head');
+        }
         $scope.storyInfo = JSON.stringify(storyInfo);
         console.log(storyInfo);
         // 跳转到设置页面
