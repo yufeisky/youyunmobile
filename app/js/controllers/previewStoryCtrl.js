@@ -1,4 +1,4 @@
-// 模板使用页面
+//模板使用页面
 appController.controller('previewStoryCtrl', ['$scope', '$rootScope', '$sce', '$stateParams', '$ionicLoading', '$ionicScrollDelegate', '$ionicPopover', '$ionicPopup', '$timeout', '$state', 'localStorageService', 'ShareService', 'IonicService', 'MsgBox', 'WechatApi', 'Con', function($scope, $rootScope, $sce, $stateParams, $ionicLoading, $ionicScrollDelegate, $ionicPopover, $ionicPopup, $timeout,
     $state, localStorageService, ShareService, IonicService, MsgBox, WechatApi, Con) {
     // $rootScope.menuShow = true;
@@ -7,18 +7,16 @@ appController.controller('previewStoryCtrl', ['$scope', '$rootScope', '$sce', '$
     Con.log('预览页面');
     // console.log($stateParams);
     // 用ifarme展示
-
     $scope.urlParams = JSON.parse($stateParams.storyInfo);
     console.log($scope.urlParams)
-
     // var url =$stateParams.puburl;
     // console.log(url);
     // iframe需要sce转化之后才可以打开
     $scope.pubUrl = $sce.trustAsResourceUrl($scope.urlParams.puburl);
     $scope.storyTit = $scope.urlParams.title;
     // $scope.templateId = $scope.urlParams.id;
-    console.log($scope.urlParams.puburl)
-     console.log('--------缩放-------')
+    console.log($scope.urlParams.puburl);
+    console.log('--------缩放-------');
     var win_w = angular.element(window)[0].innerWidth;
     var scaleValue = win_w / 320;
     console.log(scaleValue);
