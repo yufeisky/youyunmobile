@@ -178,6 +178,8 @@ appController.controller('displayDataCtrl', ['$scope', '$rootScope', '$state', '
                         $scope.createChart();
                     }
                 }, 200)
+            }else if(data.status=="4"){
+                $state.go('tab.noPermissions', { 'noPermissionsUrl':'http://h.upalapp.com/p/eaUnQ3.html' });
             }
             $scope.$broadcast('scroll.refreshComplete');
         });

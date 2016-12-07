@@ -21,7 +21,8 @@
         </div>-->
         <div class="user-third-nav-box user-assist-nav-box">
             <ul class="user-third-nav user-assist-nav">
-                <li ng-if="isLogin" ui-sref="tab.displayData"><a>智能展柜大数据<i class="icon-arrow-60"></i></a></li>
+            <!-- ui-sref="tab.displayData" -->
+                <li ng-if="isLogin" ng-click="toDisplayData()"><a>智能展柜大数据<i class="icon-arrow-60"></i></a></li>
                 <li ui-sref="tab.businessCooperation({businessUrl:'http://h.upalapp.com/p/qQVFJj.html'})"> <a>商业合作<i class="icon-arrow-60"></i></a></li>
             </ul>
         </div>

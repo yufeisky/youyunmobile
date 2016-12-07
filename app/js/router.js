@@ -231,6 +231,18 @@ angular.module('IonicClub.router', [])
                     }
                 }
             })
+            // 没有数字展柜权限的时候进去是播放广告
+            .state('tab.noPermissions', {
+                url: '/noPermissions:noPermissionsUrl',
+                views: {
+                    'user': {
+                        templateUrl: 'templates/noPermissions.html',
+                        controller: 'noPermissionsCtrl',
+
+                    }
+                },
+                cache:false
+            })
             .state('tab.feedback', {
                 url: '/feedback',
                 views: {

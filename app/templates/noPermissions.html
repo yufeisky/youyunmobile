@@ -1,0 +1,15 @@
+<ion-view view-title=""  class="business">
+    <!--  <button ng-click="$ionicGoBack()" class="button back-button homeDetailBtn"><i class="icon icon-upalapp-back "><span class="path1"></span><span class="path2"></span></i>
+        <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"></span></button> -->
+    <ion-nav-bar>
+        <!-- 自定义的后退按钮 -->
+        <ion-nav-buttons side="left">
+            <button class="button-clear " ui-sref="tab.user">
+                <i class="ion-chevron-left"></i> 后退
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content scroll="true" overflow-scroll="true">
+        <iframe class="pubIframe" ng-src="{{noPermissionsUrl}}"></iframe>
+    </ion-content>
+</ion-view>

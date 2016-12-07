@@ -4,7 +4,7 @@
 var appController = angular.module('IonicClub.controllers', [])
     // 已上线未上线 收藏
     // 个人中心
-    .controller('userCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$ionicLoading', '$ionicPopup', '$ionicHistory', '$ionicModal', '$timeout', 'localStorageService', 'IonicService', 'TabService', 'Con','MsgBox', function($scope, $rootScope, $stateParams, $state, $ionicLoading, $ionicPopup, $ionicHistory, $ionicModal, $timeout, localStorageService, IonicService, TabService, Con,MsgBox) {
+    .controller('userCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$ionicLoading', '$ionicPopup', '$ionicHistory', '$ionicModal', '$timeout', 'localStorageService', 'IonicService', 'TabService', 'Con', 'MsgBox', function($scope, $rootScope, $stateParams, $state, $ionicLoading, $ionicPopup, $ionicHistory, $ionicModal, $timeout, localStorageService, IonicService, TabService, Con, MsgBox) {
         Con.log('个人中心控制器已加载');
         console.log('-------微信信息-----------')
 
@@ -74,7 +74,7 @@ var appController = angular.module('IonicClub.controllers', [])
                 }
 
                 console.log($scope.weChatInfo)
-                // alert($scope.weChatInfo.wcName)
+                    // alert($scope.weChatInfo.wcName)
                 if ($scope.weChatInfo.wcName != null) {
                     console.log($scope.weChatInfo.wcName)
                     var loginParams = {
@@ -93,7 +93,7 @@ var appController = angular.module('IonicClub.controllers', [])
                         showDelay: 0
                     });
                     IonicService.thirdPartyLogin(loginParams).then(function(data) {
-                        
+
                         if (data.status != '1') {
                             MsgBox.showTexts('授权出现错误,请重新授权');
                             $scope.loginFn();
@@ -105,19 +105,19 @@ var appController = angular.module('IonicClub.controllers', [])
                         // $rootScope.changeState
                         // $rootScope.changePage($rootScope.changeState, true);
                         // 强制刷新
-                        $timeout(function(){
-                            $ionicLoading.hide();
-                            window.location.href=window.location.pathname+"#/tab/user";
-                            location.reload(true);
-                        },300)
-                        // $rootScope.changePage($rootScope.changeState, true);
-                        // $scope.userData={
-                        //     "name":data.userInfo.name,
-                        //     "picture":data.userInfo.portraitUrl,
-                        // }
-                        // if (!$scope.userData.portraitUrl) {
-                        //     $scope.userData.picture = "./img/login.png"
-                        // }
+                        $timeout(function() {
+                                $ionicLoading.hide();
+                                window.location.href = window.location.pathname + "#/tab/user";
+                                location.reload(true);
+                            }, 300)
+                            // $rootScope.changePage($rootScope.changeState, true);
+                            // $scope.userData={
+                            //     "name":data.userInfo.name,
+                            //     "picture":data.userInfo.portraitUrl,
+                            // }
+                            // if (!$scope.userData.portraitUrl) {
+                            //     $scope.userData.picture = "./img/login.png"
+                            // }
                     }).finally(function() {
                         Con.log('完成');
                     });
@@ -152,5 +152,18 @@ var appController = angular.module('IonicClub.controllers', [])
         $scope.loginFn = function() {
             $rootScope.openLoginModal();
             $rootScope.changeState = 'tab.user';
+        }
+        // 先测试权限，没有权限跳转到广告页;有权限跳转到数字展柜页
+        $scope.toDisplayData = function() {
+            IonicService.getDataStatistics({ type: 'today' }).then(function(data) {
+                // console.log(data);
+                $ionicLoading.hide();
+                if (data.status == "1" && data.message == "Success") {
+                    $state.go('tab.displayData');
+                } else if (data.status == "4") {
+                    $state.go('tab.noPermissions', { 'noPermissionsUrl': 'http://h.upalapp.com/p/eaUnQ3.html' });
+                }
+                $scope.$broadcast('scroll.refreshComplete');
+            });
         }
     }]);
